@@ -3,1142 +3,1415 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hong Kong AI International Film Festival</title>
+    <title>HKAIFM - Hong Kong AI Film Market</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@700;800&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+        :root {
+            --primary: #3498db;
+            --secondary: #8e44ad;
+            --accent: #00ff9d;
+        }
         
         body {
-            font-family: 'Montserrat', sans-serif;
-            scroll-behavior: smooth;
-            background-color: #0f172a;
-            color: #f8fafc;
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0a0a;
+            color: #ffffff;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(52, 152, 219, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(142, 68, 173, 0.1) 0%, transparent 20%);
         }
         
-        .gradient-bg { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); }
-        .accent-gradient { background: linear-gradient(135deg, #e94560 0%, #ff5678 100%); }
-        
-        .nav-link {
+        .logo-font {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 800;
+            font-size: 2.5rem;
+            letter-spacing: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
             position: relative;
+            display: inline-block;
+            text-shadow: 0 0 15px rgba(0, 255, 157, 0.3);
+            animation: logoGlow 3s ease-in-out infinite alternate;
+        }
+        
+        @keyframes logoGlow {
+            0% { text-shadow: 0 0 10px rgba(0, 255, 157, 0.3); }
+            100% { text-shadow: 0 0 25px rgba(0, 255, 157, 0.6), 0 0 35px rgba(52, 152, 219, 0.4); }
+        }
+        
+        .logo-sub {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 0.7rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-top: -10px;
+            text-align: center;
+            opacity: 0.8;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(90deg, var(--primary), var(--accent), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+        
+        .accent-bg {
+            background: rgba(0, 255, 157, 0.1);
+            border: 1px solid rgba(0, 255, 157, 0.2);
+        }
+        
+        .card {
+            background-color: rgba(26, 32, 44, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
             transition: all 0.3s ease;
+            overflow: hidden;
         }
         
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -2px;
-            left: 0;
-            background: linear-gradient(90deg, #e94560, #ff5678);
-            transition: width 0.3s ease;
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 255, 157, 0.2);
+            border-color: rgba(0, 255, 157, 0.3);
         }
         
-        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
-        .nav-link.active { color: #e94560 !important; }
-        .nav-btn:hover { background: #e94560; color: white; }
-        
-        .hero-animation { animation: float 6s ease-in-out infinite; }
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
-            100% { transform: translateY(0px); }
+        .navbar {
+            background-color: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 255, 157, 0.1);
         }
         
-        .ecosystem-card, .award-card, .service-card {
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             transition: all 0.3s ease;
-            border: 1px solid transparent;
+            border: none;
+            font-weight: 600;
         }
         
-        .ecosystem-card:hover, .award-card:hover, .service-card:hover {
-            transform: translateY(-5px);
-            border-color: #e94560;
-            box-shadow: 0 10px 25px -5px rgba(233, 69, 96, 0.25);
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(52, 152, 219, 0.4);
         }
         
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 60px;
-            height: 3px;
-            margin: 12px auto 0;
-            background: linear-gradient(90deg, #e94560, #ff5678);
+        .btn-secondary {
+            background-color: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            transition: all 0.3s ease;
+            font-weight: 600;
         }
         
-        .animated-bg {
+        .btn-secondary:hover {
+            background-color: rgba(0, 255, 157, 0.1);
+            transform: translateY(-3px);
+        }
+        
+        .hero {
+            position: relative;
+            overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 80px;
+        }
+        
+        .hero:before {
+            content: "";
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            overflow: hidden;
-            z-index: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 100%);
+            z-index: 1;
         }
         
-        .animated-bg span {
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero-bg {
             position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.7;
+            animation: bgPan 30s infinite linear;
+        }
+        
+        @keyframes bgPan {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
+        }
+        
+        .floating {
+            animation: floating 6s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 1s ease-in-out forwards;
+            opacity: 0;
+        }
+        
+        .animate-slide-up {
+            animation: slideUp 0.8s ease-in-out forwards;
+            opacity: 0;
+        }
+        
+        .animate-slide-right {
+            animation: slideRight 0.8s ease-in-out forwards;
+            opacity: 0;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        @keyframes slideRight {
+            from { transform: translateX(-50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        .progress-bar {
+            background: linear-gradient(to right, var(--primary), var(--accent), var(--secondary));
+            border-radius: 9999px;
+            height: 8px;
+        }
+        
+        .cyber-border {
+            position: relative;
+        }
+        
+        .cyber-border:after {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: linear-gradient(45deg, transparent 30%, var(--accent) 45%, var(--secondary) 55%, transparent 70%);
+            background-size: 200% 200%;
+            animation: borderGlow 5s linear infinite;
+            z-index: -1;
+            border-radius: 20px;
+        }
+        
+        @keyframes borderGlow {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
+        }
+        
+        .ai-element {
+            position: absolute;
+            background-color: rgba(52, 152, 219, 0.1);
+            border: 1px solid rgba(52, 152, 219, 0.3);
+            backdrop-filter: blur(5px);
+            padding: 10px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 12px;
+            color: var(--accent);
+            z-index: 3;
+            pointer-events: none;
+            box-shadow: 0 0 15px rgba(0, 255, 157, 0.1);
+        }
+        
+        .data-stream {
+            position: absolute;
+            height: 100px;
+            width: 2px;
+            background: linear-gradient(to bottom, transparent, var(--accent), var(--secondary), transparent);
+            z-index: 0;
+            animation: dataStream 2s linear infinite;
+            opacity: 0.3;
+        }
+        
+        @keyframes dataStream {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100vh); }
+        }
+        
+        .language-selector {
+            position: relative;
+            display: inline-block;
+            margin-right: 20px;
+        }
+        
+        .language-dropdown {
+            display: none;
+            position: absolute;
+            background-color: rgba(26, 32, 44, 0.95);
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 100;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            top: 40px;
+            right: 0;
+        }
+        
+        .language-selector:hover .language-dropdown {
             display: block;
-            width: 20px;
-            height: 20px;
-            background: rgba(255, 255, 255, 0.05);
-            animation: animate 25s linear infinite;
-            bottom: -150px;
+        }
+        
+        .language-dropdown a {
+            color: white;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .language-dropdown a:hover {
+            background-color: rgba(52, 152, 219, 0.2);
+        }
+        
+        .language-dropdown img {
+            width: 24px;
+            margin-right: 10px;
+        }
+        
+        .login-dropdown {
+            display: none;
+            position: absolute;
+            background-color: rgba(26, 32, 44, 0.95);
+            min-width: 280px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 100;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            top: 50px;
+            right: 0;
+            padding: 15px;
+        }
+        
+        .login-container:hover .login-dropdown {
+            display: block;
+        }
+        
+        .login-option {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.05);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .login-option:hover {
+            background: rgba(52, 152, 219, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .login-option i {
+            font-size: 20px;
+            margin-right: 12px;
+            width: 30px;
+            text-align: center;
+        }
+        
+        .login-option span {
+            font-weight: 500;
+        }
+        
+        .login-divider {
+            height: 1px;
+            background: rgba(255,255,255,0.1);
+            margin: 15px 0;
+        }
+        
+        .ai-translate-toggle {
+            display: flex;
+            align-items: center;
+            background: rgba(255,255,255,0.05);
+            padding: 10px 15px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .ai-translate-toggle:hover {
+            background: rgba(52, 152, 219, 0.2);
+        }
+        
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+            margin-left: 10px;
+        }
+        
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
             border-radius: 50%;
         }
         
-        @keyframes animate {
-            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(-1000px) rotate(720deg); opacity: 0; }
+        input:checked + .slider {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
         }
         
-        /* Page content */
-        .page-content { display: none; }
-        .page-content.active { display: block; }
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
         
-        /* Responsive */
+        .language-indicator {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 30px;
+            background: rgba(255,255,255,0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .language-indicator:hover {
+            background: rgba(52, 152, 219, 0.2);
+        }
+        
+        .language-indicator img {
+            width: 24px;
+            margin-right: 8px;
+        }
+        
+        .wallet-option {
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.3), rgba(142, 68, 173, 0.3));
+        }
+        
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 100vh;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 20px;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
+        
+        .mobile-menu-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--accent);
+        }
+        
+        .project-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .card:hover .project-img {
+            transform: scale(1.05);
+        }
+        
+        .ai-tech-img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .copyright-card-img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        
+        .testimonial-img {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--accent);
+        }
+        
+        .token-card {
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .token-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 255, 157, 0.25);
+        }
+        
+        .hkaifm-logo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .section-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 2rem;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 2px;
+        }
+        
+        .section-title.center:after {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .ai-chip {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 255, 157, 0.3);
+            border-radius: 20px;
+            padding: 5px 15px;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin: 0 5px 5px 0;
+        }
+        
+        .stats-card {
+            text-align: center;
+            padding: 25px;
+            border-radius: 16px;
+            background: rgba(26, 32, 44, 0.5);
+            border: 1px solid rgba(0, 255, 157, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .stats-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            background: rgba(26, 32, 44, 0.7);
+        }
+        
+        .stats-card i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--accent);
+        }
+        
+        .stats-card .number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, var(--primary), var(--accent), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
         @media (max-width: 768px) {
-            .hero-title { font-size: 2.5rem !important; }
-            .stats-counter { font-size: 2rem !important; }
+            .desktop-nav {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .language-selector {
+                margin-right: 10px;
+            }
+            
+            .ai-tech-img {
+                height: 300px;
+            }
+            
+            .logo-font {
+                font-size: 1.8rem;
+            }
+            
+            .hero-bg {
+                animation: none;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- AI Elements -->
+    <div class="ai-element" style="top: 120px; left: 10%;">
+        MODEL_ID: GEN-7840 <br>
+        STATUS: RENDERING <br>
+        // AI Film Generation Active
+    </div>
+    
+    <div class="ai-element" style="bottom: 150px; right: 15%;">
+        TOKEN_DIST: OPTIMAL <br>
+        HASH: 0x71A9B3...F7E <br>
+        // Blockchain Verified
+    </div>
+    
+    <!-- Data streams -->
+    <div class="data-stream" style="left: 20%; animation-delay: 0s;"></div>
+    <div class="data-stream" style="left: 40%; animation-delay: 0.5s;"></div>
+    <div class="data-stream" style="left: 60%; animation-delay: 1s;"></div>
+    <div class="data-stream" style="left: 80%; animation-delay: 1.5s;"></div>
+
     <!-- Navigation -->
-    <nav class="fixed w-full z-50 bg-gray-900 bg-opacity-90 backdrop-filter backdrop-blur-lg shadow-lg">
-        <div class="container mx-auto px-6 py-3">
-            <div class="flex justify-between items-center">
-                <a href="javascript:void(0)" onclick="showPage('home')" class="flex items-center">
-                    <span class="text-2xl font-bold"><span class="text-pink-500">HK</span>AIIFF</span>
-                </a>
-                
-                <div class="hidden md:flex space-x-6">
-                    <a href="javascript:void(0)" onclick="showPage('home')" id="nav-home" class="nav-link text-gray-300 hover:text-white transition active">Home</a>
-                    <a href="javascript:void(0)" onclick="showPage('exhibition')" id="nav-exhibition" class="nav-link text-gray-300 hover:text-white transition">Exhibition</a>
-                    <a href="javascript:void(0)" onclick="showPage('market')" id="nav-market" class="nav-link text-gray-300 hover:text-white transition">Market</a>
-                    <a href="javascript:void(0)" onclick="showPage('academy')" id="nav-academy" class="nav-link text-gray-300 hover:text-white transition">Academy</a>
-                    <a href="javascript:void(0)" onclick="showPage('submission')" id="nav-submission" class="nav-link text-gray-300 hover:text-white transition">Submission</a>
-                    <a href="javascript:void(0)" onclick="showPage('404world')" id="nav-404world" class="nav-link text-gray-300 hover:text-white transition">404.world</a>
-                </div>
-                
-                <a href="javascript:void(0)" onclick="showPage('exhibition')" class="hidden md:block py-2 px-4 rounded-full text-sm font-medium border border-pink-500 text-pink-500 hover:bg-pink-500 hover:text-white transition nav-btn">
-                    Join Now
-                </a>
-                
-                <div class="md:hidden flex items-center">
-                    <button id="mobile-menu-button" class="text-gray-300 hover:text-white">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                        </svg>
-                    </button>
-                </div>
+    <nav class="navbar fixed w-full z-50 px-4 py-3">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="#" class="hkaifm-logo">
+                <div class="logo-font">HKAIFM</div>
+                <div class="logo-sub">AI FILM MARKET</div>
+            </a>
+            <div class="hidden md:flex space-x-8 desktop-nav">
+                <a href="#marketplace" class="hover:text-blue-400 transition">Marketplace</a>
+                <a href="#create" class="hover:text-blue-400 transition">Create</a>
+                <a href="#invest" class="hover:text-blue-400 transition">Invest</a>
+                <a href="#dashboard" class="hover:text-blue-400 transition">Dashboard</a>
+                <a href="#community" class="hover:text-blue-400 transition">Community</a>
             </div>
-            
-            <div id="mobile-menu" class="md:hidden hidden mt-3 pb-2">
-                <a href="javascript:void(0)" onclick="showPage('home')" class="block py-2 text-gray-300 hover:text-white">Home</a>
-                <a href="javascript:void(0)" onclick="showPage('exhibition')" class="block py-2 text-gray-300 hover:text-white">Exhibition</a>
-                <a href="javascript:void(0)" onclick="showPage('market')" class="block py-2 text-gray-300 hover:text-white">Market</a>
-                <a href="javascript:void(0)" onclick="showPage('academy')" class="block py-2 text-gray-300 hover:text-white">Academy</a>
-                <a href="javascript:void(0)" onclick="showPage('submission')" class="block py-2 text-gray-300 hover:text-white">Submission</a>
-                <a href="javascript:void(0)" onclick="showPage('404world')" class="block py-2 text-gray-300 hover:text-white">404.world</a>
+            <div class="flex items-center space-x-4">
+                <!-- Language Selector -->
+                <div class="language-selector">
+                    <div class="language-indicator">
+                        <img src="https://flagcdn.com/w40/gb.png" alt="English">
+                        <span>EN</span>
+                        <i class="fas fa-chevron-down ml-2 text-sm"></i>
+                    </div>
+                    <div class="language-dropdown">
+                        <a href="#" data-lang="en">
+                            <img src="https://flagcdn.com/w40/gb.png" alt="English">
+                            English
+                        </a>
+                        <a href="#" data-lang="zh">
+                            <img src="https://flagcdn.com/w40/cn.png" alt="Chinese">
+                            中文 (简体)
+                        </a>
+                        <a href="#" data-lang="es">
+                            <img src="https://flagcdn.com/w40/es.png" alt="Spanish">
+                            Español
+                        </a>
+                        <a href="#" data-lang="fr">
+                            <img src="https://flagcdn.com/w40/fr.png" alt="French">
+                            Français
+                        </a>
+                        <a href="#" data-lang="de">
+                            <img src="https://flagcdn.com/w40/de.png" alt="German">
+                            Deutsch
+                        </a>
+                        <a href="#" data-lang="ja">
+                            <img src="https://flagcdn.com/w40/jp.png" alt="Japanese">
+                            日本語
+                        </a>
+                        <a href="#" data-lang="ko">
+                            <img src="https://flagcdn.com/w40/kr.png" alt="Korean">
+                            한국어
+                        </a>
+                        <a href="#" data-lang="ru">
+                            <img src="https://flagcdn.com/w40/ru.png" alt="Russian">
+                            Русский
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- AI Translate Toggle -->
+                <div class="ai-translate-toggle hidden md:flex">
+                    <i class="fas fa-robot text-blue-400"></i>
+                    <span class="ml-2 text-sm">AI Translate</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="aiTranslateToggle" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                
+                <!-- Login Container -->
+                <div class="login-container relative">
+                    <a href="#login" class="btn-primary px-6 py-2 rounded-full text-sm">Sign In</a>
+                    <div class="login-dropdown">
+                        <h3 class="font-bold text-lg mb-4">Login to HKAIFM</h3>
+                        
+                        <div class="login-option" data-login="google">
+                            <i class="fab fa-google text-red-500"></i>
+                            <span>Continue with Google</span>
+                        </div>
+                        
+                        <div class="login-option" data-login="facebook">
+                            <i class="fab fa-facebook text-blue-600"></i>
+                            <span>Continue with Facebook</span>
+                        </div>
+                        
+                        <div class="login-option" data-login="twitter">
+                            <i class="fab fa-twitter text-blue-400"></i>
+                            <span>Continue with Twitter</span>
+                        </div>
+                        
+                        <div class="login-option" data-login="apple">
+                            <i class="fab fa-apple"></i>
+                            <span>Continue with Apple</span>
+                        </div>
+                        
+                        <div class="login-divider"></div>
+                        
+                        <div class="login-option wallet-option" data-login="metamask">
+                            <i class="fas fa-wallet text-yellow-400"></i>
+                            <span>Connect with MetaMask</span>
+                        </div>
+                        
+                        <div class="login-option wallet-option" data-login="walletconnect">
+                            <i class="fas fa-plug text-blue-300"></i>
+                            <span>Connect with WalletConnect</span>
+                        </div>
+                        
+                        <div class="login-option wallet-option" data-login="coinbase">
+                            <i class="fab fa-bitcoin text-orange-400"></i>
+                            <span>Connect with Coinbase Wallet</span>
+                        </div>
+                        
+                        <div class="mt-4 text-center text-sm text-gray-400">
+                            By connecting, you agree to our <a href="#" class="text-blue-400">Terms</a> and <a href="#" class="text-blue-400">Privacy Policy</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="md:hidden text-white mobile-menu-btn">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
             </div>
         </div>
     </nav>
 
-    <!-- Home Page -->
-    <div id="home-page" class="page-content active">
-        <!-- Hero Section -->
-        <section class="relative min-h-screen flex items-center gradient-bg pt-20">
-            <div class="animated-bg">
-                <span style="left: 10%; animation-delay: 0s;"></span>
-                <span style="left: 20%; animation-delay: 2s;"></span>
-                <span style="left: 30%; animation-delay: 4s;"></span>
-                <span style="left: 40%; animation-delay: 6s;"></span>
-                <span style="left: 50%; animation-delay: 8s;"></span>
-                <span style="left: 60%; animation-delay: 10s;"></span>
-                <span style="left: 70%; animation-delay: 12s;"></span>
-                <span style="left: 80%; animation-delay: 14s;"></span>
-                <span style="left: 90%; animation-delay: 16s;"></span>
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <div class="mobile-menu-close">
+            <i class="fas fa-times"></i>
+        </div>
+        
+        <div class="mt-12 flex flex-col space-y-6">
+            <a href="#marketplace" class="text-xl hover:text-blue-400 transition">Marketplace</a>
+            <a href="#create" class="text-xl hover:text-blue-400 transition">Create</a>
+            <a href="#invest" class="text-xl hover:text-blue-400 transition">Invest</a>
+            <a href="#dashboard" class="text-xl hover:text-blue-400 transition">Dashboard</a>
+            <a href="#community" class="text-xl hover:text-blue-400 transition">Community</a>
+            
+            <div class="pt-6 border-t border-gray-700">
+                <h3 class="text-lg font-bold mb-4">Language</h3>
+                <select class="w-full bg-gray-800 text-white p-3 rounded-lg">
+                    <option value="en">English</option>
+                    <option value="zh">中文 (简体)</option>
+                    <option value="es">Español</option>
+                    <option value="fr">Français</option>
+                    <option value="de">Deutsch</option>
+                    <option value="ja">日本語</option>
+                    <option value="ko">한국어</option>
+                    <option value="ru">Русский</option>
+                </select>
+                
+                <div class="flex items-center mt-4">
+                    <span class="mr-3">AI Translate</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="mobileAiTranslate" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
             </div>
             
-            <div class="container mx-auto px-6 z-10">
-                <div class="flex flex-col md:flex-row items-center">
-                    <div class="w-full md:w-1/2 mb-12 md:mb-0">
-                        <div class="md:pr-10">
-                            <h1 class="hero-title text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-                                Hong Kong AI<br>International<br>Film Festival
-                            </h1>
-                            <p class="text-xl md:text-2xl text-gray-300 mb-6">
-                                World's First AI-Native Film and Media Ecosystem
-                            </p>
-                            <p class="text-gray-400 mb-8 max-w-lg">
-                                Revolutionizing the film industry through an innovative "4+1+1" ecosystem model that transforms creation, financing, distribution, and audience experience.
-                            </p>
-                            <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-                                <a href="javascript:void(0)" onclick="scrollToSection('ecosystem')" class="py-3 px-8 accent-gradient rounded-full font-medium text-white shadow-lg transform transition hover:scale-105 text-center">
-                                    Explore Ecosystem
-                                </a>
-                                <a href="javascript:void(0)" onclick="scrollToSection('participate')" class="py-3 px-8 border border-pink-500 rounded-full font-medium text-white shadow-lg transform transition hover:scale-105 hover:bg-pink-500 hover:bg-opacity-20 text-center">
-                                    Join the Revolution
-                                </a>
-                            </div>
-                        </div>
+            <div class="pt-6 border-t border-gray-700">
+                <button class="btn-primary w-full py-3 rounded-lg font-medium text-center mb-4">
+                    Sign In
+                </button>
+                <button class="btn-secondary w-full py-3 rounded-lg font-medium text-center">
+                    Connect Wallet
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="container mx-auto px-4 hero-content">
+            <div class="max-w-3xl animate-fade-in">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6">Revolutionizing Film<br>Through <span class="gradient-text">AI & Blockchain</span></h1>
+                <p class="text-xl text-gray-300 mb-8">
+                    The world's first Web3 application platform focused on AI-native films. Create, invest, and trade in the future of cinema.
+                </p>
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                    <a href="#marketplace" class="btn-primary px-8 py-3 rounded-full font-medium text-center">
+                        Explore Marketplace
+                    </a>
+                    <a href="#learn-more" class="btn-secondary px-8 py-3 rounded-full font-medium text-center">
+                        Learn More
+                    </a>
+                </div>
+                
+                <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="stats-card">
+                        <i class="fas fa-film"></i>
+                        <div class="number">42+</div>
+                        <div class="text-sm">AI Films</div>
                     </div>
-                    <div class="w-full md:w-1/2">
-                        <div class="relative hero-animation">
-                            <div class="bg-gray-800 bg-opacity-80 backdrop-filter backdrop-blur-lg rounded-2xl p-8 shadow-2xl border border-gray-700">
-                                <div class="text-center mb-6">
-                                    <div class="w-20 h-20 rounded-full accent-gradient flex items-center justify-center mx-auto mb-4">
-                                        <i class="fas fa-film text-3xl text-white"></i>
-                                    </div>
-                                    <h3 class="text-2xl font-bold mb-2">AI-Native Ecosystem</h3>
-                                    <p class="text-gray-400">Launching 2025</p>
-                                </div>
-                                <div class="grid grid-cols-2 gap-4 text-center">
-                                    <div class="bg-gray-700 bg-opacity-50 rounded-lg p-3">
-                                        <p class="text-3xl font-bold text-pink-500 mb-1">4+1+1</p>
-                                        <p class="text-sm text-gray-400">Ecosystem Structure</p>
-                                    </div>
-                                    <div class="bg-gray-700 bg-opacity-50 rounded-lg p-3">
-                                        <p class="text-3xl font-bold text-pink-500 mb-1">100+</p>
-                                        <p class="text-sm text-gray-400">Countries</p>
-                                    </div>
-                                    <div class="bg-gray-700 bg-opacity-50 rounded-lg p-3">
-                                        <p class="text-3xl font-bold text-pink-500 mb-1">$200B</p>
-                                        <p class="text-sm text-gray-400">Market by 2030</p>
-                                    </div>
-                                    <div class="bg-gray-700 bg-opacity-50 rounded-lg p-3">
-                                        <p class="text-3xl font-bold text-pink-500 mb-1">50K+</p>
-                                        <p class="text-sm text-gray-400">Professionals</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="stats-card">
+                        <i class="fas fa-users"></i>
+                        <div class="number">3.5K</div>
+                        <div class="text-sm">Creators</div>
+                    </div>
+                    <div class="stats-card">
+                        <i class="fas fa-coins"></i>
+                        <div class="number">1.8M</div>
+                        <div class="text-sm">HKAIF Traded</div>
+                    </div>
+                    <div class="stats-card">
+                        <i class="fas fa-chart-line"></i>
+                        <div class="number">28%</div>
+                        <div class="text-sm">Avg. ROI</div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Ecosystem Section -->
-        <section id="ecosystem" class="py-20 bg-gray-900">
-            <div class="container mx-auto px-6">
-                <div class="text-center mb-16">
-                    <h2 class="text-3xl md:text-4xl font-bold section-title inline-block">
-                        The "4+1+1" Ecosystem
-                    </h2>
-                    <p class="text-gray-300 max-w-2xl mx-auto mt-4">
-                        The world's first complete AI-native film and media ecosystem
-                    </p>
-                </div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
-                    <div class="bg-gray-800 bg-opacity-80 rounded-xl p-6 ecosystem-card">
-                        <div class="text-center mb-4">
-                            <div class="w-16 h-16 rounded-full bg-gray-900 flex items-center justify-center mx-auto mb-4">
-                                <i class="fas fa-film text-2xl text-pink-500"></i>
+    <!-- Dual Token Structure -->
+    <section class="py-20 relative" id="tokenomics">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 animate-fade-in">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 section-title center">Dual-Token Economic Structure</h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    HKAIFM operates on an innovative two-layer token system, ensuring transparent value distribution across the ecosystem.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div class="token-card card rounded-xl overflow-hidden cyber-border animate-slide-right">
+                    <div class="bg-blue-900 bg-opacity-30 p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-blue-500 flex items-center justify-center mr-4">
+                                <i class="fas fa-coins text-2xl"></i>
                             </div>
-                            <h4 class="text-xl font-bold">Exhibition & Competition</h4>
+                            <h3 class="text-2xl font-bold">HKAIF Platform Token</h3>
                         </div>
-                        <p class="text-sm text-gray-400 text-center mb-4">
-                            International platform for discovering and rewarding outstanding AI-native film works
+                        <p class="text-gray-300 mb-4">
+                            The foundation of the ecosystem, providing governance rights and value capture from all platform activities.
                         </p>
-                        <div class="text-center">
-                            <a href="javascript:void(0)" onclick="showPage('exhibition')" class="inline-flex items-center text-pink-500 text-sm hover:underline">
-                                Learn more <i class="fas fa-chevron-right ml-1 text-xs"></i>
-                            </a>
-                        </div>
                     </div>
-                    
-                    <div class="bg-gray-800 bg-opacity-80 rounded-xl p-6 ecosystem-card">
-                        <div class="text-center mb-4">
-                            <div class="w-16 h-16 rounded-full bg-gray-900 flex items-center justify-center mx-auto mb-4">
-                                <i class="fas fa-graduation-cap text-2xl text-pink-500"></i>
+                    <div class="p-6">
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <i class="fas fa-check-circle text-blue-400 mt-1 mr-3"></i>
+                                <div>
+                                    <h4 class="font-medium">Governance Rights</h4>
+                                    <p class="text-sm text-gray-400">Vote on platform upgrades and key parameters</p>
+                                </div>
                             </div>
-                            <h4 class="text-xl font-bold">AI Film Academy</h4>
-                        </div>
-                        <p class="text-sm text-gray-400 text-center mb-4">
-                            Professional educational institution for training AI + film composite talents
-                        </p>
-                        <div class="text-center">
-                            <a href="javascript:void(0)" onclick="showPage('academy')" class="inline-flex items-center text-pink-500 text-sm hover:underline">
-                                Learn more <i class="fas fa-chevron-right ml-1 text-xs"></i>
-                            </a>
-                        </div>
-                    </div>
-                    
-                    <div class="bg-gray-800 bg-opacity-80 rounded-xl p-6 ecosystem-card">
-                        <div class="text-center mb-4">
-                            <div class="w-16 h-16 rounded-full bg-gray-900 flex items-center justify-center mx-auto mb-4">
-                                <i class="fas fa-chart-line text-2xl text-pink-500"></i>
+                            <div class="flex items-start">
+                                <i class="fas fa-check-circle text-blue-400 mt-1 mr-3"></i>
+                                <div>
+                                    <h4 class="font-medium">Economic Benefits</h4>
+                                    <p class="text-sm text-gray-400">Receive 30% of platform's total revenue</p>
+                                </div>
                             </div>
-                            <h4 class="text-xl font-bold">AI Film Market</h4>
-                        </div>
-                        <p class="text-sm text-gray-400 text-center mb-4">
-                            Film project financing and trading platform integrating Web3 and AI technologies
-                        </p>
-                        <div class="text-center">
-                            <a href="javascript:void(0)" onclick="showPage('market')" class="inline-flex items-center text-pink-500 text-sm hover:underline">
-                                Learn more <i class="fas fa-chevron-right ml-1 text-xs"></i>
-                            </a>
-                        </div>
-                    </div>
-                    
-                    <div class="bg-gray-800 bg-opacity-80 rounded-xl p-6 ecosystem-card">
-                        <div class="text-center mb-4">
-                            <div class="w-16 h-16 rounded-full bg-gray-900 flex items-center justify-center mx-auto mb-4">
-                                <i class="fas fa-globe text-2xl text-pink-500"></i>
+                            <div class="flex items-start">
+                                <i class="fas fa-check-circle text-blue-400 mt-1 mr-3"></i>
+                                <div>
+                                    <h4 class="font-medium">Priority Access</h4>
+                                    <p class="text-sm text-gray-400">Early investment opportunities in film projects</p>
+                                </div>
                             </div>
-                            <h4 class="text-xl font-bold">Submission Center</h4>
-                        </div>
-                        <p class="text-sm text-gray-400 text-center mb-4">
-                            International hub providing full-chain services for AI-native film content
-                        </p>
-                        <div class="text-center">
-                            <a href="javascript:void(0)" onclick="showPage('submission')" class="inline-flex items-center text-pink-500 text-sm hover:underline">
-                                Learn more <i class="fas fa-chevron-right ml-1 text-xs"></i>
-                            </a>
+                            <div class="flex items-start">
+                                <i class="fas fa-check-circle text-blue-400 mt-1 mr-3"></i>
+                                <div>
+                                    <h4 class="font-medium">Fee Discounts</h4>
+                                    <p class="text-sm text-gray-400">Reduced platform fees based on holdings</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
                 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="bg-gray-800 bg-opacity-80 rounded-xl p-6 ecosystem-card">
-                        <div class="text-center mb-4">
-                            <div class="w-16 h-16 rounded-full bg-gray-900 flex items-center justify-center mx-auto mb-4">
-                                <i class="fas fa-play-circle text-2xl text-pink-500"></i>
+                <div class="token-card card rounded-xl overflow-hidden cyber-border animate-slide-up" style="animation-delay: 0.3s;">
+                    <div class="bg-purple-900 bg-opacity-30 p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-purple-500 flex items-center justify-center mr-4">
+                                <i class="fas fa-film text-2xl"></i>
                             </div>
-                            <h4 class="text-xl font-bold">404.world Platform</h4>
+                            <h3 class="text-2xl font-bold">FILM Project Tokens</h3>
                         </div>
-                        <p class="text-sm text-gray-400 text-center mb-4">
-                            Interactive streaming service offering personalized experiences
+                        <p class="text-gray-300 mb-4">
+                            Project-specific tokens representing ownership in individual AI films and their future revenue streams.
                         </p>
-                        <div class="text-center">
-                            <a href="javascript:void(0)" onclick="showPage('404world')" class="inline-flex items-center text-pink-500 text-sm hover:underline">
-                                Learn more <i class="fas fa-chevron-right ml-1 text-xs"></i>
-                            </a>
-                        </div>
                     </div>
-                    
-                    <div class="bg-gray-800 bg-opacity-80 rounded-xl p-6 ecosystem-card">
-                        <div class="text-center mb-4">
-                            <div class="w-16 h-16 rounded-full bg-gray-900 flex items-center justify-center mx-auto mb-4">
-                                <i class="fas fa-exchange-alt text-2xl text-pink-500"></i>
+                    <div class="p-6">
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                <div>
+                                    <h4 class="font-medium">Revenue Rights</h4>
+                                    <p class="text-sm text-gray-400">Receive proportional share of film revenues</p>
+                                </div>
                             </div>
-                            <h4 class="text-xl font-bold">AIF Exchange</h4>
-                        </div>
-                        <p class="text-sm text-gray-400 text-center mb-4">
-                            Token circulation and value exchange platform
-                        </p>
-                        <div class="text-center">
-                            <a href="javascript:void(0)" onclick="showPage('market')" class="inline-flex items-center text-pink-500 text-sm hover:underline">
-                                Learn more <i class="fas fa-chevron-right ml-1 text-xs"></i>
-                            </a>
+                            <div class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                <div>
+                                    <h4 class="font-medium">Creative Input</h4>
+                                    <p class="text-sm text-gray-400">Vote on key film production decisions</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                <div>
+                                    <h4 class="font-medium">Secondary Market</h4>
+                                    <p class="text-sm text-gray-400">Trade tokens on the open marketplace</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                <div>
+                                    <h4 class="font-medium">Exclusive Benefits</h4>
+                                    <p class="text-sm text-gray-400">Access to premieres, NFTs, and special content</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Participation Section -->
-        <section id="participate" class="py-20 gradient-bg relative">
-            <div class="animated-bg">
-                <span style="left: 12%; animation-delay: 2s;"></span>
-                <span style="left: 38%; animation-delay: 5s;"></span>
-                <span style="left: 62%; animation-delay: 8s;"></span>
-                <span style="left: 88%; animation-delay: 11s;"></span>
+    <!-- Featured Projects -->
+    <section class="py-20 bg-gray-900 bg-opacity-50" id="marketplace">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold section-title">Featured AI Films</h2>
+                <a href="#marketplace" class="text-blue-400 flex items-center hover:underline">
+                    View All Projects
+                    <i class="fas fa-arrow-right ml-2"></i>
+                </a>
             </div>
             
-            <div class="container mx-auto px-6 relative z-10">
-                <div class="text-center mb-16">
-                    <h2 class="text-3xl md:text-4xl font-bold section-title inline-block">
-                        Join the Revolution
-                    </h2>
-                    <p class="text-gray-300 max-w-2xl mx-auto mt-4">
-                        Discover how you can participate in the future of AI-native film and media
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Project 1 -->
+                <div class="card rounded-xl overflow-hidden animate-fade-in">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Beyond the Digital Horizon" class="project-img">
+                        <div class="absolute top-3 left-3">
+                            <span class="bg-blue-500 bg-opacity-80 text-white px-2 py-1 rounded-full text-xs font-medium">Funding</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Beyond the Digital Horizon</h3>
+                        <p class="text-gray-400 text-sm mb-4">
+                            An AI-generated sci-fi epic exploring human consciousness in a world where reality and digital existence merge.
+                        </p>
+                        <div class="flex flex-wrap mb-3">
+                            <span class="ai-chip">Sci-Fi</span>
+                            <span class="ai-chip">Philosophy</span>
+                            <span class="ai-chip">Cyberpunk</span>
+                        </div>
+                        <div class="mb-4">
+                            <div class="flex justify-between text-sm mb-1">
+                                <span>Funding Progress</span>
+                                <span>68%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 rounded-full h-2">
+                                <div class="progress-bar" style="width: 68%"></div>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 rounded-full bg-gray-700 mr-2"></div>
+                                <span class="text-sm">Digital Dreams</span>
+                            </div>
+                            <a href="#project-details" class="text-blue-400 text-sm hover:underline">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 2 -->
+                <div class="card rounded-xl overflow-hidden animate-fade-in" style="animation-delay: 0.2s;">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Neon Memories" class="project-img">
+                        <div class="absolute top-3 left-3">
+                            <span class="bg-purple-500 bg-opacity-80 text-white px-2 py-1 rounded-full text-xs font-medium">In Production</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Neon Memories</h3>
+                        <p class="text-gray-400 text-sm mb-4">
+                            A cyberpunk thriller set in future Hong Kong where memories can be bought and sold on the black market.
+                        </p>
+                        <div class="flex flex-wrap mb-3">
+                            <span class="ai-chip">Thriller</span>
+                            <span class="ai-chip">Hong Kong</span>
+                            <span class="ai-chip">Neo-Noir</span>
+                        </div>
+                        <div class="mb-4">
+                            <div class="flex justify-between text-sm mb-1">
+                                <span>Production Progress</span>
+                                <span>45%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 rounded-full h-2">
+                                <div class="progress-bar" style="width: 45%"></div>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 rounded-full bg-gray-700 mr-2"></div>
+                                <span class="text-sm">NeoVision Studios</span>
+                            </div>
+                            <a href="#project-details" class="text-blue-400 text-sm hover:underline">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 3 -->
+                <div class="card rounded-xl overflow-hidden animate-fade-in" style="animation-delay: 0.4s;">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Harmonic Convergence" class="project-img">
+                        <div class="absolute top-3 left-3">
+                            <span class="bg-green-500 bg-opacity-80 text-white px-2 py-1 rounded-full text-xs font-medium">Completed</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Harmonic Convergence</h3>
+                        <p class="text-gray-400 text-sm mb-4">
+                            A mesmerizing musical journey visualizing sound waves as humanoid characters in a vibrant audiovisual experience.
+                        </p>
+                        <div class="flex flex-wrap mb-3">
+                            <span class="ai-chip">Musical</span>
+                            <span class="ai-chip">Abstract</span>
+                            <span class="ai-chip">Animation</span>
+                        </div>
+                        <div class="mb-4">
+                            <div class="flex justify-between text-sm mb-1">
+                                <span>ROI Performance</span>
+                                <span class="text-green-400">+32%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 rounded-full h-2">
+                                <div class="progress-bar" style="width: 100%"></div>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 rounded-full bg-gray-700 mr-2"></div>
+                                <span class="text-sm">SonicWave Collective</span>
+                            </div>
+                            <a href="#project-details" class="text-blue-400 text-sm hover:underline">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="py-20 relative" id="learn-more">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 section-title center">How HKAIFM Works</h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    A revolutionary platform that integrates AI film production, blockchain financing, and transparent distribution.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <!-- Step 1 -->
+                <div class="text-center">
+                    <div class="w-20 h-20 rounded-full gradient-bg flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-magic text-3xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Create</h3>
+                    <p class="text-gray-300">
+                        Utilize cutting-edge AI tools to create stunning films with lower costs and greater creative freedom. From script to screen, our platform streamlines the entire process.
                     </p>
                 </div>
                 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div class="bg-gray-800 bg-opacity-80 rounded-xl p-6 ecosystem-card">
-                        <div class="text-center mb-6">
-                            <div class="w-16 h-16 rounded-full bg-gray-900 flex items-center justify-center mx-auto mb-4">
-                                <i class="fas fa-lightbulb text-2xl text-pink-500"></i>
-                            </div>
-                            <h3 class="text-xl font-bold">For Creators</h3>
-                        </div>
-                        <ul class="space-y-3 text-sm text-gray-400 mb-6">
-                            <li class="flex items-start">
-                                <i class="fas fa-check-circle text-pink-500 mt-1 mr-2"></i>
-                                <span>Submit works to competitions</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check-circle text-pink-500 mt-1 mr-2"></i>
-                                <span>Access global financing</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check-circle text-pink-500 mt-1 mr-2"></i>
-                                <span>Distribute worldwide</span>
-                            </li>
-                        </ul>
-                        <div class="text-center">
-                            <button onclick="showPage('exhibition')" class="py-2 px-6 rounded-full text-sm font-medium border border-pink-500 text-pink-500 hover:bg-pink-500 hover:text-white transition nav-btn">
-                                Get Started
-                            </button>
-                        </div>
+                <!-- Step 2 -->
+                <div class="text-center">
+                    <div class="w-20 h-20 rounded-full gradient-bg flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-chart-line text-3xl"></i>
                     </div>
-                    
-                    <div class="bg-gray-800 bg-opacity-80 rounded-xl p-6 ecosystem-card">
-                        <div class="text-center mb-6">
-                            <div class="w-16 h-16 rounded-full bg-gray-900 flex items-center justify-center mx-auto mb-4">
-                                <i class="fas fa-chart-pie text-2xl text-pink-500"></i>
-                            </div>
-                            <h3 class="text-xl font-bold">For Investors</h3>
-                        </div>
-                        <ul class="space-y-3 text-sm text-gray-400 mb-6">
-                            <li class="flex items-start">
-                                <i class="fas fa-check-circle text-pink-500 mt-1 mr-2"></i>
-                                <span>Low barriers to entry</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check-circle text-pink-500 mt-1 mr-2"></i>
-                                <span>Transparent tracking</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check-circle text-pink-500 mt-1 mr-2"></i>
-                                <span>Global opportunities</span>
-                            </li>
-                        </ul>
-                        <div class="text-center">
-                            <button onclick="showPage('market')" class="py-2 px-6 rounded-full text-sm font-medium border border-pink-500 text-pink-500 hover:bg-pink-500 hover:text-white transition nav-btn">
-                                Invest Now
-                            </button>
-                        </div>
+                    <h3 class="text-2xl font-bold mb-4">Invest</h3>
+                    <p class="text-gray-300">
+                        Fund promising AI film projects and receive project tokens that represent ownership rights. Track production progress and participate in key creative decisions.
+                    </p>
+                </div>
+                
+                <!-- Step 3 -->
+                <div class="text-center">
+                    <div class="w-20 h-20 rounded-full gradient-bg flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-exchange-alt text-3xl"></i>
                     </div>
-                    
-                    <div class="bg-gray-800 bg-opacity-80 rounded-xl p-6 ecosystem-card">
-                        <div class="text-center mb-6">
-                            <div class="w-16 h-16 rounded-full bg-gray-900 flex items-center justify-center mx-auto mb-4">
-                                <i class="fas fa-building text-2xl text-pink-500"></i>
-                            </div>
-                            <h3 class="text-xl font-bold">For Institutions</h3>
-                        </div>
-                        <ul class="space-y-3 text-sm text-gray-400 mb-6">
-                            <li class="flex items-start">
-                                <i class="fas fa-check-circle text-pink-500 mt-1 mr-2"></i>
-                                <span>Technology partnerships</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check-circle text-pink-500 mt-1 mr-2"></i>
-                                <span>Distribution channels</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check-circle text-pink-500 mt-1 mr-2"></i>
-                                <span>Educational collaboration</span>
-                            </li>
-                        </ul>
-                        <div class="text-center">
-                            <button onclick="showPage('academy')" class="py-2 px-6 rounded-full text-sm font-medium border border-pink-500 text-pink-500 hover:bg-pink-500 hover:text-white transition nav-btn">
-                                Partner With Us
+                    <h3 class="text-2xl font-bold mb-4">Trade</h3>
+                    <p class="text-gray-300">
+                        Buy and sell film rights on our transparent marketplace. Receive automatic revenue distributions through smart contracts as films generate income.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="mt-20">
+                <div class="card rounded-xl overflow-hidden">
+                    <div class="aspect-w-16 aspect-h-9 relative">
+                        <div class="w-full h-full bg-gradient-to-r from-blue-900 via-purple-800 to-pink-900"></div>
+                        <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+                            <button class="w-20 h-20 rounded-full bg-blue-500 bg-opacity-80 flex items-center justify-center transition transform hover:scale-110">
+                                <i class="fas fa-play text-2xl"></i>
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
-    </div>
+        </div>
+    </section>
 
-    <!-- Exhibition Page -->
-    <div id="exhibition-page" class="page-content">
-        <section class="relative min-h-screen flex items-center gradient-bg pt-20">
-            <div class="animated-bg">
-                <span style="left: 10%; animation-delay: 0s;"></span>
-                <span style="left: 30%; animation-delay: 3s;"></span>
-                <span style="left: 50%; animation-delay: 6s;"></span>
-                <span style="left: 70%; animation-delay: 9s;"></span>
-                <span style="left: 90%; animation-delay: 12s;"></span>
-            </div>
-            
-            <div class="container mx-auto px-6 z-10">
-                <div class="text-center">
-                    <h1 class="text-5xl md:text-6xl font-bold mb-6">
-                        Exhibition & Competition
-                    </h1>
+    <!-- AI Technology -->
+    <section class="py-20 bg-gray-900 bg-opacity-50">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="animate-slide-right">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6 section-title">Cutting-Edge AI Film Technology</h2>
                     <p class="text-xl text-gray-300 mb-8">
-                        World's First AI-Native Film Competition Platform
+                        HKAIFM integrates the most advanced AI models to revolutionize film production at every stage.
                     </p>
                     
-                    <div class="bg-gray-800 bg-opacity-80 backdrop-filter backdrop-blur-lg rounded-2xl p-8 max-w-4xl mx-auto">
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                            <div class="text-center">
-                                <div class="text-4xl font-bold text-pink-500 mb-2">$3M+</div>
-                                <p class="text-sm text-gray-400">Total Prize Pool</p>
+                    <div class="space-y-6">
+                        <div class="flex">
+                            <div class="w-12 h-12 rounded-full bg-blue-500 bg-opacity-20 flex items-center justify-center mr-4 shrink-0">
+                                <i class="fas fa-pen-nib text-blue-400"></i>
                             </div>
-                            <div class="text-center">
-                                <div class="text-4xl font-bold text-pink-500 mb-2">15+</div>
-                                <p class="text-sm text-gray-400">Award Categories</p>
-                            </div>
-                            <div class="text-center">
-                                <div class="text-4xl font-bold text-pink-500 mb-2">100+</div>
-                                <p class="text-sm text-gray-400">Countries</p>
-                            </div>
-                            <div class="text-center">
-                                <div class="text-4xl font-bold text-pink-500 mb-2">1K+</div>
-                                <p class="text-sm text-gray-400">Expected Submissions</p>
+                            <div>
+                                <h3 class="text-xl font-bold mb-2">Narrative Generation</h3>
+                                <p class="text-gray-300">
+                                    Advanced large language models create compelling scripts, dialogue, and story structures tailored to your vision.
+                                </p>
                             </div>
                         </div>
                         
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                            <div class="award-card bg-gray-700 bg-opacity-50 p-6 rounded-lg text-center">
-                                <div class="w-16 h-16 rounded-full bg-yellow-500 bg-opacity-20 flex items-center justify-center mx-auto mb-4">
-                                    <i class="fas fa-crown text-2xl text-yellow-500"></i>
-                                </div>
-                                <h3 class="text-lg font-bold mb-2">Unicorn Gold Award</h3>
-                                <div class="text-2xl font-bold text-yellow-500 mb-2">$1,000,000</div>
-                                <p class="text-sm text-gray-400">Best AI-Native Film</p>
+                        <div class="flex">
+                            <div class="w-12 h-12 rounded-full bg-purple-500 bg-opacity-20 flex items-center justify-center mr-4 shrink-0">
+                                <i class="fas fa-image text-purple-400"></i>
                             </div>
-                            
-                            <div class="award-card bg-gray-700 bg-opacity-50 p-6 rounded-lg text-center">
-                                <div class="w-16 h-16 rounded-full bg-pink-500 bg-opacity-20 flex items-center justify-center mx-auto mb-4">
-                                    <i class="fas fa-video text-2xl text-pink-500"></i>
-                                </div>
-                                <h3 class="text-lg font-bold mb-2">Best AI Director</h3>
-                                <div class="text-2xl font-bold text-pink-500 mb-2">$150,000</div>
-                                <p class="text-sm text-gray-400">Innovation in Direction</p>
-                            </div>
-                            
-                            <div class="award-card bg-gray-700 bg-opacity-50 p-6 rounded-lg text-center">
-                                <div class="w-16 h-16 rounded-full bg-pink-500 bg-opacity-20 flex items-center justify-center mx-auto mb-4">
-                                    <i class="fas fa-palette text-2xl text-pink-500"></i>
-                                </div>
-                                <h3 class="text-lg font-bold mb-2">Best AI Visual Design</h3>
-                                <div class="text-2xl font-bold text-pink-500 mb-2">$150,000</div>
-                                <p class="text-sm text-gray-400">Outstanding Visuals</p>
+                            <div>
+                                <h3 class="text-xl font-bold mb-2">Visual Generation</h3>
+                                <p class="text-gray-300">
+                                    State-of-the-art diffusion models transform scripts into stunning visuals with consistent character designs and environments.
+                                </p>
                             </div>
                         </div>
                         
-                        <div class="mt-8 text-center">
-                            <button class="py-3 px-8 accent-gradient rounded-full font-medium text-white shadow-lg transform transition hover:scale-105">
-                                Submit Your Film
-                            </button>
-                            <p class="text-sm text-gray-400 mt-3">
-                                Submission Deadline: August 31, 2025
-                            </p>
+                        <div class="flex">
+                            <div class="w-12 h-12 rounded-full bg-green-500 bg-opacity-20 flex items-center justify-center mr-4 shrink-0">
+                                <i class="fas fa-film text-green-400"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold mb-2">Scene Synthesis</h3>
+                                <p class="text-gray-300">
+                                    Proprietary motion models convert still imagery into fluid, cinematically-composed scenes with professional quality.
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex">
+                            <div class="w-12 h-12 rounded-full bg-yellow-500 bg-opacity-20 flex items-center justify-center mr-4 shrink-0">
+                                <i class="fas fa-music text-yellow-400"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold mb-2">Audio Generation</h3>
+                                <p class="text-gray-300">
+                                    Create immersive soundscapes, original music scores, and realistic voice acting with our specialized audio AI models.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="relative animate-fade-in">
+                    <img src="https://images.unsplash.com/photo-1677442135722-5f8ea49cec8a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="AI Technology" class="ai-tech-img cyber-border">
+                    <div class="absolute -top-6 -left-6 bg-black bg-opacity-70 rounded-lg p-3 backdrop-blur-sm border border-blue-500">
+                        <div class="text-xs font-mono text-blue-400">
+                            <div>// AI MODEL STATUS</div>
+                            <div>latent_space[4032] = <span class="text-green-400">ACTIVE</span>;</div>
+                            <div>render_quality = 0.985;</div>
+                        </div>
+                    </div>
+                    <div class="absolute -bottom-6 -right-6 bg-black bg-opacity-70 rounded-lg p-3 backdrop-blur-sm border border-purple-500">
+                        <div class="text-xs font-mono text-purple-400">
+                            <div>// PROCESSING</div>
+                            <div>frames_completed: 87%</div>
+                            <div>estimated_time: 00:03:42</div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
-    </div>
+        </div>
+    </section>
 
-    <!-- Market Page -->
-    <div id="market-page" class="page-content">
-        <section class="relative min-h-screen flex items-center gradient-bg pt-20">
-            <div class="animated-bg">
-                <span style="left: 15%; animation-delay: 1s;"></span>
-                <span style="left: 35%; animation-delay: 4s;"></span>
-                <span style="left: 55%; animation-delay: 7s;"></span>
-                <span style="left: 75%; animation-delay: 10s;"></span>
-            </div>
-            
-            <div class="container mx-auto px-6 z-10">
-                <div class="text-center">
-                    <h1 class="text-5xl md:text-6xl font-bold mb-6">
-                        AI Film Market
-                    </h1>
-                    <p class="text-xl text-gray-300 mb-8">
-                        Revolutionary Blockchain Platform for AI Film Financing
-                    </p>
-                    
-                    <div class="bg-gray-800 bg-opacity-80 backdrop-filter backdrop-blur-lg rounded-2xl p-8 max-w-4xl mx-auto">
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                            <div class="text-center">
-                                <div class="text-4xl font-bold text-pink-500 mb-2">$10B+</div>
-                                <p class="text-sm text-gray-400">Market Potential</p>
-                            </div>
-                            <div class="text-center">
-                                <div class="text-4xl font-bold text-pink-500 mb-2">40%</div>
-                                <p class="text-sm text-gray-400">Lower Barriers</p>
-                            </div>
-                            <div class="text-center">
-                                <div class="text-4xl font-bold text-pink-500 mb-2">100%</div>
-                                <p class="text-sm text-gray-400">Transparent</p>
-                            </div>
-                            <div class="text-center">
-                                <div class="text-4xl font-bold text-pink-500 mb-2">24/7</div>
-                                <p class="text-sm text-gray-400">Global Trading</p>
-                            </div>
-                        </div>
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-                            <div class="text-center">
-                                <div class="w-32 h-32 rounded-full bg-pink-500 bg-opacity-20 flex items-center justify-center mx-auto mb-4 border-2 border-pink-500">
-                                    <span class="text-2xl font-bold text-pink-500">AIF</span>
-                                </div>
-                                <h3 class="text-xl font-bold mb-2">AIF Platform Token</h3>
-                                <p class="text-sm text-gray-400">Ecosystem governance and utility token</p>
-                            </div>
-                            
-                            <div class="text-center">
-                                <div class="w-32 h-32 rounded-full bg-blue-500 bg-opacity-20 flex items-center justify-center mx-auto mb-4 border-2 border-blue-500">
-                                    <span class="text-xl font-bold text-blue-500">FILM</span>
-                                </div>
-                                <h3 class="text-xl font-bold mb-2">Film-Specific Tokens</h3>
-                                <p class="text-sm text-gray-400">Individual project investment tokens</p>
-                            </div>
-                        </div>
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                            <div class="service-card bg-gray-700 bg-opacity-50 p-6 rounded-lg text-center">
-                                <div class="w-16 h-16 rounded-full bg-pink-500 bg-opacity-20 flex items-center justify-center mx-auto mb-4">
-                                    <i class="fas fa-video text-2xl text-pink-500"></i>
-                                </div>
-                                <h4 class="text-lg font-bold mb-2">For Filmmakers</h4>
-                                <p class="text-sm text-gray-400">Access global financing without traditional gatekeepers</p>
-                            </div>
-                            
-                            <div class="service-card bg-gray-700 bg-opacity-50 p-6 rounded-lg text-center">
-                                <div class="w-16 h-16 rounded-full bg-pink-500 bg-opacity-20 flex items-center justify-center mx-auto mb-4">
-                                    <i class="fas fa-chart-line text-2xl text-pink-500"></i>
-                                </div>
-                                <h4 class="text-lg font-bold mb-2">For Investors</h4>
-                                <p class="text-sm text-gray-400">Diversify portfolio with film investments and enhanced liquidity</p>
-                            </div>
-                            
-                            <div class="service-card bg-gray-700 bg-opacity-50 p-6 rounded-lg text-center">
-                                <div class="w-16 h-16 rounded-full bg-pink-500 bg-opacity-20 flex items-center justify-center mx-auto mb-4">
-                                    <i class="fas fa-handshake text-2xl text-pink-500"></i>
-                                </div>
-                                <h4 class="text-lg font-bold mb-2">For Partners</h4>
-                                <p class="text-sm text-gray-400">Integrate technology and collaborate in ecosystem development</p>
-                            </div>
-                        </div>
-                        
-                        <div class="mt-8 text-center">
-                            <button class="py-3 px-8 accent-gradient rounded-full font-medium text-white shadow-lg transform transition hover:scale-105">
-                                Join the Platform
-                            </button>
-                            <p class="text-sm text-gray-400 mt-3">
-                                Platform launching 2025
-                            </p>
-                        </div>
-                    </div>
+    <!-- CTA Section -->
+    <section class="py-24 relative">
+        <div class="absolute inset-0 bg-gradient-to-r from-blue-900 to-purple-900 opacity-80"></div>
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="max-w-3xl mx-auto text-center">
+                <h2 class="text-3xl md:text-5xl font-bold mb-6">Join the AI Film Revolution</h2>
+                <p class="text-xl text-gray-200 mb-8">
+                    Whether you're a creator, investor, or enthusiast, HKAIFM offers unprecedented opportunities in the future of filmmaking.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                    <a href="#create" class="btn-primary px-8 py-3 rounded-full font-medium text-center">
+                        Start Creating
+                    </a>
+                    <a href="#invest" class="btn-secondary px-8 py-3 rounded-full font-medium text-center">
+                        Explore Investment
+                    </a>
                 </div>
             </div>
-        </section>
-    </div>
-
-    <!-- Academy Page -->
-    <div id="academy-page" class="page-content">
-        <section class="relative min-h-screen flex items-center gradient-bg pt-20">
-            <div class="animated-bg">
-                <span style="left: 20%; animation-delay: 2s;"></span>
-                <span style="left: 40%; animation-delay: 5s;"></span>
-                <span style="left: 60%; animation-delay: 8s;"></span>
-                <span style="left: 80%; animation-delay: 11s;"></span>
-            </div>
-            
-            <div class="container mx-auto px-6 z-10">
-                <div class="text-center">
-                    <h1 class="text-5xl md:text-6xl font-bold mb-6">
-                        AI Film Academy
-                    </h1>
-                    <p class="text-xl text-gray-300 mb-8">
-                        World's First Professional AI Film Education Institution
-                    </p>
-                    
-                    <div class="bg-gray-800 bg-opacity-80 backdrop-filter backdrop-blur-lg rounded-2xl p-8 max-w-4xl mx-auto">
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                            <div class="text-center">
-                                <div class="text-4xl font-bold text-pink-500 mb-2">2025</div>
-                                <p class="text-sm text-gray-400">Founding Year</p>
-                            </div>
-                            <div class="text-center">
-                                <div class="text-4xl font-bold text-pink-500 mb-2">50K+</div>
-                                <p class="text-sm text-gray-400">Training Goal</p>
-                            </div>
-                            <div class="text-center">
-                                <div class="text-4xl font-bold text-pink-500 mb-2">100</div>
-                                <p class="text-sm text-gray-400">Global Centers</p>
-                            </div>
-                            <div class="text-center">
-                                <div class="text-4xl font-bold text-pink-500 mb-2">144</div>
-                                <p class="text-sm text-gray-400">Courses</p>
-                            </div>
-                        </div>
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                            <div class="service-card bg-gray-700 bg-opacity-50 p-6 rounded-lg text-center">
-                                <div class="w-16 h-16 rounded-full bg-pink-500 bg-opacity-20 flex items-center justify-center mx-auto mb-4">
-                                    <i class="fas fa-play text-2xl text-pink-500"></i>
-                                </div>
-                                <h3 class="text-lg font-bold mb-2">Preparatory Courses</h3>
-                                <div class="text-2xl font-bold text-pink-500 mb-2">20</div>
-                                <p class="text-sm text-gray-400">Fast-track entry courses for beginners</p>
-                            </div>
-                            
-                            <div class="service-card bg-gray-700 bg-opacity-50 p-6 rounded-lg text-center">
-                                <div class="w-16 h-16 rounded-full bg-pink-500 bg-opacity-20 flex items-center justify-center mx-auto mb-4">
-                                    <i class="fas fa-certificate text-2xl text-pink-500"></i>
-                                </div>
-                                <h3 class="text-lg font-bold mb-2">Industry Talent</h3>
-                                <div class="text-2xl font-bold text-pink-500 mb-2">144</div>
-                                <p class="text-sm text-gray-400">Comprehensive certification programs</p>
-                            </div>
-                            
-                            <div class="service-card bg-gray-700 bg-opacity-50 p-6 rounded-lg text-center">
-                                <div class="w-16 h-16 rounded-full bg-pink-500 bg-opacity-20 flex items-center justify-center mx-auto mb-4">
-                                    <i class="fas fa-star text-2xl text-pink-500"></i>
-                                </div>
-                                <h3 class="text-lg font-bold mb-2">Professional Talent</h3>
-                                <div class="text-2xl font-bold text-pink-500 mb-2">68</div>
-                                <p class="text-sm text-gray-400">Specialized professional paths</p>
-                            </div>
-                        </div>
-                        
-                        <div class="bg-gray-700 bg-opacity-40 p-6 rounded-lg mb-8">
-                            <h3 class="text-xl font-bold mb-4 text-center">Educational Innovation</h3>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div>
-                                    <h4 class="font-bold mb-2">Digital Teacher System</h4>
-                                    <p class="text-sm text-gray-400">Adaptive personalized learning paths with AI-powered instruction</p>
-                                </div>
-                                <div>
-                                    <h4 class="font-bold mb-2">Knowledge Graph Ecosystem</h4>
-                                    <p class="text-sm text-gray-400">Dynamic industry knowledge base with multi-dimensional associations</p>
-                                </div>
-                                <div>
-                                    <h4 class="font-bold mb-2">Mixed Reality Learning</h4>
-                                    <p class="text-sm text-gray-400">VR/AR immersive classrooms for practical film experience</p>
-                                </div>
-                                <div>
-                                    <h4 class="font-bold mb-2">Industry Connection</h4>
-                                    <p class="text-sm text-gray-400">Real project matching with industry partners and mentorship</p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="text-center">
-                            <button class="py-3 px-8 accent-gradient rounded-full font-medium text-white shadow-lg transform transition hover:scale-105">
-                                Apply for Admission
-                            </button>
-                            <p class="text-sm text-gray-400 mt-3">
-                                Early Bird Deadline: October 15, 2025
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
-
-    <!-- Submission Page -->
-    <div id="submission-page" class="page-content">
-        <section class="relative min-h-screen flex items-center gradient-bg pt-20">
-            <div class="animated-bg">
-                <span style="left: 25%; animation-delay: 3s;"></span>
-                <span style="left: 45%; animation-delay: 6s;"></span>
-                <span style="left: 65%; animation-delay: 9s;"></span>
-                <span style="left: 85%; animation-delay: 12s;"></span>
-            </div>
-            
-            <div class="container mx-auto px-6 z-10">
-                <div class="text-center">
-                    <h1 class="text-5xl md:text-6xl font-bold mb-6">
-                        Submission Center
-                    </h1>
-                    <p class="text-xl text-gray-300 mb-8">
-                        Global Hub for AI-Native Film Distribution
-                    </p>
-                    
-                    <div class="bg-gray-800 bg-opacity-80 backdrop-filter backdrop-blur-lg rounded-2xl p-8 max-w-4xl mx-auto">
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                            <div class="text-center">
-                                <div class="text-4xl font-bold text-pink-500 mb-2">6</div>
-                                <p class="text-sm text-gray-400">Regional Centers</p>
-                            </div>
-                            <div class="text-center">
-                                <div class="text-4xl font-bold text-pink-500 mb-2">20+</div>
-                                <p class="text-sm text-gray-400">Local Nodes</p>
-                            </div>
-                            <div class="text-center">
-                                <div class="text-4xl font-bold text-pink-500 mb-2">100+</div>
-                                <p class="text-sm text-gray-400">Partner Festivals</p>
-                            </div>
-                            <div class="text-center">
-                                <div class="text-4xl font-bold text-pink-500 mb-2">50+</div>
-                                <p class="text-sm text-gray-400">Distribution Channels</p>
-                            </div>
-                        </div>
-                        
-                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-                            <div class="service-card bg-gray-700 bg-opacity-40 p-4 rounded-lg text-center">
-                                <i class="fas fa-lightbulb text-pink-500 text-2xl mb-2"></i>
-                                <p class="text-sm font-medium">Creation Consulting</p>
-                            </div>
-                            <div class="service-card bg-gray-700 bg-opacity-40 p-4 rounded-lg text-center">
-                                <i class="fas fa-coins text-pink-500 text-2xl mb-2"></i>
-                                <p class="text-sm font-medium">Token Issuance</p>
-                            </div>
-                            <div class="service-card bg-gray-700 bg-opacity-40 p-4 rounded-lg text-center">
-                                <i class="fas fa-copyright text-pink-500 text-2xl mb-2"></i>
-                                <p class="text-sm font-medium">IP Protection</p>
-                            </div>
-                            <div class="service-card bg-gray-700 bg-opacity-40 p-4 rounded-lg text-center">
-                                <i class="fas fa-language text-pink-500 text-2xl mb-2"></i>
-                                <p class="text-sm font-medium">Cultural Adaptation</p>
-                            </div>
-                            <div class="service-card bg-gray-700 bg-opacity-40 p-4 rounded-lg text-center">
-                                <i class="fas fa-film text-pink-500 text-2xl mb-2"></i>
-                                <p class="text-sm font-medium">Festival Applications</p>
-                            </div>
-                            <div class="service-card bg-gray-700 bg-opacity-40 p-4 rounded-lg text-center">
-                                <i class="fas fa-route text-pink-500 text-2xl mb-2"></i>
-                                <p class="text-sm font-medium">Exhibition Tours</p>
-                            </div>
-                            <div class="service-card bg-gray-700 bg-opacity-40 p-4 rounded-lg text-center">
-                                <i class="fas fa-share-alt text-pink-500 text-2xl mb-2"></i>
-                                <p class="text-sm font-medium">Global Distribution</p>
-                            </div>
-                            <div class="service-card bg-gray-700 bg-opacity-40 p-4 rounded-lg text-center">
-                                <i class="fas fa-bullhorn text-pink-500 text-2xl mb-2"></i>
-                                <p class="text-sm font-medium">Marketing & Promotion</p>
-                            </div>
-                        </div>
-                        
-                        <div class="bg-gray-700 bg-opacity-40 p-6 rounded-lg mb-8">
-                            <h3 class="text-xl font-bold mb-4 text-center">Distribution Channels</h3>
-                            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                                <div class="text-center p-3 bg-gray-600 bg-opacity-50 rounded">
-                                    <i class="fas fa-desktop text-pink-500 text-xl mb-2"></i>
-                                    <p class="text-sm">AIF Online Cinema</p>
-                                </div>
-                                <div class="text-center p-3 bg-gray-600 bg-opacity-50 rounded">
-                                    <i class="fas fa-mobile-alt text-pink-500 text-xl mb-2"></i>
-                                    <p class="text-sm">Mobile Apps</p>
-                                </div>
-                                <div class="text-center p-3 bg-gray-600 bg-opacity-50 rounded">
-                                    <i class="fas fa-vr-cardboard text-pink-500 text-xl mb-2"></i>
-                                    <p class="text-sm">Metaverse Spaces</p>
-                                </div>
-                                <div class="text-center p-3 bg-gray-600 bg-opacity-50 rounded">
-                                    <i class="fas fa-film text-pink-500 text-xl mb-2"></i>
-                                    <p class="text-sm">Global Cinemas</p>
-                                </div>
-                                <div class="text-center p-3 bg-gray-600 bg-opacity-50 rounded">
-                                    <i class="fas fa-tv text-pink-500 text-xl mb-2"></i>
-                                    <p class="text-sm">Traditional Media</p>
-                                </div>
-                                <div class="text-center p-3 bg-gray-600 bg-opacity-50 rounded">
-                                    <i class="fas fa-plane text-pink-500 text-xl mb-2"></i>
-                                    <p class="text-sm">In-flight Entertainment</p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="text-center">
-                            <button class="py-3 px-8 accent-gradient rounded-full font-medium text-white shadow-lg transform transition hover:scale-105">
-                                Submit Your Content
-                            </button>
-                            <p class="text-sm text-gray-400 mt-3">
-                                Now accepting submissions for global distribution
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
-
-    <!-- 404.world Page -->
-    <div id="404world-page" class="page-content">
-        <section class="min-h-screen flex items-center gradient-bg pt-20 relative overflow-hidden">
-            <div class="animated-bg">
-                <span style="left: 10%; animation-delay: 0s;"></span>
-                <span style="left: 30%; animation-delay: 3s;"></span>
-                <span style="left: 50%; animation-delay: 6s;"></span>
-                <span style="left: 70%; animation-delay: 9s;"></span>
-                <span style="left: 90%; animation-delay: 12s;"></span>
-            </div>
-            
-            <div class="container mx-auto px-6 relative z-10 py-20">
-                <div class="text-center">
-                    <div class="mb-8">
-                        <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-4">
-                            404.world
-                        </h1>
-                        <div class="h-1 w-40 bg-pink-500 mb-6 mx-auto"></div>
-                        <p class="text-xl md:text-2xl text-gray-300 italic">
-                            From "Not Found" to Infinite Possibilities
-                        </p>
-                    </div>
-                    <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-                        The world's first interactive streaming platform focused on AI-native film and media content. Transform each viewing into a personalized parallel world.
-                    </p>
-                    
-                    <div class="bg-gray-800 bg-opacity-80 backdrop-filter backdrop-blur-lg rounded-2xl p-8 max-w-4xl mx-auto mb-8">
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                            <div class="text-center">
-                                <div class="text-4xl font-bold text-pink-500 mb-2">∞</div>
-                                <p class="text-sm text-gray-400">Parallel Worlds</p>
-                            </div>
-                            <div class="text-center">
-                                <div class="text-4xl font-bold text-pink-500 mb-2">1:1</div>
-                                <p class="text-sm text-gray-400">Personalized</p>
-                            </div>
-                            <div class="text-center">
-                                <div class="text-4xl font-bold text-pink-500 mb-2">AI</div>
-                                <p class="text-sm text-gray-400">Native Content</p>
-                            </div>
-                            <div class="text-center">
-                                <div class="text-4xl font-bold text-pink-500 mb-2">UGC</div>
-                                <p class="text-sm text-gray-400">Co-Creation</p>
-                            </div>
-                        </div>
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                            <div class="service-card bg-gray-700 bg-opacity-50 p-6 rounded-lg text-center">
-                                <div class="w-16 h-16 rounded-full bg-pink-500 bg-opacity-20 flex items-center justify-center mx-auto mb-4">
-                                    <i class="fas fa-fingerprint text-2xl text-pink-500"></i>
-                                </div>
-                                <h3 class="text-lg font-bold mb-2">Personalized Narratives</h3>
-                                <p class="text-sm text-gray-400">Stories adapt in real-time based on your preferences and authorized personal data</p>
-                            </div>
-                            
-                            <div class="service-card bg-gray-700 bg-opacity-50 p-6 rounded-lg text-center">
-                                <div class="w-16 h-16 rounded-full bg-pink-500 bg-opacity-20 flex items-center justify-center mx-auto mb-4">
-                                    <i class="fas fa-project-diagram text-2xl text-pink-500"></i>
-                                </div>
-                                <h3 class="text-lg font-bold mb-2">Parallel World Exploration</h3>
-                                <p class="text-sm text-gray-400">Discover how others experienced the same content through different perspectives</p>
-                            </div>
-                            
-                            <div class="service-card bg-gray-700 bg-opacity-50 p-6 rounded-lg text-center">
-                                <div class="w-16 h-16 rounded-full bg-pink-500 bg-opacity-20 flex items-center justify-center mx-auto mb-4">
-                                    <i class="fas fa-user-edit text-2xl text-pink-500"></i>
-                                </div>
-                                <h3 class="text-lg font-bold mb-2">Co-Creation Model</h3>
-                                <p class="text-sm text-gray-400">Transition from passive viewer to active participant in storytelling</p>
-                            </div>
-                        </div>
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                            <div class="service-card bg-gray-600 bg-opacity-50 p-6 rounded-lg text-center">
-                                <h3 class="text-lg font-bold mb-2">Basic Membership</h3>
-                                <div class="text-3xl font-bold text-pink-500 mb-2">$9.99</div>
-                                <p class="text-sm text-gray-400">Standard viewing with basic interactive features</p>
-                            </div>
-                            
-                            <div class="service-card bg-pink-500 bg-opacity-20 p-6 rounded-lg text-center border border-pink-500">
-                                <h3 class="text-lg font-bold mb-2">404.world+</h3>
-                                <div class="text-3xl font-bold text-pink-500 mb-2">$19.99</div>
-                                <p class="text-sm text-gray-400">Full interactive features & unlimited worlds</p>
-                            </div>
-                            
-                            <div class="service-card bg-gray-600 bg-opacity-50 p-6 rounded-lg text-center">
-                                <h3 class="text-lg font-bold mb-2">Creator Membership</h3>
-                                <div class="text-3xl font-bold text-pink-500 mb-2">$29.99</div>
-                                <p class="text-sm text-gray-400">Advanced creation tools & revenue sharing</p>
-                            </div>
-                        </div>
-                        
-                        <div class="text-center">
-                            <button class="py-3 px-8 accent-gradient rounded-full font-medium text-white shadow-lg transform transition hover:scale-105">
-                                Join Beta Program
-                            </button>
-                            <p class="text-sm text-gray-400 mt-3">
-                                Be among the first to experience interactive streaming
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
+        </div>
+    </section>
 
     <!-- Footer -->
-    <footer class="py-10 bg-gray-800">
-        <div class="container mx-auto px-6">
-            <div class="flex flex-col md:flex-row justify-between items-center mb-8">
-                <div class="mb-6 md:mb-0">
-                    <a href="javascript:void(0)" onclick="showPage('home')" class="text-white font-bold text-xl">
-                        <span class="text-pink-500">HK</span>AIIFF
+    <footer class="footer py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <a href="#" class="hkaifm-logo mb-4">
+                        <div class="logo-font">HKAIFM</div>
+                        <div class="logo-sub">AI FILM MARKET</div>
                     </a>
-                    <p class="text-sm text-gray-400 mt-2">
-                        World's First AI-Native Film and Media Ecosystem
+                    <p class="text-gray-400 mb-4">
+                        Revolutionizing the film industry through AI and blockchain technology.
                     </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-telegram"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-discord"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-medium"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-github"></i></a>
+                    </div>
                 </div>
-                <div class="flex space-x-4">
-                    <a href="#" class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center hover:bg-pink-500 transition">
-                        <i class="fab fa-twitter text-lg"></i>
-                    </a>
-                    <a href="#" class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center hover:bg-pink-500 transition">
-                        <i class="fab fa-linkedin-in text-lg"></i>
-                    </a>
-                    <a href="#" class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center hover:bg-pink-500 transition">
-                        <i class="fab fa-instagram text-lg"></i>
-                    </a>
-                    <a href="#" class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center hover:bg-pink-500 transition">
-                        <i class="fab fa-youtube text-lg"></i>
-                    </a>
-                </div>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
                 <div>
-                    <h4 class="text-lg font-bold mb-4">Ecosystem</h4>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="javascript:void(0)" onclick="showPage('exhibition')" class="text-gray-400 hover:text-white transition">Exhibition & Competition</a></li>
-                        <li><a href="javascript:void(0)" onclick="showPage('academy')" class="text-gray-400 hover:text-white transition">AI Film Academy</a></li>
-                        <li><a href="javascript:void(0)" onclick="showPage('market')" class="text-gray-400 hover:text-white transition">AI Film Market</a></li>
-                        <li><a href="javascript:void(0)" onclick="showPage('submission')" class="text-gray-400 hover:text-white transition">Submission Center</a></li>
-                        <li><a href="javascript:void(0)" onclick="showPage('404world')" class="text-gray-400 hover:text-white transition">404.world Platform</a></li>
+                    <h3 class="text-lg font-semibold mb-4">Platform</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#marketplace" class="text-gray-400 hover:text-white">Marketplace</a></li>
+                        <li><a href="#create" class="text-gray-400 hover:text-white">Create</a></li>
+                        <li><a href="#invest" class="text-gray-400 hover:text-white">Invest</a></li>
+                        <li><a href="#dashboard" class="text-gray-400 hover:text-white">Dashboard</a></li>
+                        <li><a href="#community" class="text-gray-400 hover:text-white">Community</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h4 class="text-lg font-bold mb-4">Programs</h4>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="javascript:void(0)" onclick="showPage('exhibition')" class="text-gray-400 hover:text-white transition">Film Competition</a></li>
-                        <li><a href="javascript:void(0)" onclick="showPage('academy')" class="text-gray-400 hover:text-white transition">Education Courses</a></li>
-                        <li><a href="javascript:void(0)" onclick="showPage('market')" class="text-gray-400 hover:text-white transition">Token Investment</a></li>
-                        <li><a href="javascript:void(0)" onclick="showPage('submission')" class="text-gray-400 hover:text-white transition">Global Distribution</a></li>
-                        <li><a href="javascript:void(0)" onclick="showPage('404world')" class="text-gray-400 hover:text-white transition">Interactive Streaming</a></li>
+                    <h3 class="text-lg font-semibold mb-4">Resources</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#whitepaper" class="text-gray-400 hover:text-white">Whitepaper</a></li>
+                        <li><a href="#documentation" class="text-gray-400 hover:text-white">Documentation</a></li>
+                        <li><a href="#tokenomics" class="text-gray-400 hover:text-white">Tokenomics</a></li>
+                        <li><a href="#developers" class="text-gray-400 hover:text-white">Developers</a></li>
+                        <li><a href="#support" class="text-gray-400 hover:text-white">Support</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h4 class="text-lg font-bold mb-4">Community</h4>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="#" class="text-gray-400 hover:text-white transition">Blog</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition">News</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition">Events</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition">Partner Network</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition">Developer Resources</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="text-lg font-bold mb-4">Support</h4>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="#" class="text-gray-400 hover:text-white transition">Help Center</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition">Contact Us</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition">Privacy Policy</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition">Terms of Service</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition">FAQ</a></li>
+                    <h3 class="text-lg font-semibold mb-4">Legal</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#terms" class="text-gray-400 hover:text-white">Terms of Service</a></li>
+                        <li><a href="#privacy" class="text-gray-400 hover:text-white">Privacy Policy</a></li>
+                        <li><a href="#copyright" class="text-gray-400 hover:text-white">Copyright Policy</a></li>
+                        <li><a href="#compliance" class="text-gray-400 hover:text-white">Regulatory Compliance</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-white">Contact Us</a></li>
                     </ul>
                 </div>
             </div>
-            
-            <div class="text-center pt-8 border-t border-gray-700">
-                <p class="text-sm text-gray-500">
-                    &copy; 2025 Hong Kong AI International Film Festival. All rights reserved.
-                </p>
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-500 text-sm">
+                <p>© 2025 Hong Kong AI Film Market. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
-    <!-- Scroll to Top Button -->
-    <button id="scroll-top" class="fixed bottom-8 right-8 w-12 h-12 rounded-full accent-gradient flex items-center justify-center shadow-lg opacity-0 invisible transition-all z-50">
-        <i class="fas fa-chevron-up text-white"></i>
-    </button>
-
-    <!-- JavaScript -->
     <script>
-        // Page navigation
-        function showPage(pageId) {
-            console.log('Switching to page:', pageId);
-            
-            // Hide all pages
-            document.querySelectorAll('.page-content').forEach(page => {
-                page.classList.remove('active');
-            });
-            
-            // Show selected page
-            const targetPage = document.getElementById(pageId + '-page');
-            if (targetPage) {
-                targetPage.classList.add('active');
-                console.log('Page shown:', pageId + '-page');
-            } else {
-                console.error('Page not found:', pageId + '-page');
-            }
-            
-            // Update navigation active state
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.classList.remove('active');
-            });
-            const navLink = document.getElementById('nav-' + pageId);
-            if (navLink) {
-                navLink.classList.add('active');
-            }
-            
-            // Close mobile menu
-            document.getElementById('mobile-menu').classList.add('hidden');
-            
-            // Scroll to top
-            window.scrollTo(0, 0);
-        }
-
-        // Scroll to section within current page
-        function scrollToSection(sectionId) {
-            const section = document.getElementById(sectionId);
-            if (section) {
-                section.scrollIntoView({ 
-                    behavior: 'smooth',
-                    block: 'start'
-                });
+        // Add random data streams
+        function createDataStreams() {
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    const stream = document.createElement('div');
+                    stream.className = 'data-stream';
+                    stream.style.left = Math.random() * 100 + '%';
+                    stream.style.animationDelay = Math.random() * 2 + 's';
+                    document.body.appendChild(stream);
+                    
+                    // Remove after animation
+                    setTimeout(() => {
+                        stream.remove();
+                    }, 4000);
+                }, i * 3000);
             }
         }
-
-        // Mobile menu toggle
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
         
-        mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-        
-        // Scroll to top button
-        const scrollTopButton = document.getElementById('scroll-top');
-        
-        window.addEventListener('scroll', () => {
-            if (window.pageYOffset > 300) {
-                scrollTopButton.classList.remove('opacity-0', 'invisible');
-                scrollTopButton.classList.add('opacity-100', 'visible');
-            } else {
-                scrollTopButton.classList.remove('opacity-100', 'visible');
-                scrollTopButton.classList.add('opacity-0', 'invisible');
-            }
-        });
-        
-        scrollTopButton.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-
-        // Handle anchor links - Updated to work with new navigation
-        document.addEventListener('click', function(e) {
-            if (e.target.tagName === 'A' && e.target.getAttribute('href') === '#') {
-                e.preventDefault();
-            }
-        });
-
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', function(e) {
-            if (!mobileMenuButton.contains(e.target) && !mobileMenu.contains(e.target)) {
-                mobileMenu.classList.add('hidden');
-            }
-        });
-
-        // Form submissions (prevent default for demo)
-        document.addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Thank you for your submission! This is a demo website.');
-        });
-
-        // Initialize page
+        // Initialize
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('Page loaded, initializing...');
-            // Default to home page
-            showPage('home');
+            // Start data streams
+            createDataStreams();
+            setInterval(createDataStreams, 15000);
+            
+            // Add scroll animations
+            const animatedElements = document.querySelectorAll('.animate-fade-in, .animate-slide-up, .animate-slide-right');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        if (entry.target.classList.contains('animate-slide-up')) {
+                            entry.target.style.transform = 'translateY(0)';
+                        }
+                        if (entry.target.classList.contains('animate-slide-right')) {
+                            entry.target.style.transform = 'translateX(0)';
+                        }
+                        if (entry.target.classList.contains('animate-fade-in')) {
+                            entry.target.style.transform = 'scale(1)';
+                        }
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            animatedElements.forEach(el => {
+                el.style.opacity = '0';
+                if (el.classList.contains('animate-slide-up')) {
+                    el.style.transform = 'translateY(50px)';
+                }
+                if (el.classList.contains('animate-slide-right')) {
+                    el.style.transform = 'translateX(-50px)';
+                }
+                if (el.classList.contains('animate-fade-in')) {
+                    el.style.transform = 'scale(0.95)';
+                }
+                observer.observe(el);
+            });
+            
+            // Mobile menu functionality
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const mobileMenu = document.querySelector('.mobile-menu');
+            const mobileMenuClose = document.querySelector('.mobile-menu-close');
+            
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            });
+            
+            mobileMenuClose.addEventListener('click', () => {
+                mobileMenu.classList.remove('open');
+                document.body.style.overflow = 'auto';
+            });
+            
+            // Language selection
+            const languageLinks = document.querySelectorAll('.language-dropdown a');
+            const languageIndicator = document.querySelector('.language-indicator');
+            
+            languageLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const lang = link.getAttribute('data-lang');
+                    const flag = link.querySelector('img').src;
+                    const text = link.textContent.trim();
+                    
+                    // Update language indicator
+                    languageIndicator.innerHTML = `
+                        <img src="${flag}" alt="${text}">
+                        <span>${lang.toUpperCase()}</span>
+                        <i class="fas fa-chevron-down ml-2 text-sm"></i>
+                    `;
+                    
+                    // Show translation message
+                    const translateToggle = document.getElementById('aiTranslateToggle');
+                    if (translateToggle.checked) {
+                        alert(`Translating content to ${text} using AI...`);
+                    }
+                });
+            });
+            
+            // Login option handlers
+            const loginOptions = document.querySelectorAll('.login-option');
+            
+            loginOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    const loginType = option.getAttribute('data-login');
+                    
+                    if (loginType === 'metamask' || loginType === 'walletconnect' || loginType === 'coinbase') {
+                        alert(`Connecting wallet via ${loginType.charAt(0).toUpperCase() + loginType.slice(1)}...`);
+                    } else {
+                        alert(`Logging in with ${loginType.charAt(0).toUpperCase() + loginType.slice(1)}...`);
+                    }
+                });
+            });
+            
+            // Video play button
+            const playButton = document.querySelector('.fa-play').parentElement;
+            playButton.addEventListener('click', function() {
+                alert('Playing HKAIFM platform introduction video...');
+            });
         });
     </script>
 </body>
