@@ -149,7 +149,6 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80');
             background-size: cover;
             background-position: center;
             opacity: 0.7;
@@ -579,6 +578,115 @@
             color: transparent;
         }
         
+        /* Page-specific styles */
+        .page-content {
+            display: none;
+        }
+        
+        .page-content.active {
+            display: block;
+        }
+        
+        .filter-pill {
+            padding: 8px 16px;
+            border-radius: 9999px;
+            background: rgba(255,255,255,0.05);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-pill.active, .filter-pill:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .nft-card {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .nft-card-hover {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.8);
+            padding: 15px;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .nft-card:hover .nft-card-hover {
+            transform: translateY(0);
+        }
+        
+        /* Marketplace specific styles */
+        .status-badge {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 9999px;
+            font-weight: 500;
+        }
+        
+        .status-funding {
+            background-color: rgba(52, 152, 219, 0.2);
+            color: #3498db;
+        }
+        
+        .status-production {
+            background-color: rgba(142, 68, 173, 0.2);
+            color: #8e44ad;
+        }
+        
+        .status-completed {
+            background-color: rgba(46, 204, 113, 0.2);
+            color: #2ecc71;
+        }
+        
+        .status-marketplace {
+            background-color: rgba(241, 196, 15, 0.2);
+            color: #f1c40f;
+        }
+        
+        .input-field {
+            background-color: rgba(17, 24, 39, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: all 0.3s ease;
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border-radius: 9999px;
+        }
+        
+        .input-field:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.25);
+            outline: none;
+        }
+        
+        .tab-active {
+            color: #ffffff;
+            border-bottom: 2px solid #3498db;
+        }
+        
+        .filter-label {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(17, 24, 39, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-label:hover {
+            background: rgba(52, 152, 219, 0.1);
+            border-color: rgba(52, 152, 219, 0.3);
+        }
+        
         @media (max-width: 768px) {
             .desktop-nav {
                 display: none;
@@ -603,21 +711,37 @@
             .hero-bg {
                 animation: none;
             }
+            
+            .grid-cols-1 {
+                grid-template-columns: 1fr;
+            }
+            
+            .md\:grid-cols-3 {
+                grid-template-columns: 1fr;
+            }
+            
+            .md\:grid-cols-4 {
+                grid-template-columns: 1fr;
+            }
+            
+            .md\:grid-cols-2 {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
     <!-- AI Elements -->
     <div class="ai-element" style="top: 120px; left: 10%;">
-        MODEL_ID: GEN-7840 <br>
-        STATUS: RENDERING <br>
-        // AI Film Generation Active
+        HKAIFM_ID: 7A9F-3B2C <br>
+        STATUS: ACTIVE <br>
+        // AI Film Marketplace
     </div>
     
     <div class="ai-element" style="bottom: 150px; right: 15%;">
-        TOKEN_DIST: OPTIMAL <br>
+        TOKEN_TRADE: 1245 <br>
         HASH: 0x71A9B3...F7E <br>
-        // Blockchain Verified
+        // Transactions Verified
     </div>
     
     <!-- Data streams -->
@@ -629,16 +753,18 @@
     <!-- Navigation -->
     <nav class="navbar fixed w-full z-50 px-4 py-3">
         <div class="container mx-auto flex justify-between items-center">
-            <a href="#" class="hkaifm-logo">
+            <a href="javascript:void(0)" onclick="showPage('home')" class="hkaifm-logo">
                 <div class="logo-font">HKAIFM</div>
                 <div class="logo-sub">AI FILM MARKET</div>
             </a>
             <div class="hidden md:flex space-x-8 desktop-nav">
-                <a href="#marketplace" class="hover:text-blue-400 transition">Marketplace</a>
-                <a href="#create" class="hover:text-blue-400 transition">Create</a>
-                <a href="#invest" class="hover:text-blue-400 transition">Invest</a>
-                <a href="#dashboard" class="hover:text-blue-400 transition">Dashboard</a>
-                <a href="#community" class="hover:text-blue-400 transition">Community</a>
+                <a href="javascript:void(0)" onclick="showPage('marketplace')" class="nav-link hover:text-blue-400 transition">Marketplace</a>
+                <a href="javascript:void(0)" onclick="showPage('create')" class="nav-link hover:text-blue-400 transition">Create</a>
+                <a href="javascript:void(0)" onclick="showPage('invest')" class="nav-link hover:text-blue-400 transition">Invest</a>
+                <a href="javascript:void(0)" onclick="showPage('dashboard')" class="nav-link hover:text-blue-400 transition">Dashboard</a>
+                <a href="javascript:void(0)" onclick="showPage('community')" class="nav-link hover:text-blue-400 transition">Community</a>
+                <a href="javascript:void(0)" onclick="showPage('nft-gallery')" class="nav-link hover:text-blue-400 transition">NFT Gallery</a>
+                <a href="javascript:void(0)" onclick="showPage('token-exchange')" class="nav-link hover:text-blue-400 transition">Exchange</a>
             </div>
             <div class="flex items-center space-x-4">
                 <!-- Language Selector -->
@@ -743,7 +869,7 @@
                     </div>
                 </div>
                 
-                <button class="md:hidden text-white mobile-menu-btn">
+                <button class="md:hidden text-white mobile-menu-btn" onclick="toggleMobileMenu()">
                     <i class="fas fa-bars text-xl"></i>
                 </button>
             </div>
@@ -752,16 +878,18 @@
 
     <!-- Mobile Menu -->
     <div class="mobile-menu">
-        <div class="mobile-menu-close">
+        <div class="mobile-menu-close" onclick="toggleMobileMenu()">
             <i class="fas fa-times"></i>
         </div>
         
         <div class="mt-12 flex flex-col space-y-6">
-            <a href="#marketplace" class="text-xl hover:text-blue-400 transition">Marketplace</a>
-            <a href="#create" class="text-xl hover:text-blue-400 transition">Create</a>
-            <a href="#invest" class="text-xl hover:text-blue-400 transition">Invest</a>
-            <a href="#dashboard" class="text-xl hover:text-blue-400 transition">Dashboard</a>
-            <a href="#community" class="text-xl hover:text-blue-400 transition">Community</a>
+            <a href="javascript:void(0)" onclick="showPage('marketplace'); toggleMobileMenu();" class="text-xl hover:text-blue-400 transition">Marketplace</a>
+            <a href="javascript:void(0)" onclick="showPage('create'); toggleMobileMenu();" class="text-xl hover:text-blue-400 transition">Create</a>
+            <a href="javascript:void(0)" onclick="showPage('invest'); toggleMobileMenu();" class="text-xl hover:text-blue-400 transition">Invest</a>
+            <a href="javascript:void(0)" onclick="showPage('dashboard'); toggleMobileMenu();" class="text-xl hover:text-blue-400 transition">Dashboard</a>
+            <a href="javascript:void(0)" onclick="showPage('community'); toggleMobileMenu();" class="text-xl hover:text-blue-400 transition">Community</a>
+            <a href="javascript:void(0)" onclick="showPage('nft-gallery'); toggleMobileMenu();" class="text-xl hover:text-blue-400 transition">NFT Gallery</a>
+            <a href="javascript:void(0)" onclick="showPage('token-exchange'); toggleMobileMenu();" class="text-xl hover:text-blue-400 transition">Exchange</a>
             
             <div class="pt-6 border-t border-gray-700">
                 <h3 class="text-lg font-bold mb-4">Language</h3>
@@ -796,621 +924,2124 @@
         </div>
     </div>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-bg"></div>
-        <div class="container mx-auto px-4 hero-content">
-            <div class="max-w-3xl animate-fade-in">
-                <h1 class="text-4xl md:text-6xl font-bold mb-6">Revolutionizing Film<br>Through <span class="gradient-text">AI & Blockchain</span></h1>
-                <p class="text-xl text-gray-300 mb-8">
-                    The world's first Web3 application platform focused on AI-native films. Create, invest, and trade in the future of cinema.
-                </p>
-                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-                    <a href="#marketplace" class="btn-primary px-8 py-3 rounded-full font-medium text-center">
-                        Explore Marketplace
-                    </a>
-                    <a href="#learn-more" class="btn-secondary px-8 py-3 rounded-full font-medium text-center">
-                        Learn More
-                    </a>
+    <!-- Page Content Container -->
+    <div id="page-container">
+        
+        <!-- HOME PAGE -->
+        <div id="home-page" class="page-content active">
+            <!-- Hero Section -->
+            <section class="hero">
+                <div class="hero-bg" style="background-image: url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80')"></div>
+                <div class="container mx-auto px-4 hero-content">
+                    <div class="max-w-3xl animate-fade-in">
+                        <h1 class="text-4xl md:text-6xl font-bold mb-6">Revolutionizing Film<br>Through <span class="gradient-text">AI & Blockchain</span></h1>
+                        <p class="text-xl text-gray-300 mb-8">
+                            The world's first Web3 application platform focused on AI-native films. Create, invest, and trade in the future of cinema.
+                        </p>
+                        <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                            <a href="javascript:void(0)" onclick="showPage('marketplace')" class="btn-primary px-8 py-3 rounded-full font-medium text-center">
+                                Explore Marketplace
+                            </a>
+                            <a href="#learn-more" class="btn-secondary px-8 py-3 rounded-full font-medium text-center">
+                                Learn More
+                            </a>
+                        </div>
+                        
+                        <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <div class="stats-card">
+                                <i class="fas fa-film"></i>
+                                <div class="number">42+</div>
+                                <div class="text-sm">AI Films</div>
+                            </div>
+                            <div class="stats-card">
+                                <i class="fas fa-users"></i>
+                                <div class="number">3.5K</div>
+                                <div class="text-sm">Creators</div>
+                            </div>
+                            <div class="stats-card">
+                                <i class="fas fa-coins"></i>
+                                <div class="number">1.8M</div>
+                                <div class="text-sm">HKAIF Traded</div>
+                            </div>
+                            <div class="stats-card">
+                                <i class="fas fa-chart-line"></i>
+                                <div class="number">28%</div>
+                                <div class="text-sm">Avg. ROI</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                
-                <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <div class="stats-card">
-                        <i class="fas fa-film"></i>
-                        <div class="number">42+</div>
-                        <div class="text-sm">AI Films</div>
+            </section>
+
+            <!-- Dual Token Structure -->
+            <section class="py-20 relative" id="tokenomics">
+                <div class="container mx-auto px-4">
+                    <div class="text-center mb-16 animate-fade-in">
+                        <h2 class="text-3xl md:text-4xl font-bold mb-4 section-title center">Dual-Token Economic Structure</h2>
+                        <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                            HKAIFM operates on an innovative two-layer token system, ensuring transparent value distribution across the ecosystem.
+                        </p>
                     </div>
-                    <div class="stats-card">
-                        <i class="fas fa-users"></i>
-                        <div class="number">3.5K</div>
-                        <div class="text-sm">Creators</div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                        <div class="token-card card rounded-xl overflow-hidden cyber-border animate-slide-right">
+                            <div class="bg-blue-900 bg-opacity-30 p-6">
+                                <div class="flex items-center mb-4">
+                                    <div class="w-12 h-12 rounded-full bg-blue-500 flex items-center justify-center mr-4">
+                                        <i class="fas fa-coins text-2xl"></i>
+                                    </div>
+                                    <h3 class="text-2xl font-bold">HKAIF Platform Token</h3>
+                                </div>
+                                <p class="text-gray-300 mb-4">
+                                    The foundation of the ecosystem, providing governance rights and value capture from all platform activities.
+                                </p>
+                            </div>
+                            <div class="p-6">
+                                <div class="space-y-6">
+                                    <div class="flex items-start">
+                                        <i class="fas fa-check-circle text-blue-400 mt-1 mr-3"></i>
+                                        <div>
+                                            <h4 class="font-medium">Governance Rights</h4>
+                                            <p class="text-sm text-gray-400">Vote on platform upgrades and key parameters</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <i class="fas fa-check-circle text-blue-400 mt-1 mr-3"></i>
+                                        <div>
+                                            <h4 class="font-medium">Economic Benefits</h4>
+                                            <p class="text-sm text-gray-400">Receive 30% of platform's total revenue</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <i class="fas fa-check-circle text-blue-400 mt-1 mr-3"></i>
+                                        <div>
+                                            <h4 class="font-medium">Priority Access</h4>
+                                            <p class="text-sm text-gray-400">Early investment opportunities in film projects</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <i class="fas fa-check-circle text-blue-400 mt-1 mr-3"></i>
+                                        <div>
+                                            <h4 class="font-medium">Fee Discounts</h4>
+                                            <p class="text-sm text-gray-400">Reduced platform fees based on holdings</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="token-card card rounded-xl overflow-hidden cyber-border animate-slide-up" style="animation-delay: 0.3s;">
+                            <div class="bg-purple-900 bg-opacity-30 p-6">
+                                <div class="flex items-center mb-4">
+                                    <div class="w-12 h-12 rounded-full bg-purple-500 flex items-center justify-center mr-4">
+                                        <i class="fas fa-film text-2xl"></i>
+                                    </div>
+                                    <h3 class="text-2xl font-bold">FILM Project Tokens</h3>
+                                </div>
+                                <p class="text-gray-300 mb-4">
+                                    Project-specific tokens representing ownership in individual AI films and their future revenue streams.
+                                </p>
+                            </div>
+                            <div class="p-6">
+                                <div class="space-y-6">
+                                    <div class="flex items-start">
+                                        <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                        <div>
+                                            <h4 class="font-medium">Revenue Rights</h4>
+                                            <p class="text-sm text-gray-400">Receive proportional share of film revenues</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                        <div>
+                                            <h4 class="font-medium">Creative Input</h4>
+                                            <p class="text-sm text-gray-400">Vote on key film production decisions</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                        <div>
+                                            <h4 class="font-medium">Secondary Market</h4>
+                                            <p class="text-sm text-gray-400">Trade tokens on the open marketplace</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
+                                        <div>
+                                            <h4 class="font-medium">Exclusive Benefits</h4>
+                                            <p class="text-sm text-gray-400">Access to premieres, NFTs, and special content</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="stats-card">
-                        <i class="fas fa-coins"></i>
-                        <div class="number">1.8M</div>
-                        <div class="text-sm">HKAIF Traded</div>
+                </div>
+            </section>
+
+            <!-- Featured Projects -->
+            <section class="py-20 bg-gray-900 bg-opacity-50" id="marketplace-preview">
+                <div class="container mx-auto px-4">
+                    <div class="flex justify-between items-center mb-12">
+                        <h2 class="text-3xl md:text-4xl font-bold section-title">Featured AI Films</h2>
+                        <a href="javascript:void(0)" onclick="showPage('marketplace')" class="text-blue-400 flex items-center hover:underline">
+                            View All Projects
+                            <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
                     </div>
-                    <div class="stats-card">
-                        <i class="fas fa-chart-line"></i>
-                        <div class="number">28%</div>
-                        <div class="text-sm">Avg. ROI</div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <!-- Project 1 -->
+                        <div class="card rounded-xl overflow-hidden animate-fade-in">
+                            <div class="relative">
+                                <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Beyond the Digital Horizon" class="project-img">
+                                <div class="absolute top-3 left-3">
+                                    <span class="bg-blue-500 bg-opacity-80 text-white px-2 py-1 rounded-full text-xs font-medium">Funding</span>
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-xl font-bold mb-2">Beyond the Digital Horizon</h3>
+                                <p class="text-gray-400 text-sm mb-4">
+                                    An AI-generated sci-fi epic exploring human consciousness in a world where reality and digital existence merge.
+                                </p>
+                                <div class="flex flex-wrap mb-3">
+                                    <span class="ai-chip">Sci-Fi</span>
+                                    <span class="ai-chip">Philosophy</span>
+                                    <span class="ai-chip">Cyberpunk</span>
+                                </div>
+                                <div class="mb-4">
+                                    <div class="flex justify-between text-sm mb-1">
+                                        <span>Funding Progress</span>
+                                        <span>68%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-800 rounded-full h-2">
+                                        <div class="progress-bar" style="width: 68%"></div>
+                                    </div>
+                                    <div class="flex justify-between text-xs text-gray-500 mt-1">
+                                        <span>340,000 HKAIF</span>
+                                        <span>500,000 HKAIF</span>
+                                    </div>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <div class="flex items-center">
+                                        <div class="w-8 h-8 rounded-full bg-gray-700 mr-2"></div>
+                                        <span class="text-sm">Digital Dreams</span>
+                                    </div>
+                                    <a href="javascript:void(0)" onclick="showPage('project-detail')" class="text-blue-400 text-sm hover:underline">View Details</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Project 2 -->
+                        <div class="card rounded-xl overflow-hidden animate-fade-in" style="animation-delay: 0.2s;">
+                            <div class="relative">
+                                <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Neon Memories" class="project-img">
+                                <div class="absolute top-3 left-3">
+                                    <span class="bg-purple-500 bg-opacity-80 text-white px-2 py-1 rounded-full text-xs font-medium">In Production</span>
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-xl font-bold mb-2">Neon Memories</h3>
+                                <p class="text-gray-400 text-sm mb-4">
+                                    A cyberpunk thriller set in future Hong Kong where memories can be bought and sold on the black market.
+                                </p>
+                                <div class="flex flex-wrap mb-3">
+                                    <span class="ai-chip">Thriller</span>
+                                    <span class="ai-chip">Hong Kong</span>
+                                    <span class="ai-chip">Neo-Noir</span>
+                                </div>
+                                <div class="mb-4">
+                                    <div class="flex justify-between text-sm mb-1">
+                                        <span>Production Progress</span>
+                                        <span>45%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-800 rounded-full h-2">
+                                        <div class="progress-bar" style="width: 45%"></div>
+                                    </div>
+                                    <div class="flex justify-between text-xs text-gray-500 mt-1">
+                                        <span>Token Value</span>
+                                        <span>1.2 HKAIF</span>
+                                    </div>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <div class="flex items-center">
+                                        <div class="w-8 h-8 rounded-full bg-gray-700 mr-2"></div>
+                                        <span class="text-sm">NeoVision Studios</span>
+                                    </div>
+                                    <a href="javascript:void(0)" onclick="showPage('project-detail')" class="text-blue-400 text-sm hover:underline">View Details</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Project 3 -->
+                        <div class="card rounded-xl overflow-hidden animate-fade-in" style="animation-delay: 0.4s;">
+                            <div class="relative">
+                                <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Harmonic Convergence" class="project-img">
+                                <div class="absolute top-3 left-3">
+                                    <span class="bg-green-500 bg-opacity-80 text-white px-2 py-1 rounded-full text-xs font-medium">Completed</span>
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-xl font-bold mb-2">Harmonic Convergence</h3>
+                                <p class="text-gray-400 text-sm mb-4">
+                                    A mesmerizing musical journey visualizing sound waves as humanoid characters in a vibrant audiovisual experience.
+                                </p>
+                                <div class="flex flex-wrap mb-3">
+                                    <span class="ai-chip">Musical</span>
+                                    <span class="ai-chip">Abstract</span>
+                                    <span class="ai-chip">Animation</span>
+                                </div>
+                                <div class="mb-4">
+                                    <div class="flex justify-between text-sm mb-1">
+                                        <span>ROI Performance</span>
+                                        <span class="text-green-400">+32%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-800 rounded-full h-2">
+                                        <div class="progress-bar" style="width: 100%"></div>
+                                    </div>
+                                    <div class="flex justify-between text-xs text-gray-500 mt-1">
+                                        <span>Revenue Generated</span>
+                                        <span>456K HKAIF</span>
+                                    </div>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <div class="flex items-center">
+                                        <div class="w-8 h-8 rounded-full bg-gray-700 mr-2"></div>
+                                        <span class="text-sm">SonicWave Collective</span>
+                                    </div>
+                                    <a href="javascript:void(0)" onclick="showPage('project-detail')" class="text-blue-400 text-sm hover:underline">View Details</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- How It Works -->
+            <section class="py-20 relative" id="learn-more">
+                <div class="container mx-auto px-4">
+                    <div class="text-center mb-16">
+                        <h2 class="text-3xl md:text-4xl font-bold mb-4 section-title center">How HKAIFM Works</h2>
+                        <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                            A revolutionary platform that integrates AI film production, blockchain financing, and transparent distribution.
+                        </p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                        <!-- Step 1 -->
+                        <div class="text-center">
+                            <div class="w-20 h-20 rounded-full gradient-bg flex items-center justify-center mx-auto mb-6">
+                                <i class="fas fa-magic text-3xl"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold mb-4">Create</h3>
+                            <p class="text-gray-300">
+                                Utilize cutting-edge AI tools to create stunning films with lower costs and greater creative freedom. From script to screen, our platform streamlines the entire process.
+                            </p>
+                        </div>
+                        
+                        <!-- Step 2 -->
+                        <div class="text-center">
+                            <div class="w-20 h-20 rounded-full gradient-bg flex items-center justify-center mx-auto mb-6">
+                                <i class="fas fa-chart-line text-3xl"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold mb-4">Invest</h3>
+                            <p class="text-gray-300">
+                                Fund promising AI film projects and receive project tokens that represent ownership rights. Track production progress and participate in key creative decisions.
+                            </p>
+                        </div>
+                        
+                        <!-- Step 3 -->
+                        <div class="text-center">
+                            <div class="w-20 h-20 rounded-full gradient-bg flex items-center justify-center mx-auto mb-6">
+                                <i class="fas fa-exchange-alt text-3xl"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold mb-4">Trade</h3>
+                            <p class="text-gray-300">
+                                Buy and sell film rights on our transparent marketplace. Receive automatic revenue distributions through smart contracts as films generate income.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-20">
+                        <div class="card rounded-xl overflow-hidden">
+                            <div class="aspect-w-16 aspect-h-9 relative h-96">
+                                <div class="w-full h-full bg-gradient-to-r from-blue-900 via-purple-800 to-pink-900 flex items-center justify-center">
+                                    <div class="text-center text-white">
+                                        <button class="w-20 h-20 rounded-full bg-blue-500 bg-opacity-80 flex items-center justify-center transition transform hover:scale-110 mx-auto mb-4">
+                                            <i class="fas fa-play text-2xl"></i>
+                                        </button>
+                                        <h3 class="text-xl font-bold text-white mb-2">Platform Demo Video</h3>
+                                        <p class="text-gray-300">Discover how HKAIFM works</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- AI Technology -->
+            <section class="py-20 bg-gray-900 bg-opacity-50">
+                <div class="container mx-auto px-4">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div class="animate-slide-right">
+                            <h2 class="text-3xl md:text-4xl font-bold mb-6 section-title">Cutting-Edge AI Film Technology</h2>
+                            <p class="text-xl text-gray-300 mb-8">
+                                HKAIFM integrates the most advanced AI models to revolutionize film production at every stage.
+                            </p>
+                            
+                            <div class="space-y-6">
+                                <div class="flex">
+                                    <div class="w-12 h-12 rounded-full bg-blue-500 bg-opacity-20 flex items-center justify-center mr-4 shrink-0">
+                                        <i class="fas fa-pen-nib text-blue-400"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-xl font-bold mb-2">Narrative Generation</h3>
+                                        <p class="text-gray-300">
+                                            Advanced large language models create compelling scripts, dialogue, and story structures tailored to your vision.
+                                        </p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex">
+                                    <div class="w-12 h-12 rounded-full bg-purple-500 bg-opacity-20 flex items-center justify-center mr-4 shrink-0">
+                                        <i class="fas fa-image text-purple-400"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-xl font-bold mb-2">Visual Generation</h3>
+                                        <p class="text-gray-300">
+                                            State-of-the-art diffusion models transform scripts into stunning visuals with consistent character designs and environments.
+                                        </p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex">
+                                    <div class="w-12 h-12 rounded-full bg-green-500 bg-opacity-20 flex items-center justify-center mr-4 shrink-0">
+                                        <i class="fas fa-film text-green-400"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-xl font-bold mb-2">Scene Synthesis</h3>
+                                        <p class="text-gray-300">
+                                            Proprietary motion models convert still imagery into fluid, cinematically-composed scenes with professional quality.
+                                        </p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex">
+                                    <div class="w-12 h-12 rounded-full bg-yellow-500 bg-opacity-20 flex items-center justify-center mr-4 shrink-0">
+                                        <i class="fas fa-music text-yellow-400"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-xl font-bold mb-2">Audio Generation</h3>
+                                        <p class="text-gray-300">
+                                            Create immersive soundscapes, original music scores, and realistic voice acting with our specialized audio AI models.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="relative animate-fade-in">
+                            <div class="ai-tech-img cyber-border bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900 flex items-center justify-center">
+                                <div class="text-center">
+                                    <i class="fas fa-robot text-6xl text-blue-400 mb-4"></i>
+                                    <h3 class="text-2xl font-bold text-white">AI Technology</h3>
+                                    <p class="text-gray-300">Powered by Advanced Neural Networks</p>
+                                </div>
+                            </div>
+                            <div class="absolute -top-6 -left-6 bg-black bg-opacity-70 rounded-lg p-3 backdrop-blur-sm border border-blue-500">
+                                <div class="text-xs font-mono text-blue-400">
+                                    <div>// AI MODEL STATUS</div>
+                                    <div>latent_space[4032] = <span class="text-green-400">ACTIVE</span>;</div>
+                                    <div>render_quality = 0.985;</div>
+                                </div>
+                            </div>
+                            <div class="absolute -bottom-6 -right-6 bg-black bg-opacity-70 rounded-lg p-3 backdrop-blur-sm border border-purple-500">
+                                <div class="text-xs font-mono text-purple-400">
+                                    <div>// PROCESSING</div>
+                                    <div>frames_completed: 87%</div>
+                                    <div>estimated_time: 00:03:42</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CTA Section -->
+            <section class="py-24 relative">
+                <div class="absolute inset-0 bg-gradient-to-r from-blue-900 to-purple-900 opacity-80"></div>
+                <div class="container mx-auto px-4 relative z-10">
+                    <div class="max-w-3xl mx-auto text-center">
+                        <h2 class="text-3xl md:text-5xl font-bold mb-6">Join the AI Film Revolution</h2>
+                        <p class="text-xl text-gray-200 mb-8">
+                            Whether you're a creator, investor, or enthusiast, HKAIFM offers unprecedented opportunities in the future of filmmaking.
+                        </p>
+                        <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                            <a href="javascript:void(0)" onclick="showPage('create')" class="btn-primary px-8 py-3 rounded-full font-medium text-center">
+                                Start Creating
+                            </a>
+                            <a href="javascript:void(0)" onclick="showPage('invest')" class="btn-secondary px-8 py-3 rounded-full font-medium text-center">
+                                Explore Investment
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- MARKETPLACE PAGE -->
+        <div id="marketplace-page" class="page-content">
+            <!-- Hero Section -->
+            <div class="pt-20 pb-12">
+                <div class="container mx-auto px-4">
+                    <!-- Hero Section -->
+                    <div class="mb-12 py-12 px-6 md:px-12 rounded-2xl bg-gradient-to-r from-blue-900 to-purple-900 relative overflow-hidden animate-fade-in">
+                        <div class="absolute top-0 left-0 w-full h-full">
+                            <img src="https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80" alt="Marketplace Hero" class="w-full h-full object-cover opacity-20">
+                        </div>
+                        <div class="relative z-10">
+                            <h1 class="text-3xl md:text-5xl font-bold mb-4">AI Film Marketplace</h1>
+                            <p class="text-xl mb-6 max-w-2xl">
+                                Discover, invest in, and collect AI-generated films from creators around the world. 
+                                Own digital rights and share in future revenue.
+                            </p>
+                            <div class="flex flex-wrap gap-4">
+                                <a href="#" class="btn-primary px-6 py-3 rounded-full">
+                                    Browse Projects
+                                </a>
+                                <a href="javascript:void(0)" onclick="showPage('create')" class="btn-secondary px-6 py-3 rounded-full">
+                                    Create Your Own
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Search and Filters -->
+                    <div class="mb-10 animate-slide-up">
+                        <div class="flex flex-col md:flex-row gap-4 items-center justify-between mb-6">
+                            <div class="w-full md:w-1/2">
+                                <div class="relative">
+                                    <input type="text" class="input-field w-full pl-12 pr-4 py-3 rounded-full focus:outline-none" placeholder="Search films, creators, or keywords...">
+                                    <div class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400">
+                                        <i class="fas fa-search"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4 w-full md:w-auto">
+                                <button id="filterBtn" class="btn-secondary px-4 py-2 rounded-full text-sm flex items-center">
+                                    <i class="fas fa-sliders-h mr-2"></i> Filters
+                                </button>
+                                <select class="input-field px-4 py-2 rounded-full text-sm focus:outline-none">
+                                    <option value="newest">Newest First</option>
+                                    <option value="oldest">Oldest First</option>
+                                    <option value="funding">Funding Progress</option>
+                                    <option value="budget">Budget: High to Low</option>
+                                    <option value="ending">Ending Soon</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <!-- Category Tabs -->
+                        <div class="mb-8 border-b border-gray-800">
+                            <div class="flex overflow-x-auto">
+                                <button class="px-6 py-3 tab-active font-medium">All Projects</button>
+                                <button class="px-6 py-3 text-gray-400 font-medium">Funding Now</button>
+                                <button class="px-6 py-3 text-gray-400 font-medium">In Production</button>
+                                <button class="px-6 py-3 text-gray-400 font-medium">Completed</button>
+                                <button class="px-6 py-3 text-gray-400 font-medium">Marketplace</button>
+                                <button class="px-6 py-3 text-gray-400 font-medium">Featured</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Advanced Filters -->
+                        <div id="advancedFilters" class="grid grid-cols-1 md:grid-cols-4 gap-6 p-6 rounded-xl bg-gray-900 mb-8 hidden">
+                            <div>
+                                <h3 class="text-sm font-medium mb-3">Genre</h3>
+                                <div class="space-y-2">
+                                    <div>
+                                        <input type="checkbox" id="genre-scifi" class="hidden filter-checkbox">
+                                        <label for="genre-scifi" class="filter-label">
+                                            <span>Sci-Fi</span>
+                                            <span class="check-icon text-blue-400">
+                                                <i class="fas fa-check"></i>
+                                            </span>
+                                        </label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" id="genre-drama" class="hidden filter-checkbox">
+                                        <label for="genre-drama" class="filter-label">
+                                            <span>Drama</span>
+                                            <span class="check-icon text-blue-400">
+                                                <i class="fas fa-check"></i>
+                                            </span>
+                                        </label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" id="genre-comedy" class="hidden filter-checkbox">
+                                        <label for="genre-comedy" class="filter-label">
+                                            <span>Comedy</span>
+                                            <span class="check-icon text-blue-400">
+                                                <i class="fas fa-check"></i>
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="text-sm font-medium mb-3">AI Level</h3>
+                                <div class="space-y-2">
+                                    <div>
+                                        <input type="checkbox" id="ai-full" class="hidden filter-checkbox">
+                                        <label for="ai-full" class="filter-label">
+                                            <span>Full AI Production</span>
+                                            <span class="check-icon text-blue-400">
+                                                <i class="fas fa-check"></i>
+                                            </span>
+                                        </label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" id="ai-hybrid" class="hidden filter-checkbox">
+                                        <label for="ai-hybrid" class="filter-label">
+                                            <span>Hybrid Production</span>
+                                            <span class="check-icon text-blue-400">
+                                                <i class="fas fa-check"></i>
+                                            </span>
+                                        </label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" id="ai-assisted" class="hidden filter-checkbox">
+                                        <label for="ai-assisted" class="filter-label">
+                                            <span>AI-Assisted</span>
+                                            <span class="check-icon text-blue-400">
+                                                <i class="fas fa-check"></i>
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="text-sm font-medium mb-3">Duration</h3>
+                                <div class="space-y-2">
+                                    <div>
+                                        <input type="checkbox" id="duration-short" class="hidden filter-checkbox">
+                                        <label for="duration-short" class="filter-label">
+                                            <span>Short (< 15 min)</span>
+                                            <span class="check-icon text-blue-400">
+                                                <i class="fas fa-check"></i>
+                                            </span>
+                                        </label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" id="duration-medium" class="hidden filter-checkbox">
+                                        <label for="duration-medium" class="filter-label">
+                                            <span>Medium (15-60 min)</span>
+                                            <span class="check-icon text-blue-400">
+                                                <i class="fas fa-check"></i>
+                                            </span>
+                                        </label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" id="duration-long" class="hidden filter-checkbox">
+                                        <label for="duration-long" class="filter-label">
+                                            <span>Feature (> 60 min)</span>
+                                            <span class="check-icon text-blue-400">
+                                                <i class="fas fa-check"></i>
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="text-sm font-medium mb-3">Investment Range</h3>
+                                <div class="px-3">
+                                    <div class="mb-4">
+                                        <label class="flex justify-between mb-1">
+                                            <span>Min: $500</span>
+                                            <span>Max: $50,000</span>
+                                        </label>
+                                        <input type="range" min="500" max="50000" value="25000" class="slider w-full">
+                                    </div>
+                                    <button class="btn-primary w-full py-2 rounded-lg">Apply Filters</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Project Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                        <!-- Project Card 1: Funding -->
+                        <div class="card rounded-xl overflow-hidden animate-slide-up">
+                            <div class="relative">
+                                <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Beyond the Digital Horizon" class="project-img">
+                                <div class="absolute top-3 left-3">
+                                    <span class="status-badge status-funding">Funding: 18 days left</span>
+                                </div>
+                                <div class="absolute top-3 right-3">
+                                    <button class="bg-gray-900 bg-opacity-50 rounded-full p-2 hover:bg-opacity-70">
+                                        <i class="far fa-heart"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-xl font-bold mb-2">Beyond the Digital Horizon</h3>
+                                <div class="flex items-center mb-3">
+                                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="Creator" class="w-6 h-6 rounded-full mr-2">
+                                    <span class="text-sm text-gray-400">by Digital Dreams Studio</span>
+                                </div>
+                                <p class="text-gray-400 text-sm mb-4">
+                                    An AI-generated sci-fi epic exploring human consciousness in a world where reality and digital existence merge.
+                                </p>
+                                <div class="mb-4">
+                                    <div class="flex justify-between text-sm mb-1">
+                                        <span>Funding Progress</span>
+                                        <span class="font-medium">68%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-800 rounded-full h-2">
+                                        <div class="progress-bar h-2 rounded-full" style="width: 68%"></div>
+                                    </div>
+                                </div>
+                                <div class="flex justify-between mb-4">
+                                    <div>
+                                        <div class="text-xl font-bold gradient-text">34,000 HKAIF</div>
+                                        <div class="text-xs text-gray-500">of 50,000 HKAIF goal</div>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="text-xl font-bold">127</div>
+                                        <div class="text-xs text-gray-500">Investors</div>
+                                    </div>
+                                </div>
+                                <a href="project-detail.html" class="btn-primary w-full py-3 rounded-lg text-center font-medium block">
+                                    Invest Now
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <!-- Project Card 2: Production -->
+                        <div class="card rounded-xl overflow-hidden animate-slide-up" style="animation-delay: 0.1s;">
+                            <div class="relative">
+                                <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Neon Memories" class="project-img">
+                                <div class="absolute top-3 left-3">
+                                    <span class="status-badge status-production">In Production: 65%</span>
+                                </div>
+                                <div class="absolute top-3 right-3">
+                                    <button class="bg-gray-900 bg-opacity-50 rounded-full p-2 hover:bg-opacity-70">
+                                        <i class="fas fa-heart text-red-500"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-xl font-bold mb-2">Neon Memories</h3>
+                                <div class="flex items-center mb-3">
+                                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="Creator" class="w-6 h-6 rounded-full mr-2">
+                                    <span class="text-sm text-gray-400">by Neural Filmworks</span>
+                                </div>
+                                <p class="text-gray-400 text-sm mb-4">
+                                    A cyberpunk thriller about memory traders in a future Hong Kong where experiences can be bought and sold.
+                                </p>
+                                <div class="mb-4">
+                                    <div class="flex justify-between text-sm mb-1">
+                                        <span>Production Progress</span>
+                                        <span class="font-medium">65%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-800 rounded-full h-2">
+                                        <div class="progress-bar h-2 rounded-full" style="width: 65%"></div>
+                                    </div>
+                                </div>
+                                <div class="flex justify-between mb-4">
+                                    <div>
+                                        <div class="text-xl font-bold gradient-text">78,000 HKAIF</div>
+                                        <div class="text-xs text-gray-500">Raised (Closed)</div>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="text-xl font-bold">213</div>
+                                        <div class="text-xs text-gray-500">Investors</div>
+                                    </div>
+                                </div>
+                                <a href="project-detail.html" class="btn-secondary w-full py-3 rounded-lg text-center font-medium block">
+                                    View Project
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <!-- Project Card 3: Marketplace -->
+                        <div class="card rounded-xl overflow-hidden animate-slide-up" style="animation-delay: 0.2s;">
+                            <div class="relative">
+                                <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Quantum Echoes" class="project-img">
+                                <div class="absolute top-3 left-3">
+                                    <span class="status-badge status-marketplace">Marketplace</span>
+                                </div>
+                                <div class="absolute top-3 right-3">
+                                    <button class="bg-gray-900 bg-opacity-50 rounded-full p-2 hover:bg-opacity-70">
+                                        <i class="far fa-heart"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-xl font-bold mb-2">Quantum Echoes</h3>
+                                <div class="flex items-center mb-3">
+                                    <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="Creator" class="w-6 h-6 rounded-full mr-2">
+                                    <span class="text-sm text-gray-400">by Quantum Lens Studios</span>
+                                </div>
+                                <p class="text-gray-400 text-sm mb-4">
+                                    An experimental film exploring quantum physics concepts through stunning AI-generated visuals and narrative.
+                                </p>
+                                <div class="flex items-center mb-4">
+                                    <div>
+                                        <div class="text-xs uppercase text-gray-500 mb-1">Last Sale Price</div>
+                                        <div class="text-xl font-bold gradient-text">15,300 HKAIF</div>
+                                    </div>
+                                    <div class="border-l border-gray-700 h-10 mx-4"></div>
+                                    <div>
+                                        <div class="text-xs uppercase text-gray-500 mb-1">Current Owner</div>
+                                        <div class="text-sm flex items-center">
+                                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="Owner" class="w-5 h-5 rounded-full mr-2">
+                                            <span>0x64F...9E21</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex space-x-3">
+                                    <a href="copyright-detail.html" class="btn-primary flex-1 py-3 rounded-lg text-center font-medium block">
+                                        Buy Rights
+                                    </a>
+                                    <a href="project-detail.html" class="btn-secondary flex-1 py-3 rounded-lg text-center font-medium block">
+                                        View Details
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Project Card 4: Completed -->
+                        <div class="card rounded-xl overflow-hidden animate-slide-up">
+                            <div class="relative">
+                                <img src="https://images.unsplash.com/photo-1518676590629-3dcbd9c5a5c9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="The Silent Algorithm" class="project-img">
+                                <div class="absolute top-3 left-3">
+                                    <span class="status-badge status-completed">Completed</span>
+                                </div>
+                                <div class="absolute top-3 right-3">
+                                    <button class="bg-gray-900 bg-opacity-50 rounded-full p-2 hover:bg-opacity-70">
+                                        <i class="far fa-heart"></i>
+                                    </button>
+                                </div>
+                                <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-70 p-2 flex items-center justify-center">
+                                    <i class="fas fa-play-circle text-white mr-2"></i>
+                                    <span class="text-sm">Watch Trailer</span>
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-xl font-bold mb-2">The Silent Algorithm</h3>
+                                <div class="flex items-center mb-3">
+                                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="Creator" class="w-6 h-6 rounded-full mr-2">
+                                    <span class="text-sm text-gray-400">by AI Visionaries</span>
+                                </div>
+                                <p class="text-gray-400 text-sm mb-4">
+                                    A breathtaking AI-generated visual poem exploring the relationship between humans and artificial intelligence.
+                                </p>
+                                <div class="mb-4 flex items-center justify-between">
+                                    <div class="flex">
+                                        <div class="flex items-center mr-4">
+                                            <i class="fas fa-eye text-gray-500 mr-1"></i>
+                                            <span class="text-sm">4.2K</span>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <i class="fas fa-star text-yellow-500 mr-1"></i>
+                                            <span class="text-sm">4.8</span>
+                                        </div>
+                                    </div>
+                                    <div class="text-sm">
+                                        <i class="fas fa-calendar-alt text-gray-500 mr-1"></i>
+                                        <span>Released: Dec 2024</span>
+                                    </div>
+                                </div>
+                                <div class="flex space-x-3">
+                                    <a href="watch.html" class="btn-primary flex-1 py-3 rounded-lg text-center font-medium block">
+                                        Watch Now
+                                    </a>
+                                    <a href="project-detail.html" class="btn-secondary flex-1 py-3 rounded-lg text-center font-medium block">
+                                        View Details
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Project Card 5: Funding -->
+                        <div class="card rounded-xl overflow-hidden animate-slide-up" style="animation-delay: 0.1s;">
+                            <div class="relative">
+                                <img src="https://images.unsplash.com/photo-1543536448-d209d2d13a1c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Harmonic Convergence" class="project-img">
+                                <div class="absolute top-3 left-3">
+                                    <span class="status-badge status-funding">Funding: 7 days left</span>
+                                </div>
+                                <div class="absolute top-3 right-3">
+                                    <button class="bg-gray-900 bg-opacity-50 rounded-full p-2 hover:bg-opacity-70">
+                                        <i class="far fa-heart"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-xl font-bold mb-2">Harmonic Convergence</h3>
+                                <div class="flex items-center mb-3">
+                                    <img src="https://images.unsplash.com/photo-1552058544-f2b08422138a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="Creator" class="w-6 h-6 rounded-full mr-2">
+                                    <span class="text-sm text-gray-400">by Synthetic Harmonies</span>
+                                </div>
+                                <p class="text-gray-400 text-sm mb-4">
+                                    An AI-composed musical journey that visualizes sound waves as humanoid characters in a stunning visual landscape.
+                                </p>
+                                <div class="mb-4">
+                                    <div class="flex justify-between text-sm mb-1">
+                                        <span>Funding Progress</span>
+                                        <span class="font-medium">92%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-800 rounded-full h-2">
+                                        <div class="progress-bar h-2 rounded-full" style="width: 92%"></div>
+                                    </div>
+                                </div>
+                                <div class="flex justify-between mb-4">
+                                    <div>
+                                        <div class="text-xl font-bold gradient-text">45,800 HKAIF</div>
+                                        <div class="text-xs text-gray-500">of 50,000 HKAIF goal</div>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="text-xl font-bold">189</div>
+                                        <div class="text-xs text-gray-500">Investors</div>
+                                    </div>
+                                </div>
+                                <a href="project-detail.html" class="btn-primary w-full py-3 rounded-lg text-center font-medium block">
+                                    Invest Now
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <!-- Project Card 6: Marketplace -->
+                        <div class="card rounded-xl overflow-hidden animate-slide-up" style="animation-delay: 0.2s;">
+                            <div class="relative">
+                                <img src="https://images.unsplash.com/photo-1563089145-599997674d42?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Ethereal Dreams" class="project-img">
+                                <div class="absolute top-3 left-3">
+                                    <span class="status-badge status-marketplace">Marketplace</span>
+                                </div>
+                                <div class="absolute top-3 right-3">
+                                    <button class="bg-gray-900 bg-opacity-50 rounded-full p-2 hover:bg-opacity-70">
+                                        <i class="fas fa-heart text-red-500"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-xl font-bold mb-2">Ethereal Dreams</h3>
+                                <div class="flex items-center mb-3">
+                                    <img src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="Creator" class="w-6 h-6 rounded-full mr-2">
+                                    <span class="text-sm text-gray-400">by DreamScape AI</span>
+                                </div>
+                                <p class="text-gray-400 text-sm mb-4">
+                                    A surrealist journey through the collective unconscious, generated by dream pattern analysis and visualization AI.
+                                </p>
+                                <div class="flex items-center mb-4">
+                                    <div>
+                                        <div class="text-xs uppercase text-gray-500 mb-1">Auction Ending</div>
+                                        <div class="text-xl font-bold gradient-text">23:14:56</div>
+                                    </div>
+                                    <div class="border-l border-gray-700 h-10 mx-4"></div>
+                                    <div>
+                                        <div class="text-xs uppercase text-gray-500 mb-1">Current Bid</div>
+                                        <div class="text-xl font-bold">25,000 HKAIF</div>
+                                    </div>
+                                </div>
+                                <div class="flex space-x-3">
+                                    <a href="place-bid.html" class="btn-primary flex-1 py-3 rounded-lg text-center font-medium block">
+                                        Place Bid
+                                    </a>
+                                    <a href="project-detail.html" class="btn-secondary flex-1 py-3 rounded-lg text-center font-medium block">
+                                        View Details
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Load More Button -->
+                    <div class="text-center mb-12">
+                        <button class="btn-secondary px-10 py-3 rounded-full inline-flex items-center">
+                            Load More Projects
+                            <i class="fas fa-sync-alt ml-2"></i>
+                        </button>
+                    </div>
+                    
+                    <!-- Featured Section -->
+                    <div class="mb-20 animate-fade-in">
+                        <h2 class="text-3xl font-bold mb-8">Featured Collections</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Featured Collection 1 -->
+                            <div class="card rounded-xl overflow-hidden">
+                                <div class="relative">
+                                    <img src="https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80" alt="AI Cyberpunk Collection" class="w-full h-56 object-cover">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent"></div>
+                                    <div class="absolute bottom-4 left-4 right-4">
+                                        <h3 class="text-2xl font-bold mb-1">AI Cyberpunk Collection</h3>
+                                        <p class="text-gray-300">5 groundbreaking films exploring digital dystopias</p>
+                                    </div>
+                                </div>
+                                <div class="p-4 flex justify-between items-center">
+                                    <div class="flex -space-x-2">
+                                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="Creator" class="w-8 h-8 rounded-full border-2 border-gray-900">
+                                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="Creator" class="w-8 h-8 rounded-full border-2 border-gray-900">
+                                        <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="Creator" class="w-8 h-8 rounded-full border-2 border-gray-900">
+                                        <div class="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-xs font-bold border-2 border-gray-900">+2</div>
+                                    </div>
+                                    <a href="collection-detail.html" class="text-blue-400 hover:text-blue-300">
+                                        View Collection
+                                        <i class="fas fa-arrow-right ml-1"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <!-- Featured Collection 2 -->
+                            <div class="card rounded-xl overflow-hidden">
+                                <div class="relative">
+                                    <img src="https://images.unsplash.com/photo-1505506874110-6a7a69069a08?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80" alt="Dreamscape Visions" class="w-full h-56 object-cover">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent"></div>
+                                    <div class="absolute bottom-4 left-4 right-4">
+                                        <h3 class="text-2xl font-bold mb-1">Dreamscape Visions</h3>
+                                        <p class="text-gray-300">Surrealist experimental shorts from top AI creators</p>
+                                    </div>
+                                </div>
+                                <div class="p-4 flex justify-between items-center">
+                                    <div class="flex -space-x-2">
+                                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="Creator" class="w-8 h-8 rounded-full border-2 border-gray-900">
+                                        <img src="https://images.unsplash.com/photo-1552058544-f2b08422138a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="Creator" class="w-8 h-8 rounded-full border-2 border-gray-900">
+                                        <img src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="Creator" class="w-8 h-8 rounded-full border-2 border-gray-900">
+                                        <div class="w-8 h-8 rounded-full bg-purple-500 flex items-center justify-center text-xs font-bold border-2 border-gray-900">+4</div>
+                                    </div>
+                                    <a href="collection-detail.html" class="text-blue-400 hover:text-blue-300">
+                                        View Collection
+                                        <i class="fas fa-arrow-right ml-1"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Token Exchange Banner -->
+                    <div class="rounded-2xl overflow-hidden mb-20 animate-fade-in">
+                        <div class="gradient-bg p-8">
+                            <div class="flex flex-col md:flex-row items-center justify-between">
+                                <div class="mb-6 md:mb-0 md:mr-10">
+                                    <h2 class="text-3xl font-bold mb-4">HKAIF Token Exchange</h2>
+                                    <p class="text-xl mb-6">
+                                        Trade HKAIF tokens for project-specific tokens or convert from other cryptocurrencies.
+                                    </p>
+                                    <div class="flex flex-wrap gap-4">
+                                        <a href="javascript:void(0)" onclick="showPage('token-exchange')" class="bg-white text-purple-900 px-6 py-3 rounded-full font-medium hover:bg-gray-100 transition">
+                                            Go to Exchange
+                                        </a>
+                                        <a href="javascript:void(0)" onclick="showPage('tokenomics')" class="border-2 border-white px-6 py-3 rounded-full font-medium hover:bg-white hover:bg-opacity-10 transition">
+                                            Learn About Tokenomics
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg p-6 rounded-xl">
+                                        <div class="flex items-center">
+                                            <div class="bg-gray-800 w-12 h-12 rounded-full flex items-center justify-center mr-3">
+                                                <i class="fas fa-coins text-yellow-400 text-xl"></i>
+                                            </div>
+                                            <div>
+                                                <div class="text-lg font-medium">Current Price</div>
+                                                <div class="text-2xl font-bold">$0.875 USD</div>
+                                                <div class="text-sm text-green-400">+5.3% <i class="fas fa-arrow-up ml-1"></i></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Top Creators Section -->
+                    <div class="mb-20 animate-fade-in">
+                        <div class="flex justify-between items-center mb-8">
+                            <h2 class="text-3xl font-bold">Top Creators</h2>
+                            <a href="javascript:void(0)" onclick="showPage('community')" class="text-blue-400 hover:text-blue-300">
+                                View All Creators
+                                <i class="fas fa-arrow-right ml-1"></i>
+                            </a>
+                        </div>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                            <!-- Creator 1 -->
+                            <div class="card rounded-xl p-6 text-center">
+                                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="Digital Dreams Studio" class="w-24 h-24 object-cover rounded-full mx-auto mb-4 border-4 border-blue-500">
+                                <h3 class="text-lg font-bold mb-1">Digital Dreams Studio</h3>
+                                <p class="text-gray-400 text-sm mb-3">5 Projects • 325 Investors</p>
+                                <div class="flex justify-center space-x-2 mb-4">
+                                    <span class="px-2 py-1 bg-blue-900 text-blue-300 rounded-full text-xs">Sci-Fi</span>
+                                    <span class="px-2 py-1 bg-purple-900 text-purple-300 rounded-full text-xs">Drama</span>
+                                </div>
+                                <button class="btn-secondary w-full py-2 rounded-full text-sm">
+                                    Follow
+                                </button>
+                            </div>
+                            
+                            <!-- Creator 2 -->
+                            <div class="card rounded-xl p-6 text-center">
+                                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="Neural Filmworks" class="w-24 h-24 object-cover rounded-full mx-auto mb-4 border-4 border-purple-500">
+                                <h3 class="text-lg font-bold mb-1">Neural Filmworks</h3>
+                                <p class="text-gray-400 text-sm mb-3">8 Projects • 541 Investors</p>
+                                <div class="flex justify-center space-x-2 mb-4">
+                                    <span class="px-2 py-1 bg-blue-900 text-blue-300 rounded-full text-xs">Cyberpunk</span>
+                                    <span class="px-2 py-1 bg-green-900 text-green-300 rounded-full text-xs">Thriller</span>
+                                </div>
+                                <button class="btn-secondary w-full py-2 rounded-full text-sm">
+                                    Follow
+                                </button>
+                            </div>
+                            
+                            <!-- Creator 3 -->
+                            <div class="card rounded-xl p-6 text-center">
+                                <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="Quantum Lens Studios" class="w-24 h-24 object-cover rounded-full mx-auto mb-4 border-4 border-green-500">
+                                <h3 class="text-lg font-bold mb-1">Quantum Lens Studios</h3>
+                                <p class="text-gray-400 text-sm mb-3">3 Projects • 289 Investors</p>
+                                <div class="flex justify-center space-x-2 mb-4">
+                                    <span class="px-2 py-1 bg-indigo-900 text-indigo-300 rounded-full text-xs">Experimental</span>
+                                    <span class="px-2 py-1 bg-red-900 text-red-300 rounded-full text-xs">Animation</span>
+                                </div>
+                                <button class="btn-secondary w-full py-2 rounded-full text-sm">
+                                    Follow
+                                </button>
+                            </div>
+                            
+                            <!-- Creator 4 -->
+                            <div class="card rounded-xl p-6 text-center">
+                                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="AI Visionaries" class="w-24 h-24 object-cover rounded-full mx-auto mb-4 border-4 border-yellow-500">
+                                <h3 class="text-lg font-bold mb-1">AI Visionaries</h3>
+                                <p class="text-gray-400 text-sm mb-3">6 Projects • 412 Investors</p>
+                                <div class="flex justify-center space-x-2 mb-4">
+                                    <span class="px-2 py-1 bg-yellow-900 text-yellow-300 rounded-full text-xs">Documentary</span>
+                                    <span class="px-2 py-1 bg-pink-900 text-pink-300 rounded-full text-xs">Visual Art</span>
+                                </div>
+                                <button class="btn-secondary w-full py-2 rounded-full text-sm">
+                                    Follow
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Join the Community -->
+                    <div class="card rounded-2xl p-8 mb-12 animate-fade-in">
+                        <div class="flex flex-col md:flex-row items-center">
+                            <div class="md:w-1/2 mb-6 md:mb-0 md:pr-10">
+                                <h2 class="text-3xl font-bold mb-4">Join the HKAIFM Community</h2>
+                                <p class="text-lg text-gray-300 mb-6">
+                                    Connect with AI film creators, investors, and enthusiasts. Share ideas, collaborate on projects, and stay updated on the latest platform developments.
+                                </p>
+                                <div class="flex flex-wrap gap-4">
+                                    <a href="javascript:void(0)" onclick="showPage('community')" class="btn-primary px-6 py-3 rounded-full font-medium">
+                                        Join Community
+                                    </a>
+                                    <a href="#" class="btn-secondary flex items-center px-6 py-3 rounded-full font-medium">
+                                        <i class="fab fa-discord mr-2"></i> Discord
+                                    </a>
+                                    <a href="#" class="btn-secondary flex items-center px-6 py-3 rounded-full font-medium">
+                                        <i class="fab fa-telegram mr-2"></i> Telegram
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="md:w-1/2">
+                                <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80" alt="HKAIFM Community" class="rounded-xl shadow-2xl">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
 
-    <!-- Dual Token Structure -->
-    <section class="py-20 relative" id="tokenomics">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16 animate-fade-in">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4 section-title center">Dual-Token Economic Structure</h2>
-                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
-                    HKAIFM operates on an innovative two-layer token system, ensuring transparent value distribution across the ecosystem.
-                </p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                <div class="token-card card rounded-xl overflow-hidden cyber-border animate-slide-right">
-                    <div class="bg-blue-900 bg-opacity-30 p-6">
-                        <div class="flex items-center mb-4">
-                            <div class="w-12 h-12 rounded-full bg-blue-500 flex items-center justify-center mr-4">
-                                <i class="fas fa-coins text-2xl"></i>
-                            </div>
-                            <h3 class="text-2xl font-bold">HKAIF Platform Token</h3>
-                        </div>
-                        <p class="text-gray-300 mb-4">
-                            The foundation of the ecosystem, providing governance rights and value capture from all platform activities.
+        <!-- TOKEN EXCHANGE PAGE -->
+        <div id="token-exchange-page" class="page-content">
+            <div class="pt-24 pb-16">
+                <div class="container mx-auto px-4">
+                    <!-- Page Header -->
+                    <div class="mb-10 animate-fade-in">
+                        <h1 class="text-3xl md:text-4xl font-bold mb-4 gradient-text">Token Exchange</h1>
+                        <p class="text-xl text-gray-300 max-w-3xl">
+                            Swap between HKAIF platform tokens and film project tokens. Trade with confidence on our secure decentralized exchange with real-time pricing and low transaction fees.
                         </p>
                     </div>
-                    <div class="p-6">
-                        <div class="space-y-4">
-                            <div class="flex items-start">
-                                <i class="fas fa-check-circle text-blue-400 mt-1 mr-3"></i>
-                                <div>
-                                    <h4 class="font-medium">Governance Rights</h4>
-                                    <p class="text-sm text-gray-400">Vote on platform upgrades and key parameters</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start">
-                                <i class="fas fa-check-circle text-blue-400 mt-1 mr-3"></i>
-                                <div>
-                                    <h4 class="font-medium">Economic Benefits</h4>
-                                    <p class="text-sm text-gray-400">Receive 30% of platform's total revenue</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start">
-                                <i class="fas fa-check-circle text-blue-400 mt-1 mr-3"></i>
-                                <div>
-                                    <h4 class="font-medium">Priority Access</h4>
-                                    <p class="text-sm text-gray-400">Early investment opportunities in film projects</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start">
-                                <i class="fas fa-check-circle text-blue-400 mt-1 mr-3"></i>
-                                <div>
-                                    <h4 class="font-medium">Fee Discounts</h4>
-                                    <p class="text-sm text-gray-400">Reduced platform fees based on holdings</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="token-card card rounded-xl overflow-hidden cyber-border animate-slide-up" style="animation-delay: 0.3s;">
-                    <div class="bg-purple-900 bg-opacity-30 p-6">
-                        <div class="flex items-center mb-4">
-                            <div class="w-12 h-12 rounded-full bg-purple-500 flex items-center justify-center mr-4">
-                                <i class="fas fa-film text-2xl"></i>
-                            </div>
-                            <h3 class="text-2xl font-bold">FILM Project Tokens</h3>
-                        </div>
-                        <p class="text-gray-300 mb-4">
-                            Project-specific tokens representing ownership in individual AI films and their future revenue streams.
-                        </p>
-                    </div>
-                    <div class="p-6">
-                        <div class="space-y-4">
-                            <div class="flex items-start">
-                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
-                                <div>
-                                    <h4 class="font-medium">Revenue Rights</h4>
-                                    <p class="text-sm text-gray-400">Receive proportional share of film revenues</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start">
-                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
-                                <div>
-                                    <h4 class="font-medium">Creative Input</h4>
-                                    <p class="text-sm text-gray-400">Vote on key film production decisions</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start">
-                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
-                                <div>
-                                    <h4 class="font-medium">Secondary Market</h4>
-                                    <p class="text-sm text-gray-400">Trade tokens on the open marketplace</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start">
-                                <i class="fas fa-check-circle text-purple-400 mt-1 mr-3"></i>
-                                <div>
-                                    <h4 class="font-medium">Exclusive Benefits</h4>
-                                    <p class="text-sm text-gray-400">Access to premieres, NFTs, and special content</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Featured Projects -->
-    <section class="py-20 bg-gray-900 bg-opacity-50" id="marketplace">
-        <div class="container mx-auto px-4">
-            <div class="flex justify-between items-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold section-title">Featured AI Films</h2>
-                <a href="#marketplace" class="text-blue-400 flex items-center hover:underline">
-                    View All Projects
-                    <i class="fas fa-arrow-right ml-2"></i>
-                </a>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Project 1 -->
-                <div class="card rounded-xl overflow-hidden animate-fade-in">
-                    <div class="relative">
-                        <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Beyond the Digital Horizon" class="project-img">
-                        <div class="absolute top-3 left-3">
-                            <span class="bg-blue-500 bg-opacity-80 text-white px-2 py-1 rounded-full text-xs font-medium">Funding</span>
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2">Beyond the Digital Horizon</h3>
-                        <p class="text-gray-400 text-sm mb-4">
-                            An AI-generated sci-fi epic exploring human consciousness in a world where reality and digital existence merge.
-                        </p>
-                        <div class="flex flex-wrap mb-3">
-                            <span class="ai-chip">Sci-Fi</span>
-                            <span class="ai-chip">Philosophy</span>
-                            <span class="ai-chip">Cyberpunk</span>
-                        </div>
-                        <div class="mb-4">
-                            <div class="flex justify-between text-sm mb-1">
-                                <span>Funding Progress</span>
-                                <span>68%</span>
-                            </div>
-                            <div class="w-full bg-gray-800 rounded-full h-2">
-                                <div class="progress-bar" style="width: 68%"></div>
-                            </div>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <div class="flex items-center">
-                                <div class="w-8 h-8 rounded-full bg-gray-700 mr-2"></div>
-                                <span class="text-sm">Digital Dreams</span>
-                            </div>
-                            <a href="#project-details" class="text-blue-400 text-sm hover:underline">View Details</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Project 2 -->
-                <div class="card rounded-xl overflow-hidden animate-fade-in" style="animation-delay: 0.2s;">
-                    <div class="relative">
-                        <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Neon Memories" class="project-img">
-                        <div class="absolute top-3 left-3">
-                            <span class="bg-purple-500 bg-opacity-80 text-white px-2 py-1 rounded-full text-xs font-medium">In Production</span>
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2">Neon Memories</h3>
-                        <p class="text-gray-400 text-sm mb-4">
-                            A cyberpunk thriller set in future Hong Kong where memories can be bought and sold on the black market.
-                        </p>
-                        <div class="flex flex-wrap mb-3">
-                            <span class="ai-chip">Thriller</span>
-                            <span class="ai-chip">Hong Kong</span>
-                            <span class="ai-chip">Neo-Noir</span>
-                        </div>
-                        <div class="mb-4">
-                            <div class="flex justify-between text-sm mb-1">
-                                <span>Production Progress</span>
-                                <span>45%</span>
-                            </div>
-                            <div class="w-full bg-gray-800 rounded-full h-2">
-                                <div class="progress-bar" style="width: 45%"></div>
-                            </div>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <div class="flex items-center">
-                                <div class="w-8 h-8 rounded-full bg-gray-700 mr-2"></div>
-                                <span class="text-sm">NeoVision Studios</span>
-                            </div>
-                            <a href="#project-details" class="text-blue-400 text-sm hover:underline">View Details</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Project 3 -->
-                <div class="card rounded-xl overflow-hidden animate-fade-in" style="animation-delay: 0.4s;">
-                    <div class="relative">
-                        <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Harmonic Convergence" class="project-img">
-                        <div class="absolute top-3 left-3">
-                            <span class="bg-green-500 bg-opacity-80 text-white px-2 py-1 rounded-full text-xs font-medium">Completed</span>
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2">Harmonic Convergence</h3>
-                        <p class="text-gray-400 text-sm mb-4">
-                            A mesmerizing musical journey visualizing sound waves as humanoid characters in a vibrant audiovisual experience.
-                        </p>
-                        <div class="flex flex-wrap mb-3">
-                            <span class="ai-chip">Musical</span>
-                            <span class="ai-chip">Abstract</span>
-                            <span class="ai-chip">Animation</span>
-                        </div>
-                        <div class="mb-4">
-                            <div class="flex justify-between text-sm mb-1">
-                                <span>ROI Performance</span>
-                                <span class="text-green-400">+32%</span>
-                            </div>
-                            <div class="w-full bg-gray-800 rounded-full h-2">
-                                <div class="progress-bar" style="width: 100%"></div>
-                            </div>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <div class="flex items-center">
-                                <div class="w-8 h-8 rounded-full bg-gray-700 mr-2"></div>
-                                <span class="text-sm">SonicWave Collective</span>
-                            </div>
-                            <a href="#project-details" class="text-blue-400 text-sm hover:underline">View Details</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- How It Works -->
-    <section class="py-20 relative" id="learn-more">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4 section-title center">How HKAIFM Works</h2>
-                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
-                    A revolutionary platform that integrates AI film production, blockchain financing, and transparent distribution.
-                </p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-                <!-- Step 1 -->
-                <div class="text-center">
-                    <div class="w-20 h-20 rounded-full gradient-bg flex items-center justify-center mx-auto mb-6">
-                        <i class="fas fa-magic text-3xl"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4">Create</h3>
-                    <p class="text-gray-300">
-                        Utilize cutting-edge AI tools to create stunning films with lower costs and greater creative freedom. From script to screen, our platform streamlines the entire process.
-                    </p>
-                </div>
-                
-                <!-- Step 2 -->
-                <div class="text-center">
-                    <div class="w-20 h-20 rounded-full gradient-bg flex items-center justify-center mx-auto mb-6">
-                        <i class="fas fa-chart-line text-3xl"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4">Invest</h3>
-                    <p class="text-gray-300">
-                        Fund promising AI film projects and receive project tokens that represent ownership rights. Track production progress and participate in key creative decisions.
-                    </p>
-                </div>
-                
-                <!-- Step 3 -->
-                <div class="text-center">
-                    <div class="w-20 h-20 rounded-full gradient-bg flex items-center justify-center mx-auto mb-6">
-                        <i class="fas fa-exchange-alt text-3xl"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4">Trade</h3>
-                    <p class="text-gray-300">
-                        Buy and sell film rights on our transparent marketplace. Receive automatic revenue distributions through smart contracts as films generate income.
-                    </p>
-                </div>
-            </div>
-            
-            <div class="mt-20">
-                <div class="card rounded-xl overflow-hidden">
-                    <div class="aspect-w-16 aspect-h-9 relative">
-                        <div class="w-full h-full bg-gradient-to-r from-blue-900 via-purple-800 to-pink-900"></div>
-                        <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
-                            <button class="w-20 h-20 rounded-full bg-blue-500 bg-opacity-80 flex items-center justify-center transition transform hover:scale-110">
-                                <i class="fas fa-play text-2xl"></i>
+                    
+                    <!-- Exchange Tabs -->
+                    <div class="mb-6 animate-fade-in">
+                        <div class="flex flex-wrap gap-3">
+                            <button class="px-6 py-3 rounded-lg font-medium border border-transparent bg-blue-500 text-white">
+                                <i class="fas fa-exchange-alt mr-2"></i> Swap
+                            </button>
+                            <button class="px-6 py-3 rounded-lg font-medium text-gray-400 border border-transparent hover:border-gray-700 hover:bg-gray-800">
+                                <i class="fas fa-swimming-pool mr-2"></i> Liquidity
+                            </button>
+                            <button class="px-6 py-3 rounded-lg font-medium text-gray-400 border border-transparent hover:border-gray-700 hover:bg-gray-800">
+                                <i class="fas fa-chart-bar mr-2"></i> Markets
+                            </button>
+                            <button class="px-6 py-3 rounded-lg font-medium text-gray-400 border border-transparent hover:border-gray-700 hover:bg-gray-800">
+                                <i class="fas fa-history mr-2"></i> Transaction History
                             </button>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- AI Technology -->
-    <section class="py-20 bg-gray-900 bg-opacity-50">
-        <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <div class="animate-slide-right">
-                    <h2 class="text-3xl md:text-4xl font-bold mb-6 section-title">Cutting-Edge AI Film Technology</h2>
-                    <p class="text-xl text-gray-300 mb-8">
-                        HKAIFM integrates the most advanced AI models to revolutionize film production at every stage.
-                    </p>
                     
-                    <div class="space-y-6">
-                        <div class="flex">
-                            <div class="w-12 h-12 rounded-full bg-blue-500 bg-opacity-20 flex items-center justify-center mr-4 shrink-0">
-                                <i class="fas fa-pen-nib text-blue-400"></i>
+                    <!-- Main Exchange UI -->
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        <!-- Exchange Card -->
+                        <div class="lg:col-span-2 animate-slide-up">
+                            <div class="card rounded-xl p-6 mb-6">
+                                <h2 class="text-xl font-bold mb-6">Swap Tokens</h2>
+                                
+                                <!-- From Token -->
+                                <div class="mb-6">
+                                    <label class="block mb-2 text-sm font-medium text-gray-400">From</label>
+                                    <div class="bg-gray-800 border border-gray-700 rounded-lg p-4 flex items-center justify-between">
+                                        <div class="flex items-center">
+                                            <div class="w-10 h-10 rounded-full bg-blue-500 mr-3 flex items-center justify-center">
+                                                <i class="fas fa-coins text-white"></i>
+                                            </div>
+                                            <div>
+                                                <div class="font-medium">HKAIF</div>
+                                                <div class="text-sm text-gray-500">HKAIFM Platform Token</div>
+                                            </div>
+                                        </div>
+                                        <button class="btn-secondary px-3 py-1 rounded-lg text-sm">
+                                            Change
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <!-- Amount Input -->
+                                <div class="mb-6">
+                                    <div class="flex justify-between mb-2">
+                                        <label class="text-sm font-medium text-gray-400">Amount</label>
+                                        <div class="text-sm text-gray-500">
+                                            Balance: <span class="text-white">1,245.32 HKAIF</span>
+                                        </div>
+                                    </div>
+                                    <div class="relative">
+                                        <input type="text" class="bg-gray-800 border border-gray-700 w-full px-4 py-4 rounded-lg text-xl focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="0.0" value="100">
+                                        <div class="absolute right-4 top-1/2 transform -translate-y-1/2 flex space-x-2">
+                                            <button class="text-blue-400 hover:text-blue-300 text-sm">Max</button>
+                                            <button class="text-blue-400 hover:text-blue-300 text-sm">Half</button>
+                                        </div>
+                                    </div>
+                                    <div class="text-right text-sm text-gray-500 mt-1">
+                                        ≈ $87.50 USD
+                                    </div>
+                                </div>
+                                
+                                <!-- Exchange Arrow -->
+                                <div class="my-6 relative">
+                                    <div class="w-12 h-12 rounded-full bg-blue-500 flex items-center justify-center mx-auto cursor-pointer hover:scale-110 transition-transform">
+                                        <i class="fas fa-arrow-down text-xl"></i>
+                                    </div>
+                                </div>
+                                
+                                <!-- To Token -->
+                                <div class="mb-6">
+                                    <label class="block mb-2 text-sm font-medium text-gray-400">To</label>
+                                    <div class="bg-gray-800 border border-gray-700 rounded-lg p-4 flex items-center justify-between">
+                                        <div class="flex items-center">
+                                            <div class="w-10 h-10 rounded-full bg-purple-500 mr-3 flex items-center justify-center">
+                                                <i class="fas fa-film text-white"></i>
+                                            </div>
+                                            <div>
+                                                <div class="font-medium">FILM-A001</div>
+                                                <div class="text-sm text-gray-500">Beyond the Digital Horizon</div>
+                                            </div>
+                                        </div>
+                                        <button class="btn-secondary px-3 py-1 rounded-lg text-sm">
+                                            Change
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <!-- Output Amount -->
+                                <div class="mb-6">
+                                    <div class="flex justify-between mb-2">
+                                        <label class="text-sm font-medium text-gray-400">You Receive</label>
+                                        <div class="text-sm text-gray-500">
+                                            Balance: <span class="text-white">320.45 FILM-A001</span>
+                                        </div>
+                                    </div>
+                                    <div class="bg-gray-800 border border-gray-700 w-full px-4 py-4 rounded-lg text-xl focus:outline-none">
+                                        89.32
+                                    </div>
+                                    <div class="text-right text-sm text-gray-500 mt-1">
+                                        ≈ $89.32 USD
+                                    </div>
+                                </div>
+                                
+                                <!-- Exchange Rate -->
+                                <div class="bg-gray-800 bg-opacity-50 rounded-lg p-4 mb-6">
+                                    <div class="flex justify-between mb-2">
+                                        <span class="text-gray-400">Exchange Rate</span>
+                                        <span>1 HKAIF = 0.8932 FILM-A001</span>
+                                    </div>
+                                    <div class="flex justify-between mb-2">
+                                        <span class="text-gray-400">Price Impact</span>
+                                        <span class="text-green-400">0.05%</span>
+                                    </div>
+                                    <div class="flex justify-between mb-2">
+                                        <span class="text-gray-400">Liquidity Provider Fee</span>
+                                        <span>0.3 HKAIF</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-400">Route</span>
+                                        <span>HKAIF > FILM-A001</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Settings -->
+                                <div class="mb-6">
+                                    <button class="btn-secondary w-full py-3 rounded-lg flex items-center justify-center" id="settingsToggle">
+                                        <i class="fas fa-cog mr-2"></i> Settings
+                                    </button>
+                                    
+                                    <!-- Settings Panel -->
+                                    <div class="mt-4 bg-gray-800 bg-opacity-50 rounded-lg p-4 hidden" id="settingsPanel">
+                                        <div class="mb-4">
+                                            <label class="block mb-2 text-sm font-medium">Slippage Tolerance</label>
+                                            <div class="flex items-center space-x-4">
+                                                <button class="px-3 py-1 rounded-lg bg-blue-900 text-blue-300 text-sm">0.1%</button>
+                                                <button class="px-3 py-1 rounded-lg bg-gray-700 hover:bg-gray-600 text-sm">0.5%</button>
+                                                <button class="px-3 py-1 rounded-lg bg-gray-700 hover:bg-gray-600 text-sm">1.0%</button>
+                                                <div class="relative flex-grow">
+                                                    <input type="text" class="bg-gray-800 border border-gray-700 w-full px-3 py-1 rounded-lg text-sm focus:outline-none" placeholder="Custom">
+                                                    <div class="absolute right-3 top-1/2 transform -translate-y-1/2 text-sm">%</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label class="block mb-2 text-sm font-medium">Transaction Deadline</label>
+                                            <div class="flex items-center space-x-2">
+                                                <input type="text" class="bg-gray-800 border border-gray-700 w-20 px-3 py-1 rounded-lg text-sm focus:outline-none" value="20">
+                                                <span class="text-sm text-gray-400">minutes</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Action Button -->
+                                <button class="btn-primary w-full py-4 rounded-lg text-lg font-medium">
+                                    Swap Tokens
+                                </button>
                             </div>
-                            <div>
-                                <h3 class="text-xl font-bold mb-2">Narrative Generation</h3>
-                                <p class="text-gray-300">
-                                    Advanced large language models create compelling scripts, dialogue, and story structures tailored to your vision.
-                                </p>
+                            
+                            <!-- Recent Transactions -->
+                            <div class="card rounded-xl p-6">
+                                <h2 class="text-xl font-bold mb-4">Recent Transactions</h2>
+                                <div class="space-y-4">
+                                    <div class="flex items-center justify-between border-b border-gray-800 pb-4">
+                                        <div class="flex items-center">
+                                            <div class="w-10 h-10 rounded-full bg-blue-500 mr-3 flex items-center justify-center">
+                                                <i class="fas fa-coins text-white text-sm"></i>
+                                            </div>
+                                            <div>
+                                                <div class="font-medium">Swap 50 HKAIF to 44.6 FILM-A001</div>
+                                                <div class="text-sm text-gray-500">10 minutes ago</div>
+                                            </div>
+                                        </div>
+                                        <a href="#" class="text-blue-400 hover:text-blue-300 text-sm">
+                                            <i class="fas fa-external-link-alt mr-1"></i> View
+                                        </a>
+                                    </div>
+                                    <div class="flex items-center justify-between border-b border-gray-800 pb-4">
+                                        <div class="flex items-center">
+                                            <div class="w-10 h-10 rounded-full bg-green-500 mr-3 flex items-center justify-center">
+                                                <i class="fas fa-dollar-sign text-white text-sm"></i>
+                                            </div>
+                                            <div>
+                                                <div class="font-medium">Swap 100 USDC to 114.2 HKAIF</div>
+                                                <div class="text-sm text-gray-500">2 hours ago</div>
+                                            </div>
+                                        </div>
+                                        <a href="#" class="text-blue-400 hover:text-blue-300 text-sm">
+                                            <i class="fas fa-external-link-alt mr-1"></i> View
+                                        </a>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center">
+                                            <div class="w-10 h-10 rounded-full bg-purple-500 mr-3 flex items-center justify-center">
+                                                <i class="fas fa-film text-white text-sm"></i>
+                                            </div>
+                                            <div>
+                                                <div class="font-medium">Swap 30 FILM-B052 to 35.8 HKAIF</div>
+                                                <div class="text-sm text-gray-500">Yesterday</div>
+                                            </div>
+                                        </div>
+                                        <a href="#" class="text-blue-400 hover:text-blue-300 text-sm">
+                                            <i class="fas fa-external-link-alt mr-1"></i> View
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         
-                        <div class="flex">
-                            <div class="w-12 h-12 rounded-full bg-purple-500 bg-opacity-20 flex items-center justify-center mr-4 shrink-0">
-                                <i class="fas fa-image text-purple-400"></i>
+                        <!-- Stats & Token Selector -->
+                        <div class="animate-slide-up" style="animation-delay: 0.2s;">
+                            <!-- HKAIF Stats -->
+                            <div class="card rounded-xl p-6 mb-6">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h2 class="text-xl font-bold">HKAIF Stats</h2>
+                                    <div class="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center">
+                                        <i class="fas fa-coins text-white"></i>
+                                    </div>
+                                </div>
+                                <div class="space-y-4">
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-400">Price</span>
+                                        <span class="font-medium">$0.875 USD</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-400">24h Change</span>
+                                        <span class="text-green-400">+5.3%</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-400">Market Cap</span>
+                                        <span class="font-medium">$87.5M USD</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-400">Circulating Supply</span>
+                                        <span class="font-medium">100M HKAIF</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-400">Total Volume (24h)</span>
+                                        <span class="font-medium">$2.34M USD</span>
+                                    </div>
+                                </div>
+                                <div class="bg-gradient-to-br from-blue-600 to-purple-600 h-32 rounded-lg flex items-center justify-center mt-6">
+                                    <div class="text-center text-white">
+                                        <i class="fas fa-chart-line text-2xl mb-2"></i>
+                                        <p class="text-sm">Price Chart</p>
+                                    </div>
+                                </div>
                             </div>
-                            <div>
-                                <h3 class="text-xl font-bold mb-2">Visual Generation</h3>
-                                <p class="text-gray-300">
-                                    State-of-the-art diffusion models transform scripts into stunning visuals with consistent character designs and environments.
-                                </p>
+                            
+                            <!-- Select Token -->
+                            <div class="card rounded-xl p-6 mb-6">
+                                <h2 class="text-xl font-bold mb-4">Select Token</h2>
+                                <div class="relative mb-4">
+                                    <input type="text" class="bg-gray-800 border border-gray-700 w-full pl-10 pr-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Search token by name or symbol">
+                                    <div class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+                                        <i class="fas fa-search"></i>
+                                    </div>
+                                </div>
+                                
+                                <div class="space-y-2 max-h-80 overflow-y-auto pr-2">
+                                    <!-- Platform Token -->
+                                    <div class="bg-gray-800 border-2 border-blue-500 rounded-lg p-4 flex items-center justify-between cursor-pointer">
+                                        <div class="flex items-center">
+                                            <div class="w-10 h-10 rounded-full bg-blue-500 mr-3 flex items-center justify-center">
+                                                <i class="fas fa-coins text-white"></i>
+                                            </div>
+                                            <div>
+                                                <div class="font-medium">HKAIF</div>
+                                                <div class="text-sm text-gray-500">Platform Token</div>
+                                            </div>
+                                        </div>
+                                        <div class="text-right">
+                                            <div class="font-medium">1,245.32</div>
+                                            <div class="text-sm text-gray-500">$1,089.65</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Project Tokens -->
+                                    <div class="bg-gray-800 hover:bg-gray-700 rounded-lg p-4 flex items-center justify-between cursor-pointer transition">
+                                        <div class="flex items-center">
+                                            <div class="w-10 h-10 rounded-full bg-purple-500 mr-3 flex items-center justify-center">
+                                                <i class="fas fa-film text-white"></i>
+                                            </div>
+                                            <div>
+                                                <div class="font-medium">FILM-A001</div>
+                                                <div class="text-sm text-gray-500">Beyond the Digital Horizon</div>
+                                            </div>
+                                        </div>
+                                        <div class="text-right">
+                                            <div class="font-medium">320.45</div>
+                                            <div class="text-sm text-gray-500">$320.45</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="bg-gray-800 hover:bg-gray-700 rounded-lg p-4 flex items-center justify-between cursor-pointer transition">
+                                        <div class="flex items-center">
+                                            <div class="w-10 h-10 rounded-full bg-indigo-500 mr-3 flex items-center justify-center">
+                                                <i class="fas fa-film text-white"></i>
+                                            </div>
+                                            <div>
+                                                <div class="font-medium">FILM-B052</div>
+                                                <div class="text-sm text-gray-500">Neon Memories</div>
+                                            </div>
+                                        </div>
+                                        <div class="text-right">
+                                            <div class="font-medium">150.78</div>
+                                            <div class="text-sm text-gray-500">$180.93</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="bg-gray-800 hover:bg-gray-700 rounded-lg p-4 flex items-center justify-between cursor-pointer transition">
+                                        <div class="flex items-center">
+                                            <div class="w-10 h-10 rounded-full bg-green-500 mr-3 flex items-center justify-center">
+                                                <i class="fas fa-dollar-sign text-white"></i>
+                                            </div>
+                                            <div>
+                                                <div class="font-medium">USDC</div>
+                                                <div class="text-sm text-gray-500">USD Coin</div>
+                                            </div>
+                                        </div>
+                                        <div class="text-right">
+                                            <div class="font-medium">542.10</div>
+                                            <div class="text-sm text-gray-500">$542.10</div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        
-                        <div class="flex">
-                            <div class="w-12 h-12 rounded-full bg-green-500 bg-opacity-20 flex items-center justify-center mr-4 shrink-0">
-                                <i class="fas fa-film text-green-400"></i>
+                            
+                            <!-- Help Card -->
+                            <div class="card rounded-xl p-6">
+                                <h2 class="text-xl font-bold mb-4">Exchange Guide</h2>
+                                <div class="space-y-4">
+                                    <div>
+                                        <h3 class="font-medium mb-2 flex items-center">
+                                            <i class="fas fa-exchange-alt text-blue-400 mr-2"></i> 
+                                            How to Swap Tokens
+                                        </h3>
+                                        <p class="text-sm text-gray-400">
+                                            Select the tokens you want to exchange, enter the amount, and click Swap. Make sure to check the exchange rate and fees before confirming.
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-medium mb-2 flex items-center">
+                                            <i class="fas fa-shield-alt text-blue-400 mr-2"></i>
+                                            Security Measures
+                                        </h3>
+                                        <p class="text-sm text-gray-400">
+                                            All transactions are secured by blockchain technology. Your funds remain in your wallet until the swap is completed.
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
-                            <div>
-                                <h3 class="text-xl font-bold mb-2">Scene Synthesis</h3>
-                                <p class="text-gray-300">
-                                    Proprietary motion models convert still imagery into fluid, cinematically-composed scenes with professional quality.
-                                </p>
-                            </div>
-                        </div>
-                        
-                        <div class="flex">
-                            <div class="w-12 h-12 rounded-full bg-yellow-500 bg-opacity-20 flex items-center justify-center mr-4 shrink-0">
-                                <i class="fas fa-music text-yellow-400"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-xl font-bold mb-2">Audio Generation</h3>
-                                <p class="text-gray-300">
-                                    Create immersive soundscapes, original music scores, and realistic voice acting with our specialized audio AI models.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="relative animate-fade-in">
-                    <img src="https://images.unsplash.com/photo-1677442135722-5f8ea49cec8a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="AI Technology" class="ai-tech-img cyber-border">
-                    <div class="absolute -top-6 -left-6 bg-black bg-opacity-70 rounded-lg p-3 backdrop-blur-sm border border-blue-500">
-                        <div class="text-xs font-mono text-blue-400">
-                            <div>// AI MODEL STATUS</div>
-                            <div>latent_space[4032] = <span class="text-green-400">ACTIVE</span>;</div>
-                            <div>render_quality = 0.985;</div>
-                        </div>
-                    </div>
-                    <div class="absolute -bottom-6 -right-6 bg-black bg-opacity-70 rounded-lg p-3 backdrop-blur-sm border border-purple-500">
-                        <div class="text-xs font-mono text-purple-400">
-                            <div>// PROCESSING</div>
-                            <div>frames_completed: 87%</div>
-                            <div>estimated_time: 00:03:42</div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
 
-    <!-- CTA Section -->
-    <section class="py-24 relative">
-        <div class="absolute inset-0 bg-gradient-to-r from-blue-900 to-purple-900 opacity-80"></div>
-        <div class="container mx-auto px-4 relative z-10">
-            <div class="max-w-3xl mx-auto text-center">
-                <h2 class="text-3xl md:text-5xl font-bold mb-6">Join the AI Film Revolution</h2>
-                <p class="text-xl text-gray-200 mb-8">
-                    Whether you're a creator, investor, or enthusiast, HKAIFM offers unprecedented opportunities in the future of filmmaking.
-                </p>
-                <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-                    <a href="#create" class="btn-primary px-8 py-3 rounded-full font-medium text-center">
-                        Start Creating
-                    </a>
-                    <a href="#invest" class="btn-secondary px-8 py-3 rounded-full font-medium text-center">
-                        Explore Investment
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer py-12">
-        <div class="container mx-auto px-4">
-            <div class="grid md:grid-cols-4 gap-8">
-                <div>
-                    <a href="#" class="hkaifm-logo mb-4">
-                        <div class="logo-font">HKAIFM</div>
-                        <div class="logo-sub">AI FILM MARKET</div>
-                    </a>
-                    <p class="text-gray-400 mb-4">
-                        Revolutionizing the film industry through AI and blockchain technology.
-                    </p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-telegram"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-discord"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-medium"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-github"></i></a>
+        <!-- NFT GALLERY PAGE -->
+        <div id="nft-gallery-page" class="page-content">
+            <!-- Hero Section -->
+            <section class="hero">
+                <div class="hero-bg" style="background-image: url('https://images.unsplash.com/photo-1635805737707-575885ab0820?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80')"></div>
+                <div class="container mx-auto px-4 hero-content">
+                    <div class="max-w-3xl animate-fade-in">
+                        <h1 class="text-4xl md:text-5xl font-bold mb-6">AI Film NFT Gallery</h1>
+                        <p class="text-xl text-gray-300 mb-8">
+                            Discover, collect, and trade unique AI-generated film assets, characters, scenes, and exclusive ownership rights in the future of cinema.
+                        </p>
+                        <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                            <button class="btn-primary px-8 py-3 rounded-full font-medium text-center">
+                                Explore Collections
+                            </button>
+                            <button class="btn-secondary px-8 py-3 rounded-full font-medium text-center">
+                                Create NFT
+                            </button>
+                        </div>
+                        
+                        <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <div class="stats-card">
+                                <i class="fas fa-cubes"></i>
+                                <div class="number">12K+</div>
+                                <div class="text-sm">NFTs</div>
+                            </div>
+                            <div class="stats-card">
+                                <i class="fas fa-users"></i>
+                                <div class="number">4.2K</div>
+                                <div class="text-sm">Collectors</div>
+                            </div>
+                            <div class="stats-card">
+                                <i class="fas fa-coins"></i>
+                                <div class="number">2.5M</div>
+                                <div class="text-sm">HKAIF Traded</div>
+                            </div>
+                            <div class="stats-card">
+                                <i class="fas fa-chart-line"></i>
+                                <div class="number">35%</div>
+                                <div class="text-sm">Avg. Growth</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div>
-                    <h3 class="text-lg font-semibold mb-4">Platform</h3>
-                    <ul class="space-y-2">
-                        <li><a href="#marketplace" class="text-gray-400 hover:text-white">Marketplace</a></li>
-                        <li><a href="#create" class="text-gray-400 hover:text-white">Create</a></li>
-                        <li><a href="#invest" class="text-gray-400 hover:text-white">Invest</a></li>
-                        <li><a href="#dashboard" class="text-gray-400 hover:text-white">Dashboard</a></li>
-                        <li><a href="#community" class="text-gray-400 hover:text-white">Community</a></li>
-                    </ul>
+            </section>
+
+            <!-- Filter Section -->
+            <section class="py-16">
+                <div class="container mx-auto px-4">
+                    <div class="mb-8 animate-fade-in">
+                        <h2 class="text-2xl font-bold mb-6">Browse Our NFT Collections</h2>
+                        <div class="flex flex-wrap gap-4 mb-6">
+                            <button class="filter-pill active">All NFTs</button>
+                            <button class="filter-pill">Scene Concepts</button>
+                            <button class="filter-pill">Character Designs</button>
+                            <button class="filter-pill">Exclusive Clips</button>
+                            <button class="filter-pill">Copyright Shares</button>
+                            <button class="filter-pill">Behind the Scenes</button>
+                            <button class="filter-pill">Soundtracks</button>
+                        </div>
+                        
+                        <div class="flex flex-wrap justify-between items-center">
+                            <div class="relative w-full md:w-auto mb-4 md:mb-0">
+                                <input type="text" placeholder="Search NFTs..." class="bg-gray-800 border border-gray-700 rounded-full px-4 py-3 w-full md:w-80 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                                <i class="fas fa-search absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                            </div>
+                            
+                            <div class="flex gap-2">
+                                <div class="relative">
+                                    <select class="bg-gray-800 border border-gray-700 rounded-full px-4 py-3 text-sm appearance-none pr-8 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                                        <option>Recently Added</option>
+                                        <option>Price: Low to High</option>
+                                        <option>Price: High to Low</option>
+                                        <option>Most Popular</option>
+                                        <option>Ending Soon</option>
+                                    </select>
+                                    <div class="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
+                                        <i class="fas fa-chevron-down text-gray-400"></i>
+                                    </div>
+                                </div>
+                                <button class="btn-secondary p-3 rounded-full">
+                                    <i class="fas fa-th"></i>
+                                </button>
+                                <button class="btn-secondary p-3 rounded-full">
+                                    <i class="fas fa-list"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Featured Collection -->
+                    <div class="mb-16 animate-fade-in">
+                        <div class="flex justify-between items-center mb-6">
+                            <h2 class="text-2xl font-bold">Featured Collection: "Beyond the Digital Horizon"</h2>
+                            <a href="#" class="text-blue-400 hover:text-blue-300">
+                                View Collection
+                                <i class="fas fa-arrow-right ml-1"></i>
+                            </a>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                            <!-- NFT 1 -->
+                            <div class="nft-card card rounded-xl overflow-hidden">
+                                <div class="relative">
+                                    <div class="project-img bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center">
+                                        <div class="text-center text-white">
+                                            <i class="fas fa-eye text-4xl mb-2"></i>
+                                            <p class="text-sm">Neural Nexus</p>
+                                        </div>
+                                    </div>
+                                    <div class="absolute top-3 left-3">
+                                        <span class="bg-blue-500 bg-opacity-80 text-white px-2 py-1 rounded-full text-xs font-medium">Scene Concept</span>
+                                    </div>
+                                    <div class="nft-card-hover">
+                                        <div class="flex justify-between items-center mb-2">
+                                            <h3 class="font-bold">Neural Nexus</h3>
+                                            <span class="text-sm font-medium">1 of 10</span>
+                                        </div>
+                                        <div class="flex justify-between items-center">
+                                            <div class="flex items-center">
+                                                <div class="w-6 h-6 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 mr-2 flex items-center justify-center">
+                                                    <i class="fas fa-user text-xs"></i>
+                                                </div>
+                                                <span class="text-sm">Digital Dreams</span>
+                                            </div>
+                                            <button class="btn-primary px-3 py-1 rounded-lg text-xs">
+                                                View
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="p-4">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <h3 class="font-bold">Neural Nexus</h3>
+                                        <div class="text-sm font-medium">1.2 HKAIF</div>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <div class="text-xs text-gray-400">Current Bid</div>
+                                        <div class="text-xs text-gray-400">Ends in 2d 4h</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- NFT 2 -->
+                            <div class="nft-card card rounded-xl overflow-hidden">
+                                <div class="relative">
+                                    <div class="project-img bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center">
+                                        <div class="text-center text-white">
+                                            <i class="fas fa-brain text-4xl mb-2"></i>
+                                            <p class="text-sm">Digital Dreamscape</p>
+                                        </div>
+                                    </div>
+                                    <div class="absolute top-3 left-3">
+                                        <span class="bg-purple-500 bg-opacity-80 text-white px-2 py-1 rounded-full text-xs font-medium">Scene Concept</span>
+                                    </div>
+                                    <div class="nft-card-hover">
+                                        <div class="flex justify-between items-center mb-2">
+                                            <h3 class="font-bold">Digital Dreamscape</h3>
+                                            <span class="text-sm font-medium">3 of 10</span>
+                                        </div>
+                                        <div class="flex justify-between items-center">
+                                            <div class="flex items-center">
+                                                <div class="w-6 h-6 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 mr-2 flex items-center justify-center">
+                                                    <i class="fas fa-user text-xs"></i>
+                                                </div>
+                                                <span class="text-sm">Digital Dreams</span>
+                                            </div>
+                                            <button class="btn-primary px-3 py-1 rounded-lg text-xs">
+                                                View
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="p-4">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <h3 class="font-bold">Digital Dreamscape</h3>
+                                        <div class="text-sm font-medium">0.8 HKAIF</div>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <div class="text-xs text-gray-400">Current Bid</div>
+                                        <div class="text-xs text-gray-400">Ends in 1d 8h</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- NFT 3 -->
+                            <div class="nft-card card rounded-xl overflow-hidden">
+                                <div class="relative">
+                                    <div class="project-img bg-gradient-to-br from-green-600 to-blue-600 flex items-center justify-center">
+                                        <div class="text-center text-white">
+                                            <i class="fas fa-atom text-4xl mb-2"></i>
+                                            <p class="text-sm">Quantum Gateway</p>
+                                        </div>
+                                    </div>
+                                    <div class="absolute top-3 left-3">
+                                        <span class="bg-green-500 bg-opacity-80 text-white px-2 py-1 rounded-full text-xs font-medium">Scene Concept</span>
+                                    </div>
+                                    <div class="nft-card-hover">
+                                        <div class="flex justify-between items-center mb-2">
+                                            <h3 class="font-bold">Quantum Gateway</h3>
+                                            <span class="text-sm font-medium">2 of 10</span>
+                                        </div>
+                                        <div class="flex justify-between items-center">
+                                            <div class="flex items-center">
+                                                <div class="w-6 h-6 rounded-full bg-gradient-to-r from-green-500 to-blue-500 mr-2 flex items-center justify-center">
+                                                    <i class="fas fa-user text-xs"></i>
+                                                </div>
+                                                <span class="text-sm">Digital Dreams</span>
+                                            </div>
+                                            <button class="btn-primary px-3 py-1 rounded-lg text-xs">
+                                                View
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="p-4">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <h3 class="font-bold">Quantum Gateway</h3>
+                                        <div class="text-sm font-medium">1.5 HKAIF</div>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <div class="text-xs text-gray-400">Current Bid</div>
+                                        <div class="text-xs text-gray-400">Ends in 12h</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- NFT 4 -->
+                            <div class="nft-card card rounded-xl overflow-hidden">
+                                <div class="relative">
+                                    <div class="project-img bg-gradient-to-br from-red-600 to-orange-600 flex items-center justify-center">
+                                        <div class="text-center text-white">
+                                            <i class="fas fa-user-md text-4xl mb-2"></i>
+                                            <p class="text-sm">Dr. Elena Chen</p>
+                                        </div>
+                                    </div>
+                                    <div class="absolute top-3 left-3">
+                                        <span class="bg-red-500 bg-opacity-80 text-white px-2 py-1 rounded-full text-xs font-medium">Character Design</span>
+                                    </div>
+                                    <div class="nft-card-hover">
+                                        <div class="flex justify-between items-center mb-2">
+                                            <h3 class="font-bold">Dr. Elena Chen</h3>
+                                            <span class="text-sm font-medium">1 of 5</span>
+                                        </div>
+                                        <div class="flex justify-between items-center">
+                                            <div class="flex items-center">
+                                                <div class="w-6 h-6 rounded-full bg-gradient-to-r from-red-500 to-orange-500 mr-2 flex items-center justify-center">
+                                                    <i class="fas fa-user text-xs"></i>
+                                                </div>
+                                                <span class="text-sm">Digital Dreams</span>
+                                            </div>
+                                            <button class="btn-primary px-3 py-1 rounded-lg text-xs">
+                                                View
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="p-4">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <h3 class="font-bold">Dr. Elena Chen</h3>
+                                        <div class="text-sm font-medium">2.4 HKAIF</div>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <div class="text-xs text-gray-400">Current Bid</div>
+                                        <div class="text-xs text-gray-400">Ends in 8h</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Latest Releases -->
+                    <div class="mb-16 animate-fade-in">
+                        <h2 class="text-2xl font-bold mb-6">Latest Releases</h2>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                            <!-- NFT 1 -->
+                            <div class="nft-card card rounded-xl overflow-hidden">
+                                <div class="relative">
+                                    <div class="project-img bg-gradient-to-br from-cyan-600 to-blue-600 flex items-center justify-center">
+                                        <div class="text-center text-white">
+                                            <i class="fas fa-city text-4xl mb-2"></i>
+                                            <p class="text-sm">Neon Streets</p>
+                                        </div>
+                                    </div>
+                                    <div class="absolute top-3 left-3">
+                                        <span class="bg-cyan-500 bg-opacity-80 text-white px-2 py-1 rounded-full text-xs font-medium">Scene Concept</span>
+                                    </div>
+                                    <div class="nft-card-hover">
+                                        <div class="flex justify-between items-center mb-2">
+                                            <h3 class="font-bold">Neon Streets</h3>
+                                            <span class="text-sm font-medium">2 of 8</span>
+                                        </div>
+                                        <div class="flex justify-between items-center">
+                                            <div class="flex items-center">
+                                                <div class="w-6 h-6 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 mr-2 flex items-center justify-center">
+                                                    <i class="fas fa-user text-xs"></i>
+                                                </div>
+                                                <span class="text-sm">NeoVision Studio</span>
+                                            </div>
+                                            <button class="btn-primary px-3 py-1 rounded-lg text-xs">
+                                                View
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="p-4">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <h3 class="font-bold">Neon Streets</h3>
+                                        <div class="text-sm font-medium">0.9 HKAIF</div>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <div class="text-xs text-gray-400">Fixed Price</div>
+                                        <div class="text-xs text-gray-400">Just Listed</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- NFT 2 -->
+                            <div class="nft-card card rounded-xl overflow-hidden">
+                                <div class="relative">
+                                    <div class="project-img bg-gradient-to-br from-indigo-600 to-purple-600 flex items-center justify-center">
+                                        <div class="text-center text-white">
+                                            <i class="fas fa-rocket text-4xl mb-2"></i>
+                                            <p class="text-sm">Quantum Pilot</p>
+                                        </div>
+                                    </div>
+                                    <div class="absolute top-3 left-3">
+                                        <span class="bg-indigo-500 bg-opacity-80 text-white px-2 py-1 rounded-full text-xs font-medium">Character Design</span>
+                                    </div>
+                                    <div class="nft-card-hover">
+                                        <div class="flex justify-between items-center mb-2">
+                                            <h3 class="font-bold">Quantum Pilot</h3>
+                                            <span class="text-sm font-medium">1 of 3</span>
+                                        </div>
+                                        <div class="flex justify-between items-center">
+                                            <div class="flex items-center">
+                                                <div class="w-6 h-6 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 mr-2 flex items-center justify-center">
+                                                    <i class="fas fa-user text-xs"></i>
+                                                </div>
+                                                <span class="text-sm">QuantumVerse</span>
+                                            </div>
+                                            <button class="btn-primary px-3 py-1 rounded-lg text-xs">
+                                                View
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="p-4">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <h3 class="font-bold">Quantum Pilot</h3>
+                                        <div class="text-sm font-medium">1.8 HKAIF</div>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <div class="text-xs text-gray-400">Current Bid</div>
+                                        <div class="text-xs text-gray-400">Ends in 3d 12h</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- NFT 3 -->
+                            <div class="nft-card card rounded-xl overflow-hidden">
+                                <div class="relative">
+                                    <div class="project-img bg-gradient-to-br from-pink-600 to-red-600 flex items-center justify-center">
+                                        <div class="text-center text-white">
+                                            <i class="fas fa-waveform text-4xl mb-2"></i>
+                                            <p class="text-sm">Harmonic Vision</p>
+                                        </div>
+                                    </div>
+                                    <div class="absolute top-3 left-3">
+                                        <span class="bg-pink-500 bg-opacity-80 text-white px-2 py-1 rounded-full text-xs font-medium">Exclusive Clip</span>
+                                    </div>
+                                    <div class="nft-card-hover">
+                                        <div class="flex justify-between items-center mb-2">
+                                            <h3 class="font-bold">Harmonic Vision</h3>
+                                            <span class="text-sm font-medium">4 of 12</span>
+                                        </div>
+                                        <div class="flex justify-between items-center">
+                                            <div class="flex items-center">
+                                                <div class="w-6 h-6 rounded-full bg-gradient-to-r from-pink-500 to-red-500 mr-2 flex items-center justify-center">
+                                                    <i class="fas fa-user text-xs"></i>
+                                                </div>
+                                                <span class="text-sm">SonicVisions</span>
+                                            </div>
+                                            <button class="btn-primary px-3 py-1 rounded-lg text-xs">
+                                                View
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="p-4">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <h3 class="font-bold">Harmonic Vision</h3>
+                                        <div class="text-sm font-medium">0.75 HKAIF</div>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <div class="text-xs text-gray-400">Fixed Price</div>
+                                        <div class="text-xs text-gray-400">Just Listed</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- NFT 4 -->
+                            <div class="nft-card card rounded-xl overflow-hidden">
+                                <div class="relative">
+                                    <div class="project-img bg-gradient-to-br from-yellow-600 to-orange-600 flex items-center justify-center">
+                                        <div class="text-center text-white">
+                                            <i class="fas fa-copyright text-4xl mb-2"></i>
+                                            <p class="text-sm">Beyond Digital IP Share</p>
+                                        </div>
+                                    </div>
+                                    <div class="absolute top-3 left-3">
+                                        <span class="bg-yellow-500 bg-opacity-80 text-white px-2 py-1 rounded-full text-xs font-medium">Copyright Share</span>
+                                    </div>
+                                    <div class="nft-card-hover">
+                                        <div class="flex justify-between items-center mb-2">
+                                            <h3 class="font-bold">Beyond Digital IP Share</h3>
+                                            <span class="text-sm font-medium">10 of 100</span>
+                                        </div>
+                                        <div class="flex justify-between items-center">
+                                            <div class="flex items-center">
+                                                <div class="w-6 h-6 rounded-full bg-gradient-to-r from-yellow-500 to-orange-500 mr-2 flex items-center justify-center">
+                                                    <i class="fas fa-user text-xs"></i>
+                                                </div>
+                                                <span class="text-sm">Digital Dreams</span>
+                                            </div>
+                                            <button class="btn-primary px-3 py-1 rounded-lg text-xs">
+                                                View
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="p-4">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <h3 class="font-bold">Beyond Digital IP Share</h3>
+                                        <div class="text-sm font-medium">5.2 HKAIF</div>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <div class="text-xs text-gray-400">Current Bid</div>
+                                        <div class="text-xs text-green-400">1% royalty rights</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Create and Sell -->
+                    <div class="card rounded-xl p-8 mb-16 animate-fade-in">
+                        <div class="grid grid-cols-1 md:grid-cols-2 items-center gap-8">
+                            <div>
+                                <h2 class="text-3xl font-bold mb-4">Create and Sell Your Own AI Film NFTs</h2>
+                                <p class="text-gray-300 mb-6">
+                                    Turn your AI-generated film assets into valuable NFTs on the HKAIFM platform. Monetize your creative work, establish ownership rights, and connect with a global community of collectors and enthusiasts.
+                                </p>
+                                <div class="space-y-4 mb-6">
+                                    <div class="flex items-start">
+                                        <div class="text-blue-400 mr-3 mt-1">
+                                            <i class="fas fa-check-circle"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="font-medium">Mint NFTs directly from AI outputs</h3>
+                                            <p class="text-sm text-gray-400">Seamlessly convert your AI-generated scenes, characters, and concepts into NFTs</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <div class="text-blue-400 mr-3 mt-1">
+                                            <i class="fas fa-check-circle"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="font-medium">Set your own royalty terms</h3>
+                                            <p class="text-sm text-gray-400">Earn ongoing revenue from secondary sales with customizable royalty structures</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <div class="text-blue-400 mr-3 mt-1">
+                                            <i class="fas fa-check-circle"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="font-medium">Create copyright ownership shares</h3>
+                                            <p class="text-sm text-gray-400">Tokenize and sell fractional ownership of your film's intellectual property</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex flex-wrap gap-4">
+                                    <button class="btn-primary px-6 py-3 rounded-lg font-medium">
+                                        Start Creating
+                                    </button>
+                                    <button class="btn-secondary px-6 py-3 rounded-lg font-medium">
+                                        Learn More
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="relative">
+                                <div class="w-full h-auto rounded-xl bg-gradient-to-br from-purple-600 to-pink-600 p-8 flex items-center justify-center">
+                                    <div class="text-center text-white">
+                                        <i class="fas fa-palette text-6xl mb-4"></i>
+                                        <h3 class="text-2xl font-bold mb-2">NFT Creation Studio</h3>
+                                        <p class="text-purple-200">Transform your creativity into valuable assets</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <h3 class="text-lg font-semibold mb-4">Resources</h3>
-                    <ul class="space-y-2">
-                        <li><a href="#whitepaper" class="text-gray-400 hover:text-white">Whitepaper</a></li>
-                        <li><a href="#documentation" class="text-gray-400 hover:text-white">Documentation</a></li>
-                        <li><a href="#tokenomics" class="text-gray-400 hover:text-white">Tokenomics</a></li>
-                        <li><a href="#developers" class="text-gray-400 hover:text-white">Developers</a></li>
-                        <li><a href="#support" class="text-gray-400 hover:text-white">Support</a></li>
-                    </ul>
+            </section>
+        </div>
+        
+        <!-- CREATE PAGE -->
+        <div id="create-page" class="page-content">
+            <div class="pt-24 pb-16">
+                <div class="container mx-auto px-4">
+                    <h1 class="text-3xl md:text-4xl font-bold mb-4 gradient-text">Create</h1>
+                    <p>AI film creation tools will be displayed here</p>
                 </div>
-                <div>
-                    <h3 class="text-lg font-semibold mb-4">Legal</h3>
-                    <ul class="space-y-2">
-                        <li><a href="#terms" class="text-gray-400 hover:text-white">Terms of Service</a></li>
-                        <li><a href="#privacy" class="text-gray-400 hover:text-white">Privacy Policy</a></li>
-                        <li><a href="#copyright" class="text-gray-400 hover:text-white">Copyright Policy</a></li>
-                        <li><a href="#compliance" class="text-gray-400 hover:text-white">Regulatory Compliance</a></li>
-                        <li><a href="#contact" class="text-gray-400 hover:text-white">Contact Us</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-500 text-sm">
-                <p>© 2025 Hong Kong AI Film Market. All rights reserved.</p>
             </div>
         </div>
-    </footer>
+
+        <!-- INVEST PAGE -->
+        <div id="invest-page" class="page-content">
+            <div class="pt-24 pb-16">
+                <div class="container mx-auto px-4">
+                    <h1 class="text-3xl md:text-4xl font-bold mb-4 gradient-text">Invest</h1>
+                    <p>Investment opportunities will be displayed here</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- DASHBOARD PAGE -->
+        <div id="dashboard-page" class="page-content">
+            <div class="pt-24 pb-16">
+                <div class="container mx-auto px-4">
+                    <h1 class="text-3xl md:text-4xl font-bold mb-4 gradient-text">Dashboard</h1>
+                    <p>User dashboard will be displayed here</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- COMMUNITY PAGE -->
+        <div id="community-page" class="page-content">
+            <div class="pt-24 pb-16">
+                <div class="container mx-auto px-4">
+                    <h1 class="text-3xl md:text-4xl font-bold mb-4 gradient-text">Community</h1>
+                    <p>Community features will be displayed here</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script>
-        // Add random data streams
-        function createDataStreams() {
-            for (let i = 0; i < 5; i++) {
-                setTimeout(() => {
-                    const stream = document.createElement('div');
-                    stream.className = 'data-stream';
-                    stream.style.left = Math.random() * 100 + '%';
-                    stream.style.animationDelay = Math.random() * 2 + 's';
-                    document.body.appendChild(stream);
-                    
-                    // Remove after animation
-                    setTimeout(() => {
-                        stream.remove();
-                    }, 4000);
-                }, i * 3000);
-            }
+        // Page navigation functionality
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page-content').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show requested page
+            document.getElementById(pageId + '-page').classList.add('active');
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
         }
         
-        // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
-            // Start data streams
-            createDataStreams();
-            setInterval(createDataStreams, 15000);
-            
-            // Add scroll animations
-            const animatedElements = document.querySelectorAll('.animate-fade-in, .animate-slide-up, .animate-slide-right');
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        if (entry.target.classList.contains('animate-slide-up')) {
-                            entry.target.style.transform = 'translateY(0)';
-                        }
-                        if (entry.target.classList.contains('animate-slide-right')) {
-                            entry.target.style.transform = 'translateX(0)';
-                        }
-                        if (entry.target.classList.contains('animate-fade-in')) {
-                            entry.target.style.transform = 'scale(1)';
-                        }
-                    }
-                });
-            }, { threshold: 0.1 });
-            
-            animatedElements.forEach(el => {
-                el.style.opacity = '0';
-                if (el.classList.contains('animate-slide-up')) {
-                    el.style.transform = 'translateY(50px)';
-                }
-                if (el.classList.contains('animate-slide-right')) {
-                    el.style.transform = 'translateX(-50px)';
-                }
-                if (el.classList.contains('animate-fade-in')) {
-                    el.style.transform = 'scale(0.95)';
-                }
-                observer.observe(el);
-            });
-            
-            // Mobile menu functionality
-            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        // Mobile menu toggle
+        function toggleMobileMenu() {
             const mobileMenu = document.querySelector('.mobile-menu');
-            const mobileMenuClose = document.querySelector('.mobile-menu-close');
-            
-            mobileMenuBtn.addEventListener('click', () => {
-                mobileMenu.classList.add('open');
-                document.body.style.overflow = 'hidden';
+            mobileMenu.classList.toggle('open');
+        }
+        
+        // Settings toggle for token exchange
+        document.getElementById('settingsToggle')?.addEventListener('click', function() {
+            const settingsPanel = document.getElementById('settingsPanel');
+            settingsPanel.classList.toggle('hidden');
+        });
+        
+        // Language selector hover
+        document.querySelectorAll('.language-selector').forEach(selector => {
+            selector.addEventListener('mouseenter', function() {
+                this.querySelector('.language-dropdown').style.display = 'block';
             });
             
-            mobileMenuClose.addEventListener('click', () => {
-                mobileMenu.classList.remove('open');
-                document.body.style.overflow = 'auto';
+            selector.addEventListener('mouseleave', function() {
+                this.querySelector('.language-dropdown').style.display = 'none';
             });
-            
-            // Language selection
-            const languageLinks = document.querySelectorAll('.language-dropdown a');
-            const languageIndicator = document.querySelector('.language-indicator');
-            
-            languageLinks.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const lang = link.getAttribute('data-lang');
-                    const flag = link.querySelector('img').src;
-                    const text = link.textContent.trim();
-                    
-                    // Update language indicator
-                    languageIndicator.innerHTML = `
-                        <img src="${flag}" alt="${text}">
-                        <span>${lang.toUpperCase()}</span>
-                        <i class="fas fa-chevron-down ml-2 text-sm"></i>
-                    `;
-                    
-                    // Show translation message
-                    const translateToggle = document.getElementById('aiTranslateToggle');
-                    if (translateToggle.checked) {
-                        alert(`Translating content to ${text} using AI...`);
-                    }
-                });
+        });
+        
+        // Login dropdown
+        document.querySelector('.login-container').addEventListener('mouseenter', function() {
+            this.querySelector('.login-dropdown').style.display = 'block';
+        });
+        
+        document.querySelector('.login-container').addEventListener('mouseleave', function() {
+            this.querySelector('.login-dropdown').style.display = 'none';
+        });
+        
+        // Filter toggle for marketplace
+        document.getElementById('filterBtn')?.addEventListener('click', function() {
+            const advancedFilters = document.getElementById('advancedFilters');
+            advancedFilters.classList.toggle('hidden');
+        });
+        
+        // Favorite toggle for marketplace
+        document.querySelectorAll('.card .fa-heart').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.stopPropagation();
+                if (this.classList.contains('far')) {
+                    this.classList.remove('far');
+                    this.classList.add('fas', 'text-red-500');
+                } else {
+                    this.classList.remove('fas', 'text-red-500');
+                    this.classList.add('far');
+                }
             });
-            
-            // Login option handlers
-            const loginOptions = document.querySelectorAll('.login-option');
-            
-            loginOptions.forEach(option => {
-                option.addEventListener('click', () => {
-                    const loginType = option.getAttribute('data-login');
-                    
-                    if (loginType === 'metamask' || loginType === 'walletconnect' || loginType === 'coinbase') {
-                        alert(`Connecting wallet via ${loginType.charAt(0).toUpperCase() + loginType.slice(1)}...`);
-                    } else {
-                        alert(`Logging in with ${loginType.charAt(0).toUpperCase() + loginType.slice(1)}...`);
-                    }
-                });
-            });
-            
-            // Video play button
-            const playButton = document.querySelector('.fa-play').parentElement;
-            playButton.addEventListener('click', function() {
-                alert('Playing HKAIFM platform introduction video...');
+        });
+        
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add animation delays
+            document.querySelectorAll('.animate-slide-up, .animate-slide-right').forEach((el, index) => {
+                el.style.animationDelay = `${index * 0.1}s`;
             });
         });
     </script>
