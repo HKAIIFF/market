@@ -1,0 +1,1415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HKAIFM - Community</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #3498db;
+            --secondary: #8e44ad;
+            --accent: #00ff9d;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0a0a;
+            color: #ffffff;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(52, 152, 219, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(142, 68, 173, 0.1) 0%, transparent 20%);
+        }
+        
+        .logo-font {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 800;
+            letter-spacing: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            position: relative;
+            display: inline-block;
+            text-shadow: 0 0 15px rgba(0, 255, 157, 0.3);
+            animation: logoGlow 3s ease-in-out infinite alternate;
+        }
+        
+        @keyframes logoGlow {
+            0% { text-shadow: 0 0 10px rgba(0, 255, 157, 0.3); }
+            100% { text-shadow: 0 0 25px rgba(0, 255, 157, 0.6), 0 0 35px rgba(52, 152, 219, 0.4); }
+        }
+        
+        .logo-sub {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--accent);
+            opacity: 0.8;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(90deg, var(--primary), var(--accent), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+        
+        .accent-bg {
+            background: rgba(0, 255, 157, 0.1);
+            border: 1px solid rgba(0, 255, 157, 0.2);
+        }
+        
+        .card {
+            background-color: rgba(26, 32, 44, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 255, 157, 0.2);
+            border-color: rgba(0, 255, 157, 0.3);
+        }
+        
+        .navbar {
+            background-color: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 255, 157, 0.1);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            transition: all 0.3s ease;
+            border: none;
+            font-weight: 600;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(52, 152, 219, 0.4);
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        
+        .btn-secondary:hover {
+            background-color: rgba(0, 255, 157, 0.1);
+            transform: translateY(-3px);
+        }
+        
+        .hero {
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+        }
+        
+        .hero:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 100%);
+            z-index: 1;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.7;
+            animation: bgPan 30s infinite linear;
+        }
+        
+        @keyframes bgPan {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
+        }
+        
+        .floating {
+            animation: floating 6s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 1s ease-in-out forwards;
+            opacity: 0;
+        }
+        
+        .animate-slide-up {
+            animation: slideUp 0.8s ease-in-out forwards;
+            opacity: 0;
+        }
+        
+        .animate-slide-right {
+            animation: slideRight 0.8s ease-in-out forwards;
+            opacity: 0;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        @keyframes slideRight {
+            from { transform: translateX(-50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        .progress-bar {
+            background: linear-gradient(to right, var(--primary), var(--accent), var(--secondary));
+            border-radius: 9999px;
+            height: 8px;
+        }
+        
+        .cyber-border {
+            position: relative;
+        }
+        
+        .cyber-border:after {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: linear-gradient(45deg, transparent 30%, var(--accent) 45%, var(--secondary) 55%, transparent 70%);
+            background-size: 200% 200%;
+            animation: borderGlow 5s linear infinite;
+            z-index: -1;
+            border-radius: 20px;
+        }
+        
+        @keyframes borderGlow {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
+        }
+        
+        .ai-element {
+            position: absolute;
+            background-color: rgba(52, 152, 219, 0.1);
+            border: 1px solid rgba(52, 152, 219, 0.3);
+            backdrop-filter: blur(5px);
+            padding: 10px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 12px;
+            color: var(--accent);
+            z-index: 3;
+            pointer-events: none;
+            box-shadow: 0 0 15px rgba(0, 255, 157, 0.1);
+        }
+        
+        .data-stream {
+            position: absolute;
+            height: 100px;
+            width: 2px;
+            background: linear-gradient(to bottom, transparent, var(--accent), var(--secondary), transparent);
+            z-index: 0;
+            animation: dataStream 2s linear infinite;
+            opacity: 0.3;
+        }
+        
+        @keyframes dataStream {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100vh); }
+        }
+        
+        .language-selector {
+            position: relative;
+            display: inline-block;
+            margin-right: 20px;
+        }
+        
+        .language-dropdown {
+            display: none;
+            position: absolute;
+            background-color: rgba(26, 32, 44, 0.95);
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 100;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            top: 40px;
+            right: 0;
+        }
+        
+        .language-selector:hover .language-dropdown {
+            display: block;
+        }
+        
+        .language-dropdown a {
+            color: white;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .language-dropdown a:hover {
+            background-color: rgba(52, 152, 219, 0.2);
+        }
+        
+        .language-dropdown img {
+            width: 24px;
+            margin-right: 10px;
+        }
+        
+        .login-dropdown {
+            display: none;
+            position: absolute;
+            background-color: rgba(26, 32, 44, 0.95);
+            min-width: 280px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 100;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            top: 50px;
+            right: 0;
+            padding: 15px;
+        }
+        
+        .login-container:hover .login-dropdown {
+            display: block;
+        }
+        
+        .login-option {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.05);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .login-option:hover {
+            background: rgba(52, 152, 219, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .login-option i {
+            font-size: 20px;
+            margin-right: 12px;
+            width: 30px;
+            text-align: center;
+        }
+        
+        .login-option span {
+            font-weight: 500;
+        }
+        
+        .login-divider {
+            height: 1px;
+            background: rgba(255,255,255,0.1);
+            margin: 15px 0;
+        }
+        
+        .ai-translate-toggle {
+            display: flex;
+            align-items: center;
+            background: rgba(255,255,255,0.05);
+            padding: 10px 15px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .ai-translate-toggle:hover {
+            background: rgba(52, 152, 219, 0.2);
+        }
+        
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+            margin-left: 10px;
+        }
+        
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .slider {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        
+        .language-indicator {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 30px;
+            background: rgba(255,255,255,0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .language-indicator:hover {
+            background: rgba(52, 152, 219, 0.2);
+        }
+        
+        .language-indicator img {
+            width: 24px;
+            margin-right: 8px;
+        }
+        
+        .wallet-option {
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.3), rgba(142, 68, 173, 0.3));
+        }
+        
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 100vh;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 20px;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
+        
+        .mobile-menu-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--accent);
+        }
+        
+        .section-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 2rem;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 2px;
+        }
+        
+        .section-title.center:after {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .stats-card {
+            text-align: center;
+            padding: 25px;
+            border-radius: 16px;
+            background: rgba(26, 32, 44, 0.5);
+            border: 1px solid rgba(0, 255, 157, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .stats-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            background: rgba(26, 32, 44, 0.7);
+        }
+        
+        .stats-card i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--accent);
+        }
+        
+        .stats-card .number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, var(--primary), var(--accent), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .vote-btn {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .vote-btn:hover {
+            background: rgba(0, 255, 157, 0.1);
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        
+        .gold-shadow {
+            box-shadow: 0 0 15px rgba(0, 255, 157, 0.3);
+        }
+        
+        .featured-discussion {
+            border-left: 4px solid var(--accent);
+        }
+        
+        @media (max-width: 768px) {
+            .desktop-nav {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .language-selector {
+                margin-right: 10px;
+            }
+            
+            .logo-font {
+                font-size: 1.8rem;
+            }
+            
+            .hero-bg {
+                animation: none;
+            }
+            
+            .grid-cols-1-md {
+                grid-template-columns: 1fr;
+            }
+            
+            .lg\:col-span-2 {
+                grid-column: span 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- AI Elements -->
+    <div class="ai-element" style="top: 120px; left: 10%;">
+        MODEL_ID: CMNT-7840 <br>
+        STATUS: ACTIVE <br>
+        // Community Analysis Active
+    </div>
+    
+    <div class="ai-element" style="bottom: 150px; right: 15%;">
+        DAO_VOTES: 32 ACTIVE <br>
+        MEMBERS: 25,482 <br>
+        // Governance Active
+    </div>
+    
+    <!-- Data streams -->
+    <div class="data-stream" style="left: 20%; animation-delay: 0s;"></div>
+    <div class="data-stream" style="left: 40%; animation-delay: 0.5s;"></div>
+    <div class="data-stream" style="left: 60%; animation-delay: 1s;"></div>
+    <div class="data-stream" style="left: 80%; animation-delay: 1.5s;"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar fixed w-full z-50 px-4 py-3">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="#" class="flex flex-col">
+                <div class="logo-font text-2xl md:text-3xl">HKAIFM</div>
+                <div class="logo-sub text-xs">AI FILM MARKET</div>
+            </a>
+            <div class="hidden md:flex space-x-8 desktop-nav">
+                <a href="#" class="hover:text-blue-400 transition">Marketplace</a>
+                <a href="#" class="hover:text-blue-400 transition">Create</a>
+                <a href="#" class="hover:text-blue-400 transition">Invest</a>
+                <a href="#" class="hover:text-blue-400 transition">Dashboard</a>
+                <a href="#" class="text-blue-400 transition">Community</a>
+            </div>
+            <div class="flex items-center space-x-4">
+                <!-- Language Selector -->
+                <div class="language-selector">
+                    <div class="language-indicator">
+                        <img src="https://flagcdn.com/w40/gb.png" alt="English">
+                        <span>EN</span>
+                        <i class="fas fa-chevron-down ml-2 text-sm"></i>
+                    </div>
+                    <div class="language-dropdown">
+                        <a href="#" data-lang="en">
+                            <img src="https://flagcdn.com/w40/gb.png" alt="English">
+                            English
+                        </a>
+                        <a href="#" data-lang="zh">
+                            <img src="https://flagcdn.com/w40/cn.png" alt="Chinese">
+                            中文 (简体)
+                        </a>
+                        <a href="#" data-lang="es">
+                            <img src="https://flagcdn.com/w40/es.png" alt="Spanish">
+                            Español
+                        </a>
+                        <a href="#" data-lang="fr">
+                            <img src="https://flagcdn.com/w40/fr.png" alt="French">
+                            Français
+                        </a>
+                        <a href="#" data-lang="de">
+                            <img src="https://flagcdn.com/w40/de.png" alt="German">
+                            Deutsch
+                        </a>
+                        <a href="#" data-lang="ja">
+                            <img src="https://flagcdn.com/w40/jp.png" alt="Japanese">
+                            日本語
+                        </a>
+                        <a href="#" data-lang="ko">
+                            <img src="https://flagcdn.com/w40/kr.png" alt="Korean">
+                            한국어
+                        </a>
+                        <a href="#" data-lang="ru">
+                            <img src="https://flagcdn.com/w40/ru.png" alt="Russian">
+                            Русский
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- AI Translate Toggle -->
+                <div class="ai-translate-toggle hidden md:flex">
+                    <i class="fas fa-robot text-blue-400"></i>
+                    <span class="ml-2 text-sm">AI Translate</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="aiTranslateToggle" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                
+                <!-- Login Container -->
+                <div class="login-container relative">
+                    <a href="#login" class="btn-primary px-6 py-2 rounded-full text-sm">Sign In</a>
+                    <div class="login-dropdown">
+                        <h3 class="font-bold text-lg mb-4">Login to HKAIFM</h3>
+                        
+                        <div class="login-option" data-login="google">
+                            <i class="fab fa-google text-red-500"></i>
+                            <span>Continue with Google</span>
+                        </div>
+                        
+                        <div class="login-option" data-login="facebook">
+                            <i class="fab fa-facebook text-blue-600"></i>
+                            <span>Continue with Facebook</span>
+                        </div>
+                        
+                        <div class="login-option" data-login="twitter">
+                            <i class="fab fa-twitter text-blue-400"></i>
+                            <span>Continue with Twitter</span>
+                        </div>
+                        
+                        <div class="login-option" data-login="apple">
+                            <i class="fab fa-apple"></i>
+                            <span>Continue with Apple</span>
+                        </div>
+                        
+                        <div class="login-divider"></div>
+                        
+                        <div class="login-option wallet-option" data-login="metamask">
+                            <i class="fas fa-wallet text-yellow-400"></i>
+                            <span>Connect with MetaMask</span>
+                        </div>
+                        
+                        <div class="login-option wallet-option" data-login="walletconnect">
+                            <i class="fas fa-plug text-blue-300"></i>
+                            <span>Connect with WalletConnect</span>
+                        </div>
+                        
+                        <div class="login-option wallet-option" data-login="coinbase">
+                            <i class="fab fa-bitcoin text-orange-400"></i>
+                            <span>Connect with Coinbase Wallet</span>
+                        </div>
+                        
+                        <div class="mt-4 text-center text-sm text-gray-400">
+                            By connecting, you agree to our <a href="#" class="text-blue-400">Terms</a> and <a href="#" class="text-blue-400">Privacy Policy</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="md:hidden text-white mobile-menu-btn">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <div class="mobile-menu-close">
+            <i class="fas fa-times"></i>
+        </div>
+        
+        <div class="mt-12 flex flex-col space-y-6">
+            <a href="#" class="text-xl hover:text-blue-400 transition">Marketplace</a>
+            <a href="#" class="text-xl hover:text-blue-400 transition">Create</a>
+            <a href="#" class="text-xl hover:text-blue-400 transition">Invest</a>
+            <a href="#" class="text-xl hover:text-blue-400 transition">Dashboard</a>
+            <a href="#" class="text-xl text-blue-400 transition">Community</a>
+            
+            <div class="pt-6 border-t border-gray-700">
+                <h3 class="text-lg font-bold mb-4">Language</h3>
+                <select class="w-full bg-gray-800 text-white p-3 rounded-lg">
+                    <option value="en">English</option>
+                    <option value="zh">中文 (简体)</option>
+                    <option value="es">Español</option>
+                    <option value="fr">Français</option>
+                    <option value="de">Deutsch</option>
+                    <option value="ja">日本語</option>
+                    <option value="ko">한국어</option>
+                    <option value="ru">Русский</option>
+                </select>
+                
+                <div class="flex items-center mt-4">
+                    <span class="mr-3">AI Translate</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="mobileAiTranslate" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+            
+            <div class="pt-6 border-t border-gray-700">
+                <button class="btn-primary w-full py-3 rounded-lg font-medium text-center mb-4">
+                    Sign In
+                </button>
+                <button class="btn-secondary w-full py-3 rounded-lg font-medium text-center">
+                    Connect Wallet
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero py-24">
+        <div class="hero-bg" style="background-image: url('https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80')"></div>
+        <div class="container mx-auto px-4 hero-content">
+            <div class="max-w-3xl text-center animate-fade-in">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6">Join the AI Film Revolution</h1>
+                <p class="text-xl text-gray-300 mb-8">
+                    Connect with creators, investors, and fans in the world's first Web3 community dedicated to AI film production and innovation.
+                </p>
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 justify-center">
+                    <a href="#dao" class="btn-primary px-8 py-3 rounded-full font-medium text-center">
+                        Join DAO
+                    </a>
+                    <a href="#forums" class="btn-secondary px-8 py-3 rounded-full font-medium text-center">
+                        Explore Forums
+                    </a>
+                </div>
+                
+                <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="stats-card">
+                        <i class="fas fa-users"></i>
+                        <div class="number">25K+</div>
+                        <div class="text-sm">Active Members</div>
+                    </div>
+                    <div class="stats-card">
+                        <i class="fas fa-film"></i>
+                        <div class="number">450+</div>
+                        <div class="text-sm">Projects Created</div>
+                    </div>
+                    <div class="stats-card">
+                        <i class="fas fa-comments"></i>
+                        <div class="number">1.2K</div>
+                        <div class="text-sm">Weekly Discussions</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-12">
+        <!-- Community Tabs -->
+        <div class="border-b border-gray-700 mb-8 overflow-x-auto">
+            <div class="flex space-x-8 min-w-max">
+                <button class="text-blue-400 border-b-2 border-blue-400 px-4 py-2 font-medium whitespace-nowrap">Discussions</button>
+                <button class="text-gray-400 hover:text-white px-4 py-2 font-medium whitespace-nowrap">Governance</button>
+                <button class="text-gray-400 hover:text-white px-4 py-2 font-medium whitespace-nowrap">Creator Showcase</button>
+                <button class="text-gray-400 hover:text-white px-4 py-2 font-medium whitespace-nowrap">Events</button>
+                <button class="text-gray-400 hover:text-white px-4 py-2 font-medium whitespace-nowrap">Education</button>
+                <button class="text-gray-400 hover:text-white px-4 py-2 font-medium whitespace-nowrap">Job Board</button>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Main Content Area -->
+            <div class="lg:col-span-2">
+                <!-- Filters and Search -->
+                <div class="flex flex-wrap justify-between items-center mb-6">
+                    <div class="flex space-x-2 mb-4 sm:mb-0">
+                        <button class="bg-gray-800 hover:bg-gray-700 px-3 py-1 rounded-full text-sm">All Topics</button>
+                        <button class="bg-gray-800 hover:bg-gray-700 px-3 py-1 rounded-full text-sm">Latest</button>
+                        <button class="bg-gray-800 hover:bg-gray-700 px-3 py-1 rounded-full text-sm">Popular</button>
+                        <div class="relative">
+                            <button class="bg-gray-800 hover:bg-gray-700 px-3 py-1 rounded-full text-sm flex items-center">
+                                <span>Categories</span>
+                                <i class="fas fa-chevron-down text-xs ml-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="relative">
+                        <input type="text" placeholder="Search discussions..." class="bg-gray-800 border border-gray-700 rounded-lg pl-10 pr-4 py-2 w-full sm:w-64 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                        <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500"></i>
+                    </div>
+                </div>
+
+                <!-- Start Discussion Button -->
+                <div class="mb-6">
+                    <button class="btn-primary px-4 py-2 rounded-lg w-full">Start a New Discussion</button>
+                </div>
+
+                <!-- Discussion List -->
+                <div class="space-y-6">
+                    <!-- Featured Discussion -->
+                    <div class="card featured-discussion gold-shadow">
+                        <div class="p-6">
+                            <div class="flex items-start">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="User Avatar" class="w-10 h-10 rounded-full mr-4">
+                                <div class="flex-1">
+                                    <div class="flex items-center mb-1">
+                                        <span class="bg-blue-500 bg-opacity-80 text-white text-xs px-2 py-1 rounded mr-2">Featured</span>
+                                        <span class="bg-blue-500 bg-opacity-20 text-blue-400 text-xs px-2 py-1 rounded">Discussion</span>
+                                    </div>
+                                    <h3 class="text-xl font-semibold mb-2">How will AI transform cinematic storytelling in the next 5 years?</h3>
+                                    <p class="text-gray-300 mb-3">I've been experimenting with various AI tools to develop character arcs that would be difficult to conceive using traditional methods. I'd love to hear how others are pushing storytelling boundaries...</p>
+                                    <div class="flex items-center text-gray-400 text-sm">
+                                        <span class="font-medium text-blue-400">@CinemaInnovator</span>
+                                        <span class="mx-2">·</span>
+                                        <span>2 hours ago</span>
+                                        <span class="mx-2">·</span>
+                                        <span>42 comments</span>
+                                    </div>
+                                    <div class="flex mt-3 space-x-2">
+                                        <button class="vote-btn flex items-center space-x-1 text-sm rounded-full px-3 py-1 transition">
+                                            <i class="fas fa-arrow-up"></i>
+                                            <span>172</span>
+                                        </button>
+                                        <button class="vote-btn flex items-center space-x-1 text-sm rounded-full px-3 py-1 transition">
+                                            <i class="fas fa-comment-alt"></i>
+                                            <span>Join discussion</span>
+                                        </button>
+                                        <button class="vote-btn flex items-center space-x-1 text-sm rounded-full px-3 py-1 transition">
+                                            <i class="fas fa-share-alt"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Regular Discussion 1 -->
+                    <div class="card">
+                        <div class="p-6">
+                            <div class="flex items-start">
+                                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="User Avatar" class="w-10 h-10 rounded-full mr-4">
+                                <div class="flex-1">
+                                    <div class="flex items-center mb-1">
+                                        <span class="bg-green-500 bg-opacity-20 text-green-400 text-xs px-2 py-1 rounded mr-2">Technical</span>
+                                    </div>
+                                    <h3 class="text-lg font-semibold mb-2">Best AI tools for generating realistic environment textures?</h3>
+                                    <p class="text-gray-300 mb-3">I'm working on a sci-fi short film and looking for the most efficient AI tools to generate consistent environmental textures across scenes. Has anyone compared the latest options?</p>
+                                    <div class="flex items-center text-gray-400 text-sm">
+                                        <span class="font-medium text-white">@VisualArtist88</span>
+                                        <span class="mx-2">·</span>
+                                        <span>Yesterday</span>
+                                        <span class="mx-2">·</span>
+                                        <span>23 comments</span>
+                                    </div>
+                                    <div class="flex mt-3 space-x-2">
+                                        <button class="vote-btn flex items-center space-x-1 text-sm rounded-full px-3 py-1 transition">
+                                            <i class="fas fa-arrow-up"></i>
+                                            <span>89</span>
+                                        </button>
+                                        <button class="vote-btn flex items-center space-x-1 text-sm rounded-full px-3 py-1 transition">
+                                            <i class="fas fa-comment-alt"></i>
+                                            <span>Join discussion</span>
+                                        </button>
+                                        <button class="vote-btn flex items-center space-x-1 text-sm rounded-full px-3 py-1 transition">
+                                            <i class="fas fa-share-alt"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Regular Discussion 2 -->
+                    <div class="card">
+                        <div class="p-6">
+                            <div class="flex items-start">
+                                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="User Avatar" class="w-10 h-10 rounded-full mr-4">
+                                <div class="flex-1">
+                                    <div class="flex items-center mb-1">
+                                        <span class="bg-purple-500 bg-opacity-20 text-purple-400 text-xs px-2 py-1 rounded mr-2">Funding</span>
+                                    </div>
+                                    <h3 class="text-lg font-semibold mb-2">Token allocation strategies that worked for your film project</h3>
+                                    <p class="text-gray-300 mb-3">Just finished our first successful funding round! We allocated 30% to creators, 50% to investors, 10% to platform, and 10% for marketing. Would love to hear what distribution worked well for others.</p>
+                                    <div class="flex items-center text-gray-400 text-sm">
+                                        <span class="font-medium text-white">@FilmFinance_HK</span>
+                                        <span class="mx-2">·</span>
+                                        <span>2 days ago</span>
+                                        <span class="mx-2">·</span>
+                                        <span>56 comments</span>
+                                    </div>
+                                    <div class="flex mt-3 space-x-2">
+                                        <button class="vote-btn flex items-center space-x-1 text-sm rounded-full px-3 py-1 transition">
+                                            <i class="fas fa-arrow-up"></i>
+                                            <span>134</span>
+                                        </button>
+                                        <button class="vote-btn flex items-center space-x-1 text-sm rounded-full px-3 py-1 transition">
+                                            <i class="fas fa-comment-alt"></i>
+                                            <span>Join discussion</span>
+                                        </button>
+                                        <button class="vote-btn flex items-center space-x-1 text-sm rounded-full px-3 py-1 transition">
+                                            <i class="fas fa-share-alt"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Regular Discussion 3 -->
+                    <div class="card">
+                        <div class="p-6">
+                            <div class="flex items-start">
+                                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="User Avatar" class="w-10 h-10 rounded-full mr-4">
+                                <div class="flex-1">
+                                    <div class="flex items-center mb-1">
+                                        <span class="bg-yellow-500 bg-opacity-20 text-yellow-400 text-xs px-2 py-1 rounded mr-2">Creative</span>
+                                    </div>
+                                    <h3 class="text-lg font-semibold mb-2">Cultural sensitivity in AI-generated content: Best practices</h3>
+                                    <p class="text-gray-300 mb-3">As we create films for global audiences, ensuring cultural sensitivity is crucial. I've developed a checklist for reviewing AI outputs before finalizing. Would appreciate feedback and additions...</p>
+                                    <div class="flex items-center text-gray-400 text-sm">
+                                        <span class="font-medium text-white">@GlobalStories</span>
+                                        <span class="mx-2">·</span>
+                                        <span>3 days ago</span>
+                                        <span class="mx-2">·</span>
+                                        <span>37 comments</span>
+                                    </div>
+                                    <div class="flex mt-3 space-x-2">
+                                        <button class="vote-btn flex items-center space-x-1 text-sm rounded-full px-3 py-1 transition">
+                                            <i class="fas fa-arrow-up"></i>
+                                            <span>112</span>
+                                        </button>
+                                        <button class="vote-btn flex items-center space-x-1 text-sm rounded-full px-3 py-1 transition">
+                                            <i class="fas fa-comment-alt"></i>
+                                            <span>Join discussion</span>
+                                        </button>
+                                        <button class="vote-btn flex items-center space-x-1 text-sm rounded-full px-3 py-1 transition">
+                                            <i class="fas fa-share-alt"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Load More Button -->
+                    <div class="text-center">
+                        <button class="text-blue-400 hover:underline">Load More Discussions</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Sidebar -->
+            <div class="space-y-6">
+                <!-- Community Stats -->
+                <div class="card">
+                    <div class="p-6">
+                        <h2 class="text-xl font-semibold mb-4">Community Stats</h2>
+                        <div class="space-y-3">
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Total Members</span>
+                                <span class="font-semibold">25,482</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Active Today</span>
+                                <span class="font-semibold">1,435</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">DAO Proposals</span>
+                                <span class="font-semibold">32 Active</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">HKAIF Staked</span>
+                                <span class="font-semibold">2.4M</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Active Governance Proposals -->
+                <div class="card">
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <h2 class="text-xl font-semibold">Active Proposals</h2>
+                            <a href="#" class="text-sm text-blue-400 hover:underline">View All</a>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="border border-gray-700 rounded-lg p-4">
+                                <div class="flex justify-between items-start mb-2">
+                                    <span class="bg-green-500 bg-opacity-20 text-green-400 text-xs px-2 py-1 rounded">Platform</span>
+                                    <div class="text-xs text-gray-400">Ends in 2 days</div>
+                                </div>
+                                <h3 class="font-medium mb-2">HKFP-23: Reduce film token issuance fees from 5% to 3%</h3>
+                                <div class="w-full bg-gray-700 rounded-full h-2.5 mb-2">
+                                    <div class="bg-green-500 h-2.5 rounded-full" style="width: 68%"></div>
+                                </div>
+                                <div class="flex justify-between text-xs text-gray-400">
+                                    <span>68% Yes</span>
+                                    <span>320k HKAIF Voted</span>
+                                </div>
+                                <button class="w-full bg-gray-700 hover:bg-gray-600 text-white rounded mt-3 py-1.5 text-sm">Cast Vote</button>
+                            </div>
+                            
+                            <div class="border border-gray-700 rounded-lg p-4">
+                                <div class="flex justify-between items-start mb-2">
+                                    <span class="bg-blue-500 bg-opacity-20 text-blue-400 text-xs px-2 py-1 rounded">Treasury</span>
+                                    <div class="text-xs text-gray-400">Ends in 5 days</div>
+                                </div>
+                                <h3 class="font-medium mb-2">HKFP-24: Allocate 500k HKAIF to Creator Grant Program</h3>
+                                <div class="w-full bg-gray-700 rounded-full h-2.5 mb-2">
+                                    <div class="bg-blue-500 h-2.5 rounded-full" style="width: 42%"></div>
+                                </div>
+                                <div class="flex justify-between text-xs text-gray-400">
+                                    <span>42% Yes</span>
+                                    <span>180k HKAIF Voted</span>
+                                </div>
+                                <button class="w-full bg-gray-700 hover:bg-gray-600 text-white rounded mt-3 py-1.5 text-sm">Cast Vote</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Top Contributors -->
+                <div class="card">
+                    <div class="p-6">
+                        <h2 class="text-xl font-semibold mb-4">Top Contributors</h2>
+                        <div class="space-y-4">
+                            <div class="flex items-center">
+                                <div class="relative mr-3">
+                                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="Contributor" class="w-10 h-10 rounded-full">
+                                    <div class="absolute -bottom-1 -right-1 bg-blue-500 w-5 h-5 rounded-full flex items-center justify-center text-xs">1</div>
+                                </div>
+                                <div>
+                                    <div class="font-medium">@CinemaInnovator</div>
+                                    <div class="text-xs text-gray-400">5.2k Contribution Score</div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center">
+                                <div class="relative mr-3">
+                                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="Contributor" class="w-10 h-10 rounded-full">
+                                    <div class="absolute -bottom-1 -right-1 bg-blue-500 w-5 h-5 rounded-full flex items-center justify-center text-xs">2</div>
+                                </div>
+                                <div>
+                                    <div class="font-medium">@FilmFinance_HK</div>
+                                    <div class="text-xs text-gray-400">4.8k Contribution Score</div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center">
+                                <div class="relative mr-3">
+                                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="Contributor" class="w-10 h-10 rounded-full">
+                                    <div class="absolute -bottom-1 -right-1 bg-blue-500 w-5 h-5 rounded-full flex items-center justify-center text-xs">3</div>
+                                </div>
+                                <div>
+                                    <div class="font-medium">@AIDirector</div>
+                                    <div class="text-xs text-gray-400">3.9k Contribution Score</div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center">
+                                <div class="relative mr-3">
+                                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="Contributor" class="w-10 h-10 rounded-full">
+                                    <div class="absolute -bottom-1 -right-1 bg-blue-500 w-5 h-5 rounded-full flex items-center justify-center text-xs">4</div>
+                                </div>
+                                <div>
+                                    <div class="font-medium">@ScriptWizard</div>
+                                    <div class="text-xs text-gray-400">3.7k Contribution Score</div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center">
+                                <div class="relative mr-3">
+                                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="Contributor" class="w-10 h-10 rounded-full">
+                                    <div class="absolute -bottom-1 -right-1 bg-blue-500 w-5 h-5 rounded-full flex items-center justify-center text-xs">5</div>
+                                </div>
+                                <div>
+                                    <div class="font-medium">@VisualArtist88</div>
+                                    <div class="text-xs text-gray-400">3.2k Contribution Score</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Upcoming Events -->
+                <div class="card">
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <h2 class="text-xl font-semibold">Upcoming Events</h2>
+                            <a href="#" class="text-sm text-blue-400 hover:underline">View Calendar</a>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="border border-gray-700 rounded-lg p-4">
+                                <div class="flex items-center mb-2">
+                                    <div class="w-12 h-12 bg-blue-500 bg-opacity-20 rounded-lg flex flex-col items-center justify-center mr-3 flex-shrink-0">
+                                        <span class="text-sm font-bold">APR</span>
+                                        <span class="text-lg font-bold">20</span>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-medium">AI Film Showcase Live Session</h3>
+                                        <p class="text-xs text-gray-400">Virtual Event • 10:00 AM HKT</p>
+                                    </div>
+                                </div>
+                                <p class="text-sm text-gray-300">Live demonstration of the latest AI film production techniques by leading creators.</p>
+                                <div class="flex items-center mt-2 text-xs text-gray-400">
+                                    <i class="fas fa-user-friends mr-1"></i>
+                                    <span>245 attending</span>
+                                </div>
+                            </div>
+                            
+                            <div class="border border-gray-700 rounded-lg p-4">
+                                <div class="flex items-center mb-2">
+                                    <div class="w-12 h-12 bg-purple-500 bg-opacity-20 rounded-lg flex flex-col items-center justify-center mr-3 flex-shrink-0">
+                                        <span class="text-sm font-bold">APR</span>
+                                        <span class="text-lg font-bold">23</span>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-medium">Token Economics Workshop</h3>
+                                        <p class="text-xs text-gray-400">In-person • Hong Kong Science Park</p>
+                                    </div>
+                                </div>
+                                <p class="text-sm text-gray-300">Learn how to structure your film project tokens for optimal funding and distribution.</p>
+                                <div class="flex items-center mt-2 text-xs text-gray-400">
+                                    <i class="fas fa-user-friends mr-1"></i>
+                                    <span>120 attending</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Education Resources Banner -->
+    <section class="container mx-auto px-4 py-12">
+        <div class="card relative overflow-hidden">
+            <div class="absolute right-0 top-0 bottom-0 w-2/5 bg-gradient opacity-20"></div>
+            <div class="relative z-10 max-w-2xl p-8">
+                <h2 class="text-2xl font-bold mb-3">New to AI Filmmaking?</h2>
+                <p class="text-gray-300 mb-6">Access our comprehensive learning resources to understand blockchain technology, AI tools, and film production techniques.</p>
+                <div class="flex flex-wrap gap-3">
+                    <a href="#" class="btn-primary px-4 py-2 rounded-lg">
+                        Beginner's Guide
+                    </a>
+                    <a href="#" class="btn-secondary px-4 py-2 rounded-lg">
+                        Video Tutorials
+                    </a>
+                    <a href="#" class="btn-secondary px-4 py-2 rounded-lg">
+                        Join Mentorship
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <a href="#" class="flex flex-col mb-4">
+                        <div class="logo-font text-2xl">HKAIFM</div>
+                        <div class="logo-sub text-xs">AI FILM MARKET</div>
+                    </a>
+                    <p class="text-gray-400 mb-4">
+                        Revolutionizing the film industry through AI and blockchain technology.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-telegram"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-discord"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-medium"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Platform</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white">Discover Projects</a></li>
+                        <li><a href="#" class="hover:text-white">Create Project</a></li>
+                        <li><a href="#" class="hover:text-white">Investment Portal</a></li>
+                        <li><a href="#" class="hover:text-white">AI Tools</a></li>
+                        <li><a href="#" class="hover:text-white">NFT Marketplace</a></li>
+                        <li><a href="#" class="hover:text-white">Copyright Exchange</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Community</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white">DAO Governance</a></li>
+                        <li><a href="#" class="hover:text-white">Discussion Forums</a></li>
+                        <li><a href="#" class="hover:text-white">Creator Showcase</a></li>
+                        <li><a href="#" class="hover:text-white">Events Calendar</a></li>
+                        <li><a href="#" class="hover:text-white">Job Board</a></li>
+                        <li><a href="#" class="hover:text-white">Knowledge Base</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Resources</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white">Tutorials & Guides</a></li>
+                        <li><a href="#" class="hover:text-white">Tokenomics Documentation</a></li>
+                        <li><a href="#" class="hover:text-white">API Documentation</a></li>
+                        <li><a href="#" class="hover:text-white">White Paper</a></li>
+                        <li><a href="#" class="hover:text-white">Legal & Compliance</a></li>
+                        <li><a href="#" class="hover:text-white">Help Center</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between">
+                <p class="text-gray-500 text-sm mb-4 md:mb-0">© 2025 Hong Kong AI Film Market. All rights reserved.</p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#" class="text-gray-500 text-sm hover:text-blue-400">Privacy Policy</a>
+                    <a href="#" class="text-gray-500 text-sm hover:text-blue-400">Terms of Service</a>
+                    <a href="#" class="text-gray-500 text-sm hover:text-blue-400">Cookie Policy</a>
+                    <a href="#" class="text-gray-500 text-sm hover:text-blue-400">Risk Disclosure</a>
+                </div>
+            </div>
+            
+            <div class="mt-8 card p-6">
+                <div class="flex flex-col md:flex-row items-start md:items-center">
+                    <div class="mb-4 md:mb-0 md:mr-6">
+                        <h3 class="font-semibold">Subscribe to our newsletter</h3>
+                        <p class="text-gray-400 text-sm">Get the latest updates on projects, events, and platform features</p>
+                    </div>
+                    <div class="flex-1 w-full md:w-auto">
+                        <div class="flex flex-col sm:flex-row gap-2">
+                            <input type="email" placeholder="Your email address" class="flex-1 bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                            <button class="btn-primary px-4 py-2 rounded-lg">Subscribe</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating DAO Badge -->
+    <div class="fixed bottom-6 left-6 z-10">
+        <button class="bg-gradient rounded-full p-1 shadow-lg hover:opacity-90 transition">
+            <div class="bg-gray-900 rounded-full p-2 flex items-center space-x-2">
+                <div class="text-blue-400">
+                    <i class="fas fa-crown"></i>
+                </div>
+                <span class="text-white text-sm font-medium">DAO Member</span>
+                <div class="bg-green-500 w-2 h-2 rounded-full"></div>
+            </div>
+        </button>
+    </div>
+
+    <!-- AI Assistant Button -->
+    <div class="fixed bottom-6 right-6 z-10">
+        <button class="bg-gradient w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:opacity-90 transition">
+            <i class="fas fa-robot text-xl"></i>
+        </button>
+    </div>
+
+    <script>
+        // Add random data streams
+        function createDataStreams() {
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    const stream = document.createElement('div');
+                    stream.className = 'data-stream';
+                    stream.style.left = Math.random() * 100 + '%';
+                    stream.style.animationDelay = Math.random() * 2 + 's';
+                    document.body.appendChild(stream);
+                    
+                    // Remove after animation
+                    setTimeout(() => {
+                        stream.remove();
+                    }, 4000);
+                }, i * 3000);
+            }
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Start data streams
+            createDataStreams();
+            setInterval(createDataStreams, 15000);
+            
+            // Add scroll animations
+            const animatedElements = document.querySelectorAll('.animate-fade-in, .animate-slide-up, .animate-slide-right');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        if (entry.target.classList.contains('animate-slide-up')) {
+                            entry.target.style.transform = 'translateY(0)';
+                        }
+                        if (entry.target.classList.contains('animate-slide-right')) {
+                            entry.target.style.transform = 'translateX(0)';
+                        }
+                        if (entry.target.classList.contains('animate-fade-in')) {
+                            entry.target.style.transform = 'scale(1)';
+                        }
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            animatedElements.forEach(el => {
+                el.style.opacity = '0';
+                if (el.classList.contains('animate-slide-up')) {
+                    el.style.transform = 'translateY(50px)';
+                }
+                if (el.classList.contains('animate-slide-right')) {
+                    el.style.transform = 'translateX(-50px)';
+                }
+                if (el.classList.contains('animate-fade-in')) {
+                    el.style.transform = 'scale(0.95)';
+                }
+                observer.observe(el);
+            });
+            
+            // Mobile menu functionality
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const mobileMenu = document.querySelector('.mobile-menu');
+            const mobileMenuClose = document.querySelector('.mobile-menu-close');
+            
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            });
+            
+            mobileMenuClose.addEventListener('click', () => {
+                mobileMenu.classList.remove('open');
+                document.body.style.overflow = 'auto';
+            });
+            
+            // Language selection
+            const languageLinks = document.querySelectorAll('.language-dropdown a');
+            const languageIndicator = document.querySelector('.language-indicator');
+            
+            languageLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const lang = link.getAttribute('data-lang');
+                    const flag = link.querySelector('img').src;
+                    const text = link.textContent.trim();
+                    
+                    // Update language indicator
+                    languageIndicator.innerHTML = `
+                        <img src="${flag}" alt="${text}">
+                        <span>${lang.toUpperCase()}</span>
+                        <i class="fas fa-chevron-down ml-2 text-sm"></i>
+                    `;
+                    
+                    // Show translation message
+                    const translateToggle = document.getElementById('aiTranslateToggle');
+                    if (translateToggle.checked) {
+                        alert(`Translating content to ${text} using AI...`);
+                    }
+                });
+            });
+            
+            // Login option handlers
+            const loginOptions = document.querySelectorAll('.login-option');
+            
+            loginOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    const loginType = option.getAttribute('data-login');
+                    
+                    if (loginType === 'metamask' || loginType === 'walletconnect' || loginType === 'coinbase') {
+                        alert(`Connecting wallet via ${loginType.charAt(0).toUpperCase() + loginType.slice(1)}...`);
+                    } else {
+                        alert(`Logging in with ${loginType.charAt(0).toUpperCase() + loginType.slice(1)}...`);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

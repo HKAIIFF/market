@@ -1,0 +1,1746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HKAIFM - Beyond the Digital Horizon</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #3498db;
+            --secondary: #8e44ad;
+            --accent: #00ff9d;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0a0a;
+            color: #ffffff;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(52, 152, 219, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(142, 68, 173, 0.1) 0%, transparent 20%);
+        }
+        
+        .logo-font {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 800;
+            font-size: 2.5rem;
+            letter-spacing: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            position: relative;
+            display: inline-block;
+            text-shadow: 0 0 15px rgba(0, 255, 157, 0.3);
+            animation: logoGlow 3s ease-in-out infinite alternate;
+        }
+        
+        @keyframes logoGlow {
+            0% { text-shadow: 0 0 10px rgba(0, 255, 157, 0.3); }
+            100% { text-shadow: 0 0 25px rgba(0, 255, 157, 0.6), 0 0 35px rgba(52, 152, 219, 0.4); }
+        }
+        
+        .logo-sub {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 0.7rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-top: -10px;
+            text-align: center;
+            opacity: 0.8;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(90deg, var(--primary), var(--accent), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+        
+        .accent-bg {
+            background: rgba(0, 255, 157, 0.1);
+            border: 1px solid rgba(0, 255, 157, 0.2);
+        }
+        
+        .card {
+            background-color: rgba(26, 32, 44, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 255, 157, 0.2);
+            border-color: rgba(0, 255, 157, 0.3);
+        }
+        
+        .navbar {
+            background-color: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 255, 157, 0.1);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            transition: all 0.3s ease;
+            border: none;
+            font-weight: 600;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(52, 152, 219, 0.4);
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        
+        .btn-secondary:hover {
+            background-color: rgba(0, 255, 157, 0.1);
+            transform: translateY(-3px);
+        }
+        
+        .hero {
+            position: relative;
+            overflow: hidden;
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            padding-top: 80px;
+        }
+        
+        .hero:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 100%);
+            z-index: 1;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.7;
+            animation: bgPan 30s infinite linear;
+        }
+        
+        @keyframes bgPan {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
+        }
+        
+        .floating {
+            animation: floating 6s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 1s ease-in-out forwards;
+            opacity: 0;
+        }
+        
+        .animate-slide-up {
+            animation: slideUp 0.8s ease-in-out forwards;
+            opacity: 0;
+        }
+        
+        .animate-slide-right {
+            animation: slideRight 0.8s ease-in-out forwards;
+            opacity: 0;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        @keyframes slideRight {
+            from { transform: translateX(-50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        .progress-bar {
+            background: linear-gradient(to right, var(--primary), var(--accent), var(--secondary));
+            border-radius: 9999px;
+            height: 8px;
+        }
+        
+        .cyber-border {
+            position: relative;
+        }
+        
+        .cyber-border:after {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: linear-gradient(45deg, transparent 30%, var(--accent) 45%, var(--secondary) 55%, transparent 70%);
+            background-size: 200% 200%;
+            animation: borderGlow 5s linear infinite;
+            z-index: -1;
+            border-radius: 20px;
+        }
+        
+        @keyframes borderGlow {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
+        }
+        
+        .ai-element {
+            position: absolute;
+            background-color: rgba(52, 152, 219, 0.1);
+            border: 1px solid rgba(52, 152, 219, 0.3);
+            backdrop-filter: blur(5px);
+            padding: 10px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 12px;
+            color: var(--accent);
+            z-index: 3;
+            pointer-events: none;
+            box-shadow: 0 0 15px rgba(0, 255, 157, 0.1);
+        }
+        
+        .data-stream {
+            position: absolute;
+            height: 100px;
+            width: 2px;
+            background: linear-gradient(to bottom, transparent, var(--accent), var(--secondary), transparent);
+            z-index: 0;
+            animation: dataStream 2s linear infinite;
+            opacity: 0.3;
+        }
+        
+        @keyframes dataStream {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100vh); }
+        }
+        
+        .language-selector {
+            position: relative;
+            display: inline-block;
+            margin-right: 20px;
+        }
+        
+        .language-dropdown {
+            display: none;
+            position: absolute;
+            background-color: rgba(26, 32, 44, 0.95);
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 100;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            top: 40px;
+            right: 0;
+        }
+        
+        .language-selector:hover .language-dropdown {
+            display: block;
+        }
+        
+        .language-dropdown a {
+            color: white;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .language-dropdown a:hover {
+            background-color: rgba(52, 152, 219, 0.2);
+        }
+        
+        .language-dropdown img {
+            width: 24px;
+            margin-right: 10px;
+        }
+        
+        .login-dropdown {
+            display: none;
+            position: absolute;
+            background-color: rgba(26, 32, 44, 0.95);
+            min-width: 280px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 100;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            top: 50px;
+            right: 0;
+            padding: 15px;
+        }
+        
+        .login-container:hover .login-dropdown {
+            display: block;
+        }
+        
+        .login-option {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.05);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .login-option:hover {
+            background: rgba(52, 152, 219, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .login-option i {
+            font-size: 20px;
+            margin-right: 12px;
+            width: 30px;
+            text-align: center;
+        }
+        
+        .login-option span {
+            font-weight: 500;
+        }
+        
+        .login-divider {
+            height: 1px;
+            background: rgba(255,255,255,0.1);
+            margin: 15px 0;
+        }
+        
+        .ai-translate-toggle {
+            display: flex;
+            align-items: center;
+            background: rgba(255,255,255,0.05);
+            padding: 10px 15px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .ai-translate-toggle:hover {
+            background: rgba(52, 152, 219, 0.2);
+        }
+        
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+            margin-left: 10px;
+        }
+        
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .slider {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        
+        .language-indicator {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 30px;
+            background: rgba(255,255,255,0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .language-indicator:hover {
+            background: rgba(52, 152, 219, 0.2);
+        }
+        
+        .language-indicator img {
+            width: 24px;
+            margin-right: 8px;
+        }
+        
+        .wallet-option {
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.3), rgba(142, 68, 173, 0.3));
+        }
+        
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 100vh;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 20px;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
+        
+        .mobile-menu-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--accent);
+        }
+        
+        .project-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .card:hover .project-img {
+            transform: scale(1.05);
+        }
+        
+        .ai-tech-img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .copyright-card-img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        
+        .testimonial-img {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--accent);
+        }
+        
+        .token-card {
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .token-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 255, 157, 0.25);
+        }
+        
+        .hkaifm-logo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .section-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 2rem;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 2px;
+        }
+        
+        .section-title.center:after {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .ai-chip {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 255, 157, 0.3);
+            border-radius: 20px;
+            padding: 5px 15px;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin: 0 5px 5px 0;
+        }
+        
+        .stats-card {
+            text-align: center;
+            padding: 25px;
+            border-radius: 16px;
+            background: rgba(26, 32, 44, 0.5);
+            border: 1px solid rgba(0, 255, 157, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .stats-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            background: rgba(26, 32, 44, 0.7);
+        }
+        
+        .stats-card i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--accent);
+        }
+        
+        .stats-card .number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, var(--primary), var(--accent), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        /* Project Detail Specific Styles */
+        .project-hero {
+            min-height: 70vh;
+        }
+        
+        .project-hero-bg {
+            background-image: url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80');
+        }
+        
+        .project-stats-overlay {
+            position: absolute;
+            bottom: -60px;
+            left: 0;
+            right: 0;
+            z-index: 10;
+        }
+        
+        .project-tab {
+            position: relative;
+            cursor: pointer;
+            padding: 1rem 0;
+            margin-right: 2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .project-tab.active {
+            color: var(--accent);
+        }
+        
+        .project-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+        }
+        
+        .project-video-placeholder {
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+            border-radius: 1rem;
+            height: 400px;
+        }
+        
+        .project-video-placeholder img {
+            transition: transform 0.5s ease;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .project-video-placeholder:hover img {
+            transform: scale(1.05);
+        }
+        
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .play-button:hover {
+            background: var(--primary);
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+        
+        .timeline-dot {
+            width: 16px;
+            height: 16px;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            border-radius: 50%;
+            position: absolute;
+            left: 0;
+            top: 0.5rem;
+        }
+        
+        .timeline-line {
+            position: absolute;
+            left: 8px;
+            top: 2rem;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--primary), rgba(99, 102, 241, 0.1));
+        }
+        
+        .team-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--accent);
+            margin-bottom: 1rem;
+        }
+        
+        .token-dist-item {
+            margin-bottom: 1rem;
+        }
+        
+        .project-update-card {
+            transition: all 0.3s ease;
+        }
+        
+        .project-update-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+        
+        @media (max-width: 768px) {
+            .desktop-nav {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .language-selector {
+                margin-right: 10px;
+            }
+            
+            .ai-tech-img {
+                height: 300px;
+            }
+            
+            .logo-font {
+                font-size: 1.8rem;
+            }
+            
+            .hero-bg {
+                animation: none;
+            }
+            
+            .project-hero {
+                min-height: 60vh;
+            }
+            
+            .project-stats-overlay {
+                position: relative;
+                bottom: 0;
+                margin-top: 2rem;
+            }
+            
+            .project-video-placeholder {
+                height: 250px;
+            }
+            
+            .play-button {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .project-tabs {
+                overflow-x: auto;
+                white-space: nowrap;
+                padding-bottom: 1rem;
+            }
+            
+            .project-tab {
+                display: inline-block;
+                margin-right: 1rem;
+            }
+            
+            .investment-card {
+                position: static;
+                margin-bottom: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- AI Elements -->
+    <div class="ai-element" style="top: 120px; left: 10%;">
+        FILM_ID: PROJ-7840 <br>
+        STATUS: FUNDING <br>
+        // Project Funding Active
+    </div>
+    
+    <div class="ai-element" style="bottom: 150px; right: 15%;">
+        TOKEN_SUPPLY: 500,000 <br>
+        FUNDING: 68% <br>
+        // Blockchain Verified
+    </div>
+    
+    <!-- Data streams -->
+    <div class="data-stream" style="left: 20%; animation-delay: 0s;"></div>
+    <div class="data-stream" style="left: 40%; animation-delay: 0.5s;"></div>
+    <div class="data-stream" style="left: 60%; animation-delay: 1s;"></div>
+    <div class="data-stream" style="left: 80%; animation-delay: 1.5s;"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar fixed w-full z-50 px-4 py-3">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="index.html" class="hkaifm-logo">
+                <div class="logo-font">HKAIFM</div>
+                <div class="logo-sub">AI FILM MARKET</div>
+            </a>
+            <div class="hidden md:flex space-x-8 desktop-nav">
+                <a href="#marketplace" class="hover:text-blue-400 transition">Marketplace</a>
+                <a href="#create" class="hover:text-blue-400 transition">Create</a>
+                <a href="#invest" class="hover:text-blue-400 transition">Invest</a>
+                <a href="#dashboard" class="hover:text-blue-400 transition">Dashboard</a>
+                <a href="#community" class="hover:text-blue-400 transition">Community</a>
+            </div>
+            <div class="flex items-center space-x-4">
+                <!-- Language Selector -->
+                <div class="language-selector">
+                    <div class="language-indicator">
+                        <img src="https://flagcdn.com/w40/gb.png" alt="English">
+                        <span>EN</span>
+                        <i class="fas fa-chevron-down ml-2 text-sm"></i>
+                    </div>
+                    <div class="language-dropdown">
+                        <a href="#" data-lang="en">
+                            <img src="https://flagcdn.com/w40/gb.png" alt="English">
+                            English
+                        </a>
+                        <a href="#" data-lang="zh">
+                            <img src="https://flagcdn.com/w40/cn.png" alt="Chinese">
+                            中文 (简体)
+                        </a>
+                        <a href="#" data-lang="es">
+                            <img src="https://flagcdn.com/w40/es.png" alt="Spanish">
+                            Español
+                        </a>
+                        <a href="#" data-lang="fr">
+                            <img src="https://flagcdn.com/w40/fr.png" alt="French">
+                            Français
+                        </a>
+                        <a href="#" data-lang="de">
+                            <img src="https://flagcdn.com/w40/de.png" alt="German">
+                            Deutsch
+                        </a>
+                        <a href="#" data-lang="ja">
+                            <img src="https://flagcdn.com/w40/jp.png" alt="Japanese">
+                            日本語
+                        </a>
+                        <a href="#" data-lang="ko">
+                            <img src="https://flagcdn.com/w40/kr.png" alt="Korean">
+                            한국어
+                        </a>
+                        <a href="#" data-lang="ru">
+                            <img src="https://flagcdn.com/w40/ru.png" alt="Russian">
+                            Русский
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- AI Translate Toggle -->
+                <div class="ai-translate-toggle hidden md:flex">
+                    <i class="fas fa-robot text-blue-400"></i>
+                    <span class="ml-2 text-sm">AI Translate</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="aiTranslateToggle" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                
+                <!-- Login Container -->
+                <div class="login-container relative">
+                    <a href="#login" class="btn-primary px-6 py-2 rounded-full text-sm">Sign In</a>
+                    <div class="login-dropdown">
+                        <h3 class="font-bold text-lg mb-4">Login to HKAIFM</h3>
+                        
+                        <div class="login-option" data-login="google">
+                            <i class="fab fa-google text-red-500"></i>
+                            <span>Continue with Google</span>
+                        </div>
+                        
+                        <div class="login-option" data-login="facebook">
+                            <i class="fab fa-facebook text-blue-600"></i>
+                            <span>Continue with Facebook</span>
+                        </div>
+                        
+                        <div class="login-option" data-login="twitter">
+                            <i class="fab fa-twitter text-blue-400"></i>
+                            <span>Continue with Twitter</span>
+                        </div>
+                        
+                        <div class="login-option" data-login="apple">
+                            <i class="fab fa-apple"></i>
+                            <span>Continue with Apple</span>
+                        </div>
+                        
+                        <div class="login-divider"></div>
+                        
+                        <div class="login-option wallet-option" data-login="metamask">
+                            <i class="fas fa-wallet text-yellow-400"></i>
+                            <span>Connect with MetaMask</span>
+                        </div>
+                        
+                        <div class="login-option wallet-option" data-login="walletconnect">
+                            <i class="fas fa-plug text-blue-300"></i>
+                            <span>Connect with WalletConnect</span>
+                        </div>
+                        
+                        <div class="login-option wallet-option" data-login="coinbase">
+                            <i class="fab fa-bitcoin text-orange-400"></i>
+                            <span>Connect with Coinbase Wallet</span>
+                        </div>
+                        
+                        <div class="mt-4 text-center text-sm text-gray-400">
+                            By connecting, you agree to our <a href="#" class="text-blue-400">Terms</a> and <a href="#" class="text-blue-400">Privacy Policy</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="md:hidden text-white mobile-menu-btn">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <div class="mobile-menu-close">
+            <i class="fas fa-times"></i>
+        </div>
+        
+        <div class="mt-12 flex flex-col space-y-6">
+            <a href="#marketplace" class="text-xl hover:text-blue-400 transition">Marketplace</a>
+            <a href="#create" class="text-xl hover:text-blue-400 transition">Create</a>
+            <a href="#invest" class="text-xl hover:text-blue-400 transition">Invest</a>
+            <a href="#dashboard" class="text-xl hover:text-blue-400 transition">Dashboard</a>
+            <a href="#community" class="text-xl hover:text-blue-400 transition">Community</a>
+            
+            <div class="pt-6 border-t border-gray-700">
+                <h3 class="text-lg font-bold mb-4">Language</h3>
+                <select class="w-full bg-gray-800 text-white p-3 rounded-lg">
+                    <option value="en">English</option>
+                    <option value="zh">中文 (简体)</option>
+                    <option value="es">Español</option>
+                    <option value="fr">Français</option>
+                    <option value="de">Deutsch</option>
+                    <option value="ja">日本語</option>
+                    <option value="ko">한국어</option>
+                    <option value="ru">Русский</option>
+                </select>
+                
+                <div class="flex items-center mt-4">
+                    <span class="mr-3">AI Translate</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="mobileAiTranslate" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+            
+            <div class="pt-6 border-t border-gray-700">
+                <button class="btn-primary w-full py-3 rounded-lg font-medium text-center mb-4">
+                    Sign In
+                </button>
+                <button class="btn-secondary w-full py-3 rounded-lg font-medium text-center">
+                    Connect Wallet
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Banner -->
+    <div class="hero project-hero">
+        <div class="hero-bg project-hero-bg"></div>
+        <div class="container mx-auto px-4 hero-content">
+            <div class="max-w-3xl animate-fade-in">
+                <div class="inline-block mb-4">
+                    <span class="ai-chip bg-blue-500 bg-opacity-30 text-white">
+                        <i class="fas fa-clock mr-1"></i> Funding: 18 days left
+                    </span>
+                </div>
+                <h1 class="text-4xl md:text-6xl font-bold mb-6">Beyond the Digital Horizon</h1>
+                <p class="text-xl text-gray-300 mb-8 max-w-2xl">
+                    An AI-generated sci-fi epic exploring human consciousness in a world where reality and digital existence merge.
+                </p>
+                <div class="flex flex-wrap items-center gap-4">
+                    <a href="#investment" class="btn-primary px-8 py-3 rounded-full font-medium">
+                        Invest Now
+                    </a>
+                    <button class="btn-secondary px-8 py-3 rounded-full font-medium">
+                        <i class="far fa-heart mr-2"></i> Add to Watchlist
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Project Key Stats (overlapping the hero image) -->
+        <div class="container mx-auto px-4 project-stats-overlay">
+            <div class="card p-6 grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div class="flex items-center space-x-4">
+                    <div class="w-12 h-12 rounded-full bg-gray-700 flex items-center justify-center">
+                        <i class="fas fa-film"></i>
+                    </div>
+                    <div>
+                        <div class="font-semibold">Digital Dreams Studio</div>
+                        <div class="text-sm text-gray-400 flex items-center">
+                            <i class="fas fa-film mr-1"></i> 5 Previous Projects
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-col justify-center">
+                    <div class="text-2xl font-bold gradient-text">$437,500</div>
+                    <div class="text-sm text-gray-400">Target Funding</div>
+                </div>
+                <div class="flex flex-col justify-center">
+                    <div class="text-2xl font-bold gradient-text">68%</div>
+                    <div class="text-sm text-gray-400">Funding Complete</div>
+                </div>
+                <div class="flex flex-col justify-center">
+                    <div class="text-2xl font-bold gradient-text">127</div>
+                    <div class="text-sm text-gray-400">Backers</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 pt-32 pb-16">
+        <!-- Tabs Navigation -->
+        <div class="mb-12 project-tabs">
+            <div class="flex border-b border-gray-800">
+                <a href="#overview" class="project-tab active">Overview</a>
+                <a href="#production" class="project-tab">Production</a>
+                <a href="#team" class="project-tab">Team</a>
+                <a href="#ai-models" class="project-tab">AI Models</a>
+                <a href="#token-economics" class="project-tab">Token Economics</a>
+                <a href="#updates" class="project-tab">Updates</a>
+                <a href="#discussion" class="project-tab">Discussion</a>
+            </div>
+        </div>
+        
+        <!-- Main Grid Layout -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Left Column (2/3 width on large screens) -->
+            <div class="lg:col-span-2">
+                <!-- Video Trailer -->
+                <div class="project-video-placeholder mb-10 animate-fade-in">
+                    <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80" alt="Trailer Thumbnail">
+                    <div class="play-button">
+                        <i class="fas fa-play text-3xl"></i>
+                    </div>
+                </div>
+                
+                <!-- Project Description Section -->
+                <section id="overview" class="mb-16 card p-8 animate-slide-up">
+                    <h2 class="text-3xl font-bold mb-6 section-title">Project Description</h2>
+                    <div class="space-y-6 text-gray-300">
+                        <p>
+                            "Beyond the Digital Horizon" is an ambitious AI-generated sci-fi film that explores the blurring boundaries between human consciousness and digital existence. Set in the year 2078, it follows the journey of Dr. Elena Chen, a brilliant neuroscientist who discovers a way to transfer human consciousness into a vast digital realm.
+                        </p>
+                        <p>
+                            As the line between reality and digital simulation becomes increasingly blurred, Elena must navigate ethical dilemmas, corporate interests, and her own identity crisis. The film's stunning visual aesthetic combines cyberpunk influences with ethereal digital landscapes, all generated using state-of-the-art AI models.
+                        </p>
+                        <p>
+                            This project pushes the boundaries of AI filmmaking by utilizing multiple AI systems in harmony - from script generation and visual design to character animation and musical score. By funding this project, you're not just supporting a film, but participating in the evolution of a new art form.
+                        </p>
+                        
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4">
+                            <div class="text-center card p-4">
+                                <div class="text-sm text-gray-400">Runtime</div>
+                                <div class="font-semibold">85 min</div>
+                            </div>
+                            <div class="text-center card p-4">
+                                <div class="text-sm text-gray-400">Genre</div>
+                                <div class="font-semibold">Sci-Fi</div>
+                            </div>
+                            <div class="text-center card p-4">
+                                <div class="text-sm text-gray-400">Release</div>
+                                <div class="font-semibold">Dec 2025</div>
+                            </div>
+                            <div class="text-center card p-4">
+                                <div class="text-sm text-gray-400">Language</div>
+                                <div class="font-semibold">English</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- AI Technology Section -->
+                <section id="ai-models" class="mb-16 card p-8 animate-slide-up" style="animation-delay: 0.1s;">
+                    <h2 class="text-3xl font-bold mb-6 section-title">AI Technology</h2>
+                    <p class="text-gray-300 mb-8">
+                        Our film utilizes a suite of cutting-edge AI tools working in harmony to create a seamless cinematic experience. Each system has been fine-tuned specifically for this project.
+                    </p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="card p-6 transition duration-300 hover:transform hover:scale-105">
+                            <div class="text-4xl text-blue-400 mb-4">
+                                <i class="fas fa-pen-fancy"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2">Narrative Engine</h3>
+                            <p class="text-gray-400 text-sm mb-3">Advanced large language model fine-tuned on award-winning sci-fi screenplays</p>
+                            <div class="text-xs text-gray-500">Based on GPT-5 architecture with proprietary modifications</div>
+                        </div>
+                        
+                        <div class="card p-6 transition duration-300 hover:transform hover:scale-105">
+                            <div class="text-4xl text-purple-400 mb-4">
+                                <i class="fas fa-images"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2">Visual Generator</h3>
+                            <p class="text-gray-400 text-sm mb-3">Multi-modal diffusion model capable of consistent character and environment rendering</p>
+                            <div class="text-xs text-gray-500">Custom-trained on cyberpunk and abstract digital aesthetics</div>
+                        </div>
+                        
+                        <div class="card p-6 transition duration-300 hover:transform hover:scale-105">
+                            <div class="text-4xl text-green-400 mb-4">
+                                <i class="fas fa-film"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2">Motion Synthesis</h3>
+                            <p class="text-gray-400 text-sm mb-3">Revolutionary AI system that generates fluid character motion and scene transitions</p>
+                            <div class="text-xs text-gray-500">Based on neural motion fields with temporal consistency</div>
+                        </div>
+                        
+                        <div class="card p-6 transition duration-300 hover:transform hover:scale-105">
+                            <div class="text-4xl text-yellow-400 mb-4">
+                                <i class="fas fa-music"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2">Adaptive Soundtrack</h3>
+                            <p class="text-gray-400 text-sm mb-3">Emotion-aware music generation system that responds to scene content</p>
+                            <div class="text-xs text-gray-500">Built on advanced audio diffusion models with orchestral training</div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Production Timeline Section -->
+                <section id="production" class="mb-16 card p-8 animate-slide-up" style="animation-delay: 0.2s;">
+                    <h2 class="text-3xl font-bold mb-6 section-title">Production Timeline</h2>
+                    <div class="space-y-6">
+                        <div class="timeline-item relative pl-8">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-line"></div>
+                            <div class="card p-6">
+                                <span class="ai-chip mb-2">May - June 2025</span>
+                                <h3 class="text-xl font-bold text-blue-400 mb-2">Pre-production</h3>
+                                <p class="text-gray-300">Finalize script, design characters, and create visual style guide. This phase focuses on story development and establishing the visual language of the film.</p>
+                                <div class="mt-4 flex flex-wrap gap-2">
+                                    <span class="ai-chip">Script Finalization</span>
+                                    <span class="ai-chip">Character Design</span>
+                                    <span class="ai-chip">Visual Style Development</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item relative pl-8">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-line"></div>
+                            <div class="card p-6">
+                                <span class="ai-chip mb-2">July - September 2025</span>
+                                <h3 class="text-xl font-bold text-purple-400 mb-2">Production</h3>
+                                <p class="text-gray-300">Generate all scenes, character animations, and dialogue sequences. This is the most computation-intensive phase requiring significant AI resources.</p>
+                                <div class="mt-4 flex flex-wrap gap-2">
+                                    <span class="ai-chip">Scene Generation</span>
+                                    <span class="ai-chip">Character Animation</span>
+                                    <span class="ai-chip">Dialogue Integration</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item relative pl-8">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-line"></div>
+                            <div class="card p-6">
+                                <span class="ai-chip mb-2">October - November 2025</span>
+                                <h3 class="text-xl font-bold text-green-400 mb-2">Post-production</h3>
+                                <p class="text-gray-300">Editing, music composition, sound design, and final rendering. Focuses on polishing the raw generated content into a cohesive cinematic experience.</p>
+                                <div class="mt-4 flex flex-wrap gap-2">
+                                    <span class="ai-chip">Editing</span>
+                                    <span class="ai-chip">Music Production</span>
+                                    <span class="ai-chip">Sound Design</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item relative pl-8">
+                            <div class="timeline-dot"></div>
+                            <div class="card p-6">
+                                <span class="ai-chip mb-2">December 2025</span>
+                                <h3 class="text-xl font-bold text-accent mb-2">Release</h3>
+                                <p class="text-gray-300">Digital premiere, distribution to streaming platforms, and marketing campaign. Initial revenue generation begins during this phase.</p>
+                                <div class="mt-4 flex flex-wrap gap-2">
+                                    <span class="ai-chip">Digital Premiere</span>
+                                    <span class="ai-chip">Platform Distribution</span>
+                                    <span class="ai-chip">Marketing</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Concept Art Gallery -->
+                <section class="mb-16 card p-8 animate-slide-up" style="animation-delay: 0.3s;">
+                    <h2 class="text-3xl font-bold mb-6 section-title">Concept Art Gallery</h2>
+                    <p class="text-gray-300 mb-8">
+                        Early AI-generated concept art showcasing the visual style of "Beyond the Digital Horizon." Click on any image to enlarge.
+                    </p>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                        <img src="https://images.unsplash.com/photo-1637858868799-7f26a0640eb6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Neural cityscape concept" class="w-full h-48 object-cover rounded-lg">
+                        <img src="https://images.unsplash.com/photo-1634128221889-82ed6efebfc3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Digital consciousness visualization" class="w-full h-48 object-cover rounded-lg">
+                        <img src="https://images.unsplash.com/photo-1638803040283-7a5ffd48dad5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Dr. Elena character design" class="w-full h-48 object-cover rounded-lg">
+                        <img src="https://images.unsplash.com/photo-1639762681057-408e52192e55?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Neural interface technology" class="w-full h-48 object-cover rounded-lg">
+                        <img src="https://images.unsplash.com/photo-1637858868799-7f26a0640eb6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Digital realm landscape" class="w-full h-48 object-cover rounded-lg">
+                        <img src="https://images.unsplash.com/photo-1638803040283-7a5ffd48dad5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Reality fragmentation scene" class="w-full h-48 object-cover rounded-lg">
+                    </div>
+                </section>
+                
+                <!-- Team Section -->
+                <section id="team" class="mb-16 card p-8 animate-slide-up" style="animation-delay: 0.4s;">
+                    <h2 class="text-3xl font-bold mb-6 section-title">Project Team</h2>
+                    <p class="text-gray-300 mb-8">
+                        Meet the visionaries behind "Beyond the Digital Horizon" — a diverse team of AI specialists, filmmakers, and creative technologists.
+                    </p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                        <div class="card p-6 text-center transition duration-300">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Sarah Chen" class="team-avatar mx-auto">
+                            <h3 class="text-xl font-bold mb-1">Sarah Chen</h3>
+                            <div class="text-blue-400 text-sm mb-3">Creative Director</div>
+                            <p class="text-sm text-gray-400 mb-4">Award-winning director specializing in AI-assisted filmmaking with 3 previous successful projects.</p>
+                            <div class="flex justify-center space-x-3">
+                                <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-linkedin"></i></a>
+                                <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-twitter"></i></a>
+                                <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fas fa-globe"></i></a>
+                            </div>
+                        </div>
+                        
+                        <div class="card p-6 text-center transition duration-300">
+                            <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Marcus Wong" class="team-avatar mx-auto">
+                            <h3 class="text-xl font-bold mb-1">Marcus Wong</h3>
+                            <div class="text-purple-400 text-sm mb-3">AI Engineering Lead</div>
+                            <p class="text-sm text-gray-400 mb-4">Specialist in generative models and visual AI systems, formerly at DeepMind and OpenAI.</p>
+                            <div class="flex justify-center space-x-3">
+                                <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-github"></i></a>
+                                <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-twitter"></i></a>
+                                <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fas fa-globe"></i></a>
+                            </div>
+                        </div>
+                        
+                        <div class="card p-6 text-center transition duration-300">
+                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Aisha Johnson" class="team-avatar mx-auto">
+                            <h3 class="text-xl font-bold mb-1">Aisha Johnson</h3>
+                            <div class="text-green-400 text-sm mb-3">Narrative Designer</div>
+                            <p class="text-sm text-gray-400 mb-4">Expert in AI story structure and character development with background in both traditional and AI filmmaking.</p>
+                            <div class="flex justify-center space-x-3">
+                                <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-linkedin"></i></a>
+                                <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-instagram"></i></a>
+                                <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fas fa-globe"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Token Economics Section -->
+                <section id="token-economics" class="mb-16 card p-8 animate-slide-up" style="animation-delay: 0.5s;">
+                    <h2 class="text-3xl font-bold mb-6 section-title">Token Economics</h2>
+                    <p class="text-gray-300 mb-8">
+                        The FILM-A001 token represents ownership in "Beyond the Digital Horizon" and entitles holders to a share of the film's revenue as well as governance rights.
+                    </p>
+                    
+                    <div class="card p-8 mb-8">
+                        <div class="flex flex-col md:flex-row gap-8">
+                            <div class="flex-1">
+                                <div class="flex items-center justify-center mb-6">
+                                    <div class="w-16 h-16 bg-blue-900 rounded-full flex items-center justify-center mr-4">
+                                        <i class="fas fa-film text-2xl"></i>
+                                    </div>
+                                    <h3 class="text-2xl font-bold">FILM-A001 Token</h3>
+                                </div>
+                                <div class="space-y-4">
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-gray-400">Total Supply:</span>
+                                        <span class="font-semibold">500,000 FILM-A001</span>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-gray-400">Initial Price:</span>
+                                        <span class="font-semibold">1 FILM-A001 = 1 HKAIF</span>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-gray-400">Expected ROI:</span>
+                                        <span class="font-semibold text-green-400">+25% to +40%</span>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-gray-400">Distribution Period:</span>
+                                        <span class="font-semibold">3 years</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold mb-4">Token Distribution</h3>
+                                <div class="space-y-4">
+                                    <div class="token-dist-item">
+                                        <div class="flex justify-between text-sm mb-1">
+                                            <span>Public Financing</span>
+                                            <span>50%</span>
+                                        </div>
+                                        <div class="w-full bg-gray-800 rounded-full h-2">
+                                            <div class="progress-bar h-2 rounded-full" style="width: 50%"></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="token-dist-item">
+                                        <div class="flex justify-between text-sm mb-1">
+                                            <span>Creative Team</span>
+                                            <span>20%</span>
+                                        </div>
+                                        <div class="w-full bg-gray-800 rounded-full h-2">
+                                            <div class="progress-bar h-2 rounded-full" style="width: 20%"></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="token-dist-item">
+                                        <div class="flex justify-between text-sm mb-1">
+                                            <span>Platform Reserve</span>
+                                            <span>10%</span>
+                                        </div>
+                                        <div class="w-full bg-gray-800 rounded-full h-2">
+                                            <div class="progress-bar h-2 rounded-full" style="width: 10%"></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="token-dist-item">
+                                        <div class="flex justify-between text-sm mb-1">
+                                            <span>Community Incentives</span>
+                                            <span>10%</span>
+                                        </div>
+                                        <div class="w-full bg-gray-800 rounded-full h-2">
+                                            <div class="progress-bar h-2 rounded-full" style="width: 10%"></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="token-dist-item">
+                                        <div class="flex justify-between text-sm mb-1">
+                                            <span>Marketing & Promotion</span>
+                                            <span>10%</span>
+                                        </div>
+                                        <div class="w-full bg-gray-800 rounded-full h-2">
+                                            <div class="progress-bar h-2 rounded-full" style="width: 10%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Updates Section -->
+                <section id="updates" class="animate-slide-up" style="animation-delay: 0.6s;">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-3xl font-bold section-title">Project Updates</h2>
+                        <button class="btn-secondary px-4 py-2 rounded-full">
+                            <i class="fas fa-bell mr-2"></i> Subscribe to Updates
+                        </button>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <div class="card p-6 project-update-card">
+                            <div class="flex justify-between mb-3">
+                                <h3 class="text-xl font-bold">Technical Architecture Finalized</h3>
+                                <span class="text-xs text-gray-400">April 10, 2025</span>
+                            </div>
+                            <p class="text-gray-300 mb-4">
+                                We're excited to announce that we've finalized the technical architecture for "Beyond the Digital Horizon." After extensive testing, we've selected a combination of advanced diffusion models and language models that will work in tandem to create our vision.
+                            </p>
+                            <div class="mb-4">
+                                <img src="https://images.unsplash.com/photo-1677442135133-33d364e7d1b6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80" alt="Technical Architecture Diagram" class="w-full h-auto rounded-lg">
+                            </div>
+                            <p class="text-gray-300 mb-4">
+                                Key highlights of our technical approach:
+                            </p>
+                            <ul class="list-disc pl-5 mb-4 text-gray-300 space-y-1">
+                                <li>Custom fine-tuned diffusion model with 5 billion parameters</li>
+                                <li>Narrative engine built on GPT-5 architecture with reinforcement learning</li>
+                                <li>Proprietary motion synthesis system for character consistency</li>
+                                <li>Cloud-distributed rendering system for optimal resource allocation</li>
+                            </ul>
+                            <a href="#" class="text-blue-400 hover:text-accent">Read full technical specification</a>
+                        </div>
+                        
+                        <div class="card p-6 project-update-card">
+                            <div class="flex justify-between mb-3">
+                                <h3 class="text-xl font-bold">Script First Draft Completed</h3>
+                                <span class="text-xs text-gray-400">April 2, 2025</span>
+                            </div>
+                            <p class="text-gray-300 mb-4">
+                                We're thrilled to share that the first draft of the screenplay for "Beyond the Digital Horizon" has been completed! Our narrative AI system, guided by our creative team, has produced an engaging and thought-provoking story that explores the boundaries between human consciousness and digital existence.
+                            </p>
+                            <div class="card p-4 mb-4">
+                                <div class="italic text-gray-400">
+                                    "The script exceeded our expectations in its emotional depth and philosophical nuance. While AI-generated, it captures the essence of human experience in a way that feels authentic and compelling."
+                                </div>
+                                <div class="text-right mt-2 text-sm text-gray-500">
+                                    — Aisha Johnson, Narrative Designer
+                                </div>
+                            </div>
+                            <p class="text-gray-300">
+                                Token holders will receive access to the script summary next week, with opportunities to provide feedback on key plot points before we finalize the shooting script.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            
+            <!-- Right Column (1/3 width on large screens) -->
+            <div class="lg:col-span-1">
+                <!-- Investment Card -->
+                <div id="investment" class="card p-6 rounded-xl">
+                    <h2 class="text-2xl font-bold mb-6">Invest Now</h2>
+                    
+                    <div class="mb-6">
+                        <div class="flex justify-between text-sm mb-1">
+                            <span>Funding Progress</span>
+                            <span class="font-medium">68%</span>
+                        </div>
+                        <div class="w-full bg-gray-800 rounded-full h-2 mb-2">
+                            <div class="progress-bar h-2 rounded-full" style="width: 68%"></div>
+                        </div>
+                        <div class="flex justify-between text-sm text-gray-400">
+                            <span>34,000 HKAIF raised</span>
+                            <span>50,000 HKAIF goal</span>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-4 mb-6">
+                        <div class="text-center card p-3">
+                            <div class="text-2xl font-bold gradient-text">127</div>
+                            <div class="text-sm text-gray-400">Investors</div>
+                        </div>
+                        <div class="text-center card p-3">
+                            <div class="text-2xl font-bold gradient-text">18</div>
+                            <div class="text-sm text-gray-400">Days Left</div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label class="block mb-2 text-sm font-medium">Investment Amount (HKAIF)</label>
+                        <input type="number" class="w-full bg-gray-800 border border-gray-700 rounded-lg p-3 text-gray-300 focus:outline-none focus:border-accent transition duration-300 mb-2" placeholder="Enter amount" value="500">
+                        <div class="flex justify-between text-sm text-gray-400 mb-3">
+                            <span>Min: 50 HKAIF</span>
+                            <span>Max: 5,000 HKAIF</span>
+                        </div>
+                        <div class="flex justify-between text-sm mb-3">
+                            <button class="btn-secondary px-3 py-1 rounded-lg">100</button>
+                            <button class="btn-secondary px-3 py-1 rounded-lg">500</button>
+                            <button class="btn-secondary px-3 py-1 rounded-lg">1000</button>
+                            <button class="btn-secondary px-3 py-1 rounded-lg">5000</button>
+                        </div>
+                        <div class="text-right text-sm text-gray-400">
+                            ≈ $437.50 USD
+                        </div>
+                    </div>
+                    
+                    <div class="card p-4 mb-6">
+                        <h3 class="font-medium mb-3">What You'll Receive</h3>
+                        <div class="space-y-3 text-sm">
+                            <div class="flex items-start">
+                                <i class="fas fa-check-circle text-green-400 mt-1 mr-2"></i>
+                                <span class="text-gray-300"><span class="font-medium">500 FILM-A001</span> tokens (1:1 conversion)</span>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-check-circle text-green-400 mt-1 mr-2"></i>
+                                <span class="text-gray-300"><span class="font-medium">Pro rata</span> revenue share from distribution</span>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-check-circle text-green-400 mt-1 mr-2"></i>
+                                <span class="text-gray-300"><span class="font-medium">Voting rights</span> on key creative decisions</span>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-check-circle text-green-400 mt-1 mr-2"></i>
+                                <span class="text-gray-300"><span class="font-medium">Early access</span> to the film before public release</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="btn-primary w-full py-3 rounded-lg font-medium mb-4 flex justify-center items-center">
+                        <i class="fas fa-rocket mr-2"></i> Invest Now
+                    </button>
+                    
+                    <div class="flex justify-center space-x-4">
+                        <button class="btn-secondary p-3 rounded-full">
+                            <i class="far fa-heart"></i>
+                        </button>
+                        <button class="btn-secondary p-3 rounded-full">
+                            <i class="fas fa-share-alt"></i>
+                        </button>
+                        <button class="btn-secondary p-3 rounded-full">
+                            <i class="far fa-bookmark"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Additional Information Card -->
+                <div class="card p-6 rounded-xl mt-6">
+                    <h3 class="text-xl font-bold mb-4">Project Status</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center">
+                            <div class="w-3 h-3 rounded-full bg-green-400 mr-3"></div>
+                            <div class="flex-1">
+                                <div class="text-sm text-gray-400">Current Phase</div>
+                                <div class="font-medium">Pre-production</div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center">
+                            <div class="w-3 h-3 rounded-full bg-blue-400 mr-3"></div>
+                            <div class="flex-1">
+                                <div class="text-sm text-gray-400">Next Milestone</div>
+                                <div class="font-medium">Script Finalization</div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center">
+                            <div class="w-3 h-3 rounded-full bg-yellow-400 mr-3"></div>
+                            <div class="flex-1">
+                                <div class="text-sm text-gray-400">Est. Completion</div>
+                                <div class="font-medium">November 2025</div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center">
+                            <div class="w-3 h-3 rounded-full bg-purple-400 mr-3"></div>
+                            <div class="flex-1">
+                                <div class="text-sm text-gray-400">Funding Type</div>
+                                <div class="font-medium">Token-based Equity</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Similar Projects Card -->
+                <div class="card p-6 rounded-xl mt-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-bold">Similar Projects</h3>
+                        <a href="marketplace.html" class="text-blue-400 text-sm">View All</a>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex items-center">
+                            <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" class="w-16 h-16 rounded-lg object-cover mr-3">
+                            <div>
+                                <div class="font-semibold">Neon Memories</div>
+                                <div class="text-xs text-gray-400">Cyberpunk thriller set in future Hong Kong</div>
+                                <div class="text-xs text-blue-400 mt-1">Funding: 45%</div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center">
+                            <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" class="w-16 h-16 rounded-lg object-cover mr-3">
+                            <div>
+                                <div class="font-semibold">Harmonic Convergence</div>
+                                <div class="text-xs text-gray-400">Musical journey visualizing sound waves</div>
+                                <div class="text-xs text-green-400 mt-1">ROI: +32%</div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center">
+                            <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" class="w-16 h-16 rounded-lg object-cover mr-3">
+                            <div>
+                                <div class="font-semibold">Quantum Echoes</div>
+                                <div class="text-xs text-gray-400">Experimental film exploring quantum physics</div>
+                                <div class="text-xs text-yellow-400 mt-1">In Production</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <a href="index.html" class="hkaifm-logo mb-4">
+                        <div class="logo-font">HKAIFM</div>
+                        <div class="logo-sub">AI FILM MARKET</div>
+                    </a>
+                    <p class="text-gray-400 mb-4">
+                        Revolutionizing the film industry through AI and blockchain technology.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-telegram"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-discord"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-medium"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Platform</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#marketplace" class="text-gray-400 hover:text-white">Marketplace</a></li>
+                        <li><a href="#create" class="text-gray-400 hover:text-white">Create</a></li>
+                        <li><a href="#invest" class="text-gray-400 hover:text-white">Invest</a></li>
+                        <li><a href="#dashboard" class="text-gray-400 hover:text-white">Dashboard</a></li>
+                        <li><a href="#community" class="text-gray-400 hover:text-white">Community</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Resources</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#whitepaper" class="text-gray-400 hover:text-white">Whitepaper</a></li>
+                        <li><a href="#documentation" class="text-gray-400 hover:text-white">Documentation</a></li>
+                        <li><a href="#tokenomics" class="text-gray-400 hover:text-white">Tokenomics</a></li>
+                        <li><a href="#developers" class="text-gray-400 hover:text-white">Developers</a></li>
+                        <li><a href="#support" class="text-gray-400 hover:text-white">Support</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Legal</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#terms" class="text-gray-400 hover:text-white">Terms of Service</a></li>
+                        <li><a href="#privacy" class="text-gray-400 hover:text-white">Privacy Policy</a></li>
+                        <li><a href="#copyright" class="text-gray-400 hover:text-white">Copyright Policy</a></li>
+                        <li><a href="#compliance" class="text-gray-400 hover:text-white">Regulatory Compliance</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-white">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-500 text-sm">
+                <p>© 2025 Hong Kong AI Film Market. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Add random data streams
+        function createDataStreams() {
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    const stream = document.createElement('div');
+                    stream.className = 'data-stream';
+                    stream.style.left = Math.random() * 100 + '%';
+                    stream.style.animationDelay = Math.random() * 2 + 's';
+                    document.body.appendChild(stream);
+                    
+                    // Remove after animation
+                    setTimeout(() => {
+                        stream.remove();
+                    }, 4000);
+                }, i * 3000);
+            }
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Start data streams
+            createDataStreams();
+            setInterval(createDataStreams, 15000);
+            
+            // Add scroll animations
+            const animatedElements = document.querySelectorAll('.animate-fade-in, .animate-slide-up, .animate-slide-right');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        if (entry.target.classList.contains('animate-slide-up')) {
+                            entry.target.style.transform = 'translateY(0)';
+                        }
+                        if (entry.target.classList.contains('animate-slide-right')) {
+                            entry.target.style.transform = 'translateX(0)';
+                        }
+                        if (entry.target.classList.contains('animate-fade-in')) {
+                            entry.target.style.transform = 'scale(1)';
+                        }
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            animatedElements.forEach(el => {
+                el.style.opacity = '0';
+                if (el.classList.contains('animate-slide-up')) {
+                    el.style.transform = 'translateY(50px)';
+                }
+                if (el.classList.contains('animate-slide-right')) {
+                    el.style.transform = 'translateX(-50px)';
+                }
+                if (el.classList.contains('animate-fade-in')) {
+                    el.style.transform = 'scale(0.95)';
+                }
+                observer.observe(el);
+            });
+            
+            // Mobile menu functionality
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const mobileMenu = document.querySelector('.mobile-menu');
+            const mobileMenuClose = document.querySelector('.mobile-menu-close');
+            
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            });
+            
+            mobileMenuClose.addEventListener('click', () => {
+                mobileMenu.classList.remove('open');
+                document.body.style.overflow = 'auto';
+            });
+            
+            // Language selection
+            const languageLinks = document.querySelectorAll('.language-dropdown a');
+            const languageIndicator = document.querySelector('.language-indicator');
+            
+            languageLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const lang = link.getAttribute('data-lang');
+                    const flag = link.querySelector('img').src;
+                    const text = link.textContent.trim();
+                    
+                    // Update language indicator
+                    languageIndicator.innerHTML = `
+                        <img src="${flag}" alt="${text}">
+                        <span>${lang.toUpperCase()}</span>
+                        <i class="fas fa-chevron-down ml-2 text-sm"></i>
+                    `;
+                    
+                    // Show translation message
+                    const translateToggle = document.getElementById('aiTranslateToggle');
+                    if (translateToggle.checked) {
+                        alert(`Translating content to ${text} using AI...`);
+                    }
+                });
+            });
+            
+            // Login option handlers
+            const loginOptions = document.querySelectorAll('.login-option');
+            
+            loginOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    const loginType = option.getAttribute('data-login');
+                    
+                    if (loginType === 'metamask' || loginType === 'walletconnect' || loginType === 'coinbase') {
+                        alert(`Connecting wallet via ${loginType.charAt(0).toUpperCase() + loginType.slice(1)}...`);
+                    } else {
+                        alert(`Logging in with ${loginType.charAt(0).toUpperCase() + loginType.slice(1)}...`);
+                    }
+                });
+            });
+            
+            // Video play button
+            const playButton = document.querySelector('.play-button');
+            playButton.addEventListener('click', function() {
+                alert('Playing project trailer...');
+            });
+            
+            // Tab switching
+            const tabs = document.querySelectorAll('.project-tab');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

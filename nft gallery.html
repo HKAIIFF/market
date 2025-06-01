@@ -1,0 +1,1528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HKAIFM - NFT Gallery</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #3498db;
+            --secondary: #8e44ad;
+            --accent: #00ff9d;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0a0a;
+            color: #ffffff;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(52, 152, 219, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(142, 68, 173, 0.1) 0%, transparent 20%);
+        }
+        
+        .logo-font {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 800;
+            font-size: 2.5rem;
+            letter-spacing: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            position: relative;
+            display: inline-block;
+            text-shadow: 0 0 15px rgba(0, 255, 157, 0.3);
+            animation: logoGlow 3s ease-in-out infinite alternate;
+        }
+        
+        @keyframes logoGlow {
+            0% { text-shadow: 0 0 10px rgba(0, 255, 157, 0.3); }
+            100% { text-shadow: 0 0 25px rgba(0, 255, 157, 0.6), 0 0 35px rgba(52, 152, 219, 0.4); }
+        }
+        
+        .logo-sub {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 0.7rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-top: -10px;
+            text-align: center;
+            opacity: 0.8;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(90deg, var(--primary), var(--accent), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+        
+        .accent-bg {
+            background: rgba(0, 255, 157, 0.1);
+            border: 1px solid rgba(0, 255, 157, 0.2);
+        }
+        
+        .card {
+            background-color: rgba(26, 32, 44, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 255, 157, 0.2);
+            border-color: rgba(0, 255, 157, 0.3);
+        }
+        
+        .navbar {
+            background-color: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 255, 157, 0.1);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            transition: all 0.3s ease;
+            border: none;
+            font-weight: 600;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(52, 152, 219, 0.4);
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        
+        .btn-secondary:hover {
+            background-color: rgba(0, 255, 157, 0.1);
+            transform: translateY(-3px);
+        }
+        
+        .hero {
+            position: relative;
+            overflow: hidden;
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            padding-top: 80px;
+        }
+        
+        .hero:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 100%);
+            z-index: 1;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1635805737707-575885ab0820?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.7;
+            animation: bgPan 30s infinite linear;
+        }
+        
+        @keyframes bgPan {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
+        }
+        
+        .floating {
+            animation: floating 6s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 1s ease-in-out forwards;
+            opacity: 0;
+        }
+        
+        .animate-slide-up {
+            animation: slideUp 0.8s ease-in-out forwards;
+            opacity: 0;
+        }
+        
+        .animate-slide-right {
+            animation: slideRight 0.8s ease-in-out forwards;
+            opacity: 0;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        @keyframes slideRight {
+            from { transform: translateX(-50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        .progress-bar {
+            background: linear-gradient(to right, var(--primary), var(--accent), var(--secondary));
+            border-radius: 9999px;
+            height: 8px;
+        }
+        
+        .cyber-border {
+            position: relative;
+        }
+        
+        .cyber-border:after {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: linear-gradient(45deg, transparent 30%, var(--accent) 45%, var(--secondary) 55%, transparent 70%);
+            background-size: 200% 200%;
+            animation: borderGlow 5s linear infinite;
+            z-index: -1;
+            border-radius: 20px;
+        }
+        
+        @keyframes borderGlow {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
+        }
+        
+        .ai-element {
+            position: absolute;
+            background-color: rgba(52, 152, 219, 0.1);
+            border: 1px solid rgba(52, 152, 219, 0.3);
+            backdrop-filter: blur(5px);
+            padding: 10px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 12px;
+            color: var(--accent);
+            z-index: 3;
+            pointer-events: none;
+            box-shadow: 0 0 15px rgba(0, 255, 157, 0.1);
+        }
+        
+        .data-stream {
+            position: absolute;
+            height: 100px;
+            width: 2px;
+            background: linear-gradient(to bottom, transparent, var(--accent), var(--secondary), transparent);
+            z-index: 0;
+            animation: dataStream 2s linear infinite;
+            opacity: 0.3;
+        }
+        
+        @keyframes dataStream {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100vh); }
+        }
+        
+        .language-selector {
+            position: relative;
+            display: inline-block;
+            margin-right: 20px;
+        }
+        
+        .language-dropdown {
+            display: none;
+            position: absolute;
+            background-color: rgba(26, 32, 44, 0.95);
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 100;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            top: 40px;
+            right: 0;
+        }
+        
+        .language-selector:hover .language-dropdown {
+            display: block;
+        }
+        
+        .language-dropdown a {
+            color: white;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .language-dropdown a:hover {
+            background-color: rgba(52, 152, 219, 0.2);
+        }
+        
+        .language-dropdown img {
+            width: 24px;
+            margin-right: 10px;
+        }
+        
+        .login-dropdown {
+            display: none;
+            position: absolute;
+            background-color: rgba(26, 32, 44, 0.95);
+            min-width: 280px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 100;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            top: 50px;
+            right: 0;
+            padding: 15px;
+        }
+        
+        .login-container:hover .login-dropdown {
+            display: block;
+        }
+        
+        .login-option {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.05);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .login-option:hover {
+            background: rgba(52, 152, 219, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .login-option i {
+            font-size: 20px;
+            margin-right: 12px;
+            width: 30px;
+            text-align: center;
+        }
+        
+        .login-option span {
+            font-weight: 500;
+        }
+        
+        .login-divider {
+            height: 1px;
+            background: rgba(255,255,255,0.1);
+            margin: 15px 0;
+        }
+        
+        .ai-translate-toggle {
+            display: flex;
+            align-items: center;
+            background: rgba(255,255,255,0.05);
+            padding: 10px 15px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .ai-translate-toggle:hover {
+            background: rgba(52, 152, 219, 0.2);
+        }
+        
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+            margin-left: 10px;
+        }
+        
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .slider {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        
+        .language-indicator {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 30px;
+            background: rgba(255,255,255,0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .language-indicator:hover {
+            background: rgba(52, 152, 219, 0.2);
+        }
+        
+        .language-indicator img {
+            width: 24px;
+            margin-right: 8px;
+        }
+        
+        .wallet-option {
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.3), rgba(142, 68, 173, 0.3));
+        }
+        
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 100vh;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 20px;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
+        
+        .mobile-menu-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--accent);
+        }
+        
+        .project-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .card:hover .project-img {
+            transform: scale(1.05);
+        }
+        
+        .ai-tech-img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .copyright-card-img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        
+        .testimonial-img {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--accent);
+        }
+        
+        .token-card {
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .token-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 255, 157, 0.25);
+        }
+        
+        .hkaifm-logo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .section-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 2rem;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 2px;
+        }
+        
+        .section-title.center:after {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .ai-chip {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 255, 157, 0.3);
+            border-radius: 20px;
+            padding: 5px 15px;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin: 0 5px 5px 0;
+        }
+        
+        .stats-card {
+            text-align: center;
+            padding: 25px;
+            border-radius: 16px;
+            background: rgba(26, 32, 44, 0.5);
+            border: 1px solid rgba(0, 255, 157, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .stats-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            background: rgba(26, 32, 44, 0.7);
+        }
+        
+        .stats-card i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--accent);
+        }
+        
+        .stats-card .number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, var(--primary), var(--accent), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        /* NFT Gallery specific styles */
+        .nft-card-hover {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            padding: 1rem;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .nft-card:hover .nft-card-hover {
+            transform: translateY(0);
+        }
+        
+        .filter-pill {
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 8px 16px;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
+        
+        .filter-pill.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+        
+        .filter-pill:hover:not(.active) {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .token-badge {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 2px 8px;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.1);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 4px;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .desktop-nav {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .language-selector {
+                margin-right: 10px;
+            }
+            
+            .ai-tech-img {
+                height: 300px;
+            }
+            
+            .logo-font {
+                font-size: 1.8rem;
+            }
+            
+            .hero-bg {
+                animation: none;
+            }
+            
+            .hero {
+                min-height: 50vh;
+            }
+            
+            .section-title:after {
+                width: 40px;
+                bottom: -8px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero {
+                min-height: 40vh;
+            }
+            
+            .logo-font {
+                font-size: 1.5rem;
+            }
+            
+            .logo-sub {
+                font-size: 0.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- AI Elements -->
+    <div class="ai-element" style="top: 120px; left: 10%;">
+        NFT_ID: GEN-7840 <br>
+        STATUS: RENDERING <br>
+        // AI NFT Generation Active
+    </div>
+    
+    <div class="ai-element" style="bottom: 150px; right: 15%;">
+        TOKEN_DIST: OPTIMAL <br>
+        HASH: 0x71A9B3...F7E <br>
+        // Blockchain Verified
+    </div>
+    
+    <!-- Data streams -->
+    <div class="data-stream" style="left: 20%; animation-delay: 0s;"></div>
+    <div class="data-stream" style="left: 40%; animation-delay: 0.5s;"></div>
+    <div class="data-stream" style="left: 60%; animation-delay: 1s;"></div>
+    <div class="data-stream" style="left: 80%; animation-delay: 1.5s;"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar fixed w-full z-50 px-4 py-3">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="index.html" class="hkaifm-logo">
+                <div class="logo-font">HKAIFM</div>
+                <div class="logo-sub">AI FILM MARKET</div>
+            </a>
+            <div class="hidden md:flex space-x-8 desktop-nav">
+                <a href="marketplace.html" class="hover:text-blue-400 transition">Marketplace</a>
+                <a href="create.html" class="hover:text-blue-400 transition">Create</a>
+                <a href="invest.html" class="hover:text-blue-400 transition">Invest</a>
+                <a href="dashboard.html" class="hover:text-blue-400 transition">Dashboard</a>
+                <a href="community.html" class="hover:text-blue-400 transition">Community</a>
+            </div>
+            <div class="flex items-center space-x-4">
+                <!-- Language Selector -->
+                <div class="language-selector">
+                    <div class="language-indicator">
+                        <img src="https://flagcdn.com/w40/gb.png" alt="English">
+                        <span>EN</span>
+                        <i class="fas fa-chevron-down ml-2 text-sm"></i>
+                    </div>
+                    <div class="language-dropdown">
+                        <a href="#" data-lang="en">
+                            <img src="https://flagcdn.com/w40/gb.png" alt="English">
+                            English
+                        </a>
+                        <a href="#" data-lang="zh">
+                            <img src="https://flagcdn.com/w40/cn.png" alt="Chinese">
+                            中文 (简体)
+                        </a>
+                        <a href="#" data-lang="es">
+                            <img src="https://flagcdn.com/w40/es.png" alt="Spanish">
+                            Español
+                        </a>
+                        <a href="#" data-lang="fr">
+                            <img src="https://flagcdn.com/w40/fr.png" alt="French">
+                            Français
+                        </a>
+                        <a href="#" data-lang="de">
+                            <img src="https://flagcdn.com/w40/de.png" alt="German">
+                            Deutsch
+                        </a>
+                        <a href="#" data-lang="ja">
+                            <img src="https://flagcdn.com/w40/jp.png" alt="Japanese">
+                            日本語
+                        </a>
+                        <a href="#" data-lang="ko">
+                            <img src="https://flagcdn.com/w40/kr.png" alt="Korean">
+                            한국어
+                        </a>
+                        <a href="#" data-lang="ru">
+                            <img src="https://flagcdn.com/w40/ru.png" alt="Russian">
+                            Русский
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- AI Translate Toggle -->
+                <div class="ai-translate-toggle hidden md:flex">
+                    <i class="fas fa-robot text-blue-400"></i>
+                    <span class="ml-2 text-sm">AI Translate</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="aiTranslateToggle" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                
+                <!-- Login Container -->
+                <div class="login-container relative">
+                    <a href="#login" class="btn-primary px-6 py-2 rounded-full text-sm">Sign In</a>
+                    <div class="login-dropdown">
+                        <h3 class="font-bold text-lg mb-4">Login to HKAIFM</h3>
+                        
+                        <div class="login-option" data-login="google">
+                            <i class="fab fa-google text-red-500"></i>
+                            <span>Continue with Google</span>
+                        </div>
+                        
+                        <div class="login-option" data-login="facebook">
+                            <i class="fab fa-facebook text-blue-600"></i>
+                            <span>Continue with Facebook</span>
+                        </div>
+                        
+                        <div class="login-option" data-login="twitter">
+                            <i class="fab fa-twitter text-blue-400"></i>
+                            <span>Continue with Twitter</span>
+                        </div>
+                        
+                        <div class="login-option" data-login="apple">
+                            <i class="fab fa-apple"></i>
+                            <span>Continue with Apple</span>
+                        </div>
+                        
+                        <div class="login-divider"></div>
+                        
+                        <div class="login-option wallet-option" data-login="metamask">
+                            <i class="fas fa-wallet text-yellow-400"></i>
+                            <span>Connect with MetaMask</span>
+                        </div>
+                        
+                        <div class="login-option wallet-option" data-login="walletconnect">
+                            <i class="fas fa-plug text-blue-300"></i>
+                            <span>Connect with WalletConnect</span>
+                        </div>
+                        
+                        <div class="login-option wallet-option" data-login="coinbase">
+                            <i class="fab fa-bitcoin text-orange-400"></i>
+                            <span>Connect with Coinbase Wallet</span>
+                        </div>
+                        
+                        <div class="mt-4 text-center text-sm text-gray-400">
+                            By connecting, you agree to our <a href="#" class="text-blue-400">Terms</a> and <a href="#" class="text-blue-400">Privacy Policy</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="md:hidden text-white mobile-menu-btn">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <div class="mobile-menu-close">
+            <i class="fas fa-times"></i>
+        </div>
+        
+        <div class="mt-12 flex flex-col space-y-6">
+            <a href="marketplace.html" class="text-xl hover:text-blue-400 transition">Marketplace</a>
+            <a href="create.html" class="text-xl hover:text-blue-400 transition">Create</a>
+            <a href="invest.html" class="text-xl hover:text-blue-400 transition">Invest</a>
+            <a href="dashboard.html" class="text-xl hover:text-blue-400 transition">Dashboard</a>
+            <a href="community.html" class="text-xl hover:text-blue-400 transition">Community</a>
+            
+            <div class="pt-6 border-t border-gray-700">
+                <h3 class="text-lg font-bold mb-4">Language</h3>
+                <select class="w-full bg-gray-800 text-white p-3 rounded-lg">
+                    <option value="en">English</option>
+                    <option value="zh">中文 (简体)</option>
+                    <option value="es">Español</option>
+                    <option value="fr">Français</option>
+                    <option value="de">Deutsch</option>
+                    <option value="ja">日本語</option>
+                    <option value="ko">한국어</option>
+                    <option value="ru">Русский</option>
+                </select>
+                
+                <div class="flex items-center mt-4">
+                    <span class="mr-3">AI Translate</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="mobileAiTranslate" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+            
+            <div class="pt-6 border-t border-gray-700">
+                <button class="btn-primary w-full py-3 rounded-lg font-medium text-center mb-4">
+                    Sign In
+                </button>
+                <button class="btn-secondary w-full py-3 rounded-lg font-medium text-center">
+                    Connect Wallet
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="container mx-auto px-4 hero-content">
+            <div class="max-w-3xl animate-fade-in">
+                <h1 class="text-4xl md:text-5xl font-bold mb-6">AI Film NFT Gallery</h1>
+                <p class="text-xl text-gray-300 mb-8">
+                    Discover, collect, and trade unique AI-generated film assets, characters, scenes, and exclusive ownership rights in the future of cinema.
+                </p>
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                    <a href="#collections" class="btn-primary px-8 py-3 rounded-full font-medium text-center">
+                        Explore Collections
+                    </a>
+                    <a href="#create" class="btn-secondary px-8 py-3 rounded-full font-medium text-center">
+                        Create NFT
+                    </a>
+                </div>
+                
+                <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="stats-card">
+                        <i class="fas fa-cubes"></i>
+                        <div class="number">12K+</div>
+                        <div class="text-sm">NFTs</div>
+                    </div>
+                    <div class="stats-card">
+                        <i class="fas fa-users"></i>
+                        <div class="number">4.2K</div>
+                        <div class="text-sm">Collectors</div>
+                    </div>
+                    <div class="stats-card">
+                        <i class="fas fa-coins"></i>
+                        <div class="number">2.5M</div>
+                        <div class="text-sm">HKAIF Traded</div>
+                    </div>
+                    <div class="stats-card">
+                        <i class="fas fa-chart-line"></i>
+                        <div class="number">35%</div>
+                        <div class="text-sm">Avg. Growth</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="py-16" id="filters">
+        <div class="container mx-auto px-4">
+            <div class="mb-8 animate-fade-in">
+                <h2 class="text-2xl font-bold mb-6">Browse Our NFT Collections</h2>
+                <div class="flex flex-wrap gap-4 mb-6">
+                    <button class="filter-pill active">All NFTs</button>
+                    <button class="filter-pill">Scene Concepts</button>
+                    <button class="filter-pill">Character Designs</button>
+                    <button class="filter-pill">Exclusive Clips</button>
+                    <button class="filter-pill">Copyright Shares</button>
+                    <button class="filter-pill">Behind the Scenes</button>
+                    <button class="filter-pill">Soundtracks</button>
+                </div>
+                
+                <div class="flex flex-wrap justify-between items-center">
+                    <div class="relative w-full md:w-auto mb-4 md:mb-0">
+                        <input type="text" placeholder="Search NFTs..." class="input-field px-4 py-3 rounded-full w-full md:w-80">
+                        <i class="fas fa-search absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                    </div>
+                    
+                    <div class="flex gap-2">
+                        <div class="relative">
+                            <select class="input-field px-4 py-3 rounded-full text-sm appearance-none pr-8">
+                                <option>Recently Added</option>
+                                <option>Price: Low to High</option>
+                                <option>Price: High to Low</option>
+                                <option>Most Popular</option>
+                                <option>Ending Soon</option>
+                            </select>
+                            <div class="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
+                                <i class="fas fa-chevron-down text-gray-400"></i>
+                            </div>
+                        </div>
+                        <button class="btn-secondary p-3 rounded-full">
+                            <i class="fas fa-th"></i>
+                        </button>
+                        <button class="btn-secondary p-3 rounded-full">
+                            <i class="fas fa-list"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Featured Collection -->
+            <div class="mb-16 animate-fade-in" id="collections">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold">Featured Collection: "Beyond the Digital Horizon"</h2>
+                    <a href="#" class="text-blue-400 hover:text-blue-300">
+                        View Collection
+                        <i class="fas fa-arrow-right ml-1"></i>
+                    </a>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- NFT 1 -->
+                    <div class="nft-card card rounded-xl overflow-hidden">
+                        <div class="relative">
+                            <img src="https://images.unsplash.com/photo-1635805737707-575885ab0820?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Neural Nexus" class="project-img">
+                            <div class="absolute top-3 left-3">
+                                <span class="token-badge">Scene Concept</span>
+                            </div>
+                            <div class="nft-card-hover">
+                                <div class="flex justify-between items-center mb-2">
+                                    <h3 class="font-bold">Neural Nexus</h3>
+                                    <span class="text-sm font-medium">1 of 10</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <div class="flex items-center">
+                                        <div class="w-6 h-6 rounded-full bg-gray-700 mr-2"></div>
+                                        <span class="text-sm">Digital Dreams</span>
+                                    </div>
+                                    <button class="btn-primary px-3 py-1 rounded-lg text-xs">
+                                        View
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between items-center mb-2">
+                                <h3 class="font-bold">Neural Nexus</h3>
+                                <div class="text-sm font-medium">1.2 HKAIF</div>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <div class="text-xs text-gray-400">Current Bid</div>
+                                <div class="text-xs text-gray-400">Ends in 2d 4h</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- NFT 2 -->
+                    <div class="nft-card card rounded-xl overflow-hidden">
+                        <div class="relative">
+                            <img src="https://images.unsplash.com/photo-1634149926093-ec6b9b7f9a8f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Digital Dreamscape" class="project-img">
+                            <div class="absolute top-3 left-3">
+                                <span class="token-badge">Scene Concept</span>
+                            </div>
+                            <div class="nft-card-hover">
+                                <div class="flex justify-between items-center mb-2">
+                                    <h3 class="font-bold">Digital Dreamscape</h3>
+                                    <span class="text-sm font-medium">3 of 10</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <div class="flex items-center">
+                                        <div class="w-6 h-6 rounded-full bg-gray-700 mr-2"></div>
+                                        <span class="text-sm">Digital Dreams</span>
+                                    </div>
+                                    <button class="btn-primary px-3 py-1 rounded-lg text-xs">
+                                        View
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between items-center mb-2">
+                                <h3 class="font-bold">Digital Dreamscape</h3>
+                                <div class="text-sm font-medium">0.8 HKAIF</div>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <div class="text-xs text-gray-400">Current Bid</div>
+                                <div class="text-xs text-gray-400">Ends in 1d 8h</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- NFT 3 -->
+                    <div class="nft-card card rounded-xl overflow-hidden">
+                        <div class="relative">
+                            <img src="https://images.unsplash.com/photo-1634149926093-ec6b9b7f9a8f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Quantum Gateway" class="project-img">
+                            <div class="absolute top-3 left-3">
+                                <span class="token-badge">Scene Concept</span>
+                            </div>
+                            <div class="nft-card-hover">
+                                <div class="flex justify-between items-center mb-2">
+                                    <h3 class="font-bold">Quantum Gateway</h3>
+                                    <span class="text-sm font-medium">2 of 10</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <div class="flex items-center">
+                                        <div class="w-6 h-6 rounded-full bg-gray-700 mr-2"></div>
+                                        <span class="text-sm">Digital Dreams</span>
+                                    </div>
+                                    <button class="btn-primary px-3 py-1 rounded-lg text-xs">
+                                        View
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between items-center mb-2">
+                                <h3 class="font-bold">Quantum Gateway</h3>
+                                <div class="text-sm font-medium">1.5 HKAIF</div>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <div class="text-xs text-gray-400">Current Bid</div>
+                                <div class="text-xs text-gray-400">Ends in 12h</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- NFT 4 -->
+                    <div class="nft-card card rounded-xl overflow-hidden">
+                        <div class="relative">
+                            <img src="https://images.unsplash.com/photo-1634149926093-ec6b9b7f9a8f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Dr. Elena Chen" class="project-img">
+                            <div class="absolute top-3 left-3">
+                                <span class="token-badge">Character Design</span>
+                            </div>
+                            <div class="nft-card-hover">
+                                <div class="flex justify-between items-center mb-2">
+                                    <h3 class="font-bold">Dr. Elena Chen</h3>
+                                    <span class="text-sm font-medium">1 of 5</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <div class="flex items-center">
+                                        <div class="w-6 h-6 rounded-full bg-gray-700 mr-2"></div>
+                                        <span class="text-sm">Digital Dreams</span>
+                                    </div>
+                                    <button class="btn-primary px-3 py-1 rounded-lg text-xs">
+                                        View
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between items-center mb-2">
+                                <h3 class="font-bold">Dr. Elena Chen</h3>
+                                <div class="text-sm font-medium">2.4 HKAIF</div>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <div class="text-xs text-gray-400">Current Bid</div>
+                                <div class="text-xs text-gray-400">Ends in 8h</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Latest Releases -->
+            <div class="mb-16 animate-fade-in">
+                <h2 class="text-2xl font-bold mb-6">Latest Releases</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- NFT 1 -->
+                    <div class="nft-card card rounded-xl overflow-hidden">
+                        <div class="relative">
+                            <img src="https://images.unsplash.com/photo-1634149926093-ec6b9b7f9a8f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Neon Streets" class="project-img">
+                            <div class="absolute top-3 left-3">
+                                <span class="token-badge">Scene Concept</span>
+                            </div>
+                            <div class="nft-card-hover">
+                                <div class="flex justify-between items-center mb-2">
+                                    <h3 class="font-bold">Neon Streets</h3>
+                                    <span class="text-sm font-medium">2 of 8</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <div class="flex items-center">
+                                        <div class="w-6 h-6 rounded-full bg-gray-700 mr-2"></div>
+                                        <span class="text-sm">NeoVision Studio</span>
+                                    </div>
+                                    <button class="btn-primary px-3 py-1 rounded-lg text-xs">
+                                        View
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between items-center mb-2">
+                                <h3 class="font-bold">Neon Streets</h3>
+                                <div class="text-sm font-medium">0.9 HKAIF</div>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <div class="text-xs text-gray-400">Fixed Price</div>
+                                <div class="text-xs text-gray-400">Just Listed</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- NFT 2 -->
+                    <div class="nft-card card rounded-xl overflow-hidden">
+                        <div class="relative">
+                            <img src="https://images.unsplash.com/photo-1634149926093-ec6b9b7f9a8f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Quantum Pilot" class="project-img">
+                            <div class="absolute top-3 left-3">
+                                <span class="token-badge">Character Design</span>
+                            </div>
+                            <div class="nft-card-hover">
+                                <div class="flex justify-between items-center mb-2">
+                                    <h3 class="font-bold">Quantum Pilot</h3>
+                                    <span class="text-sm font-medium">1 of 3</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <div class="flex items-center">
+                                        <div class="w-6 h-6 rounded-full bg-gray-700 mr-2"></div>
+                                        <span class="text-sm">QuantumVerse</span>
+                                    </div>
+                                    <button class="btn-primary px-3 py-1 rounded-lg text-xs">
+                                        View
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between items-center mb-2">
+                                <h3 class="font-bold">Quantum Pilot</h3>
+                                <div class="text-sm font-medium">1.8 HKAIF</div>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <div class="text-xs text-gray-400">Current Bid</div>
+                                <div class="text-xs text-gray-400">Ends in 3d 12h</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- NFT 3 -->
+                    <div class="nft-card card rounded-xl overflow-hidden">
+                        <div class="relative">
+                            <img src="https://images.unsplash.com/photo-1634149926093-ec6b9b7f9a8f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Harmonic Vision" class="project-img">
+                            <div class="absolute top-3 left-3">
+                                <span class="token-badge">Exclusive Clip</span>
+                            </div>
+                            <div class="nft-card-hover">
+                                <div class="flex justify-between items-center mb-2">
+                                    <h3 class="font-bold">Harmonic Vision</h3>
+                                    <span class="text-sm font-medium">4 of 12</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <div class="flex items-center">
+                                        <div class="w-6 h-6 rounded-full bg-gray-700 mr-2"></div>
+                                        <span class="text-sm">SonicVisions</span>
+                                    </div>
+                                    <button class="btn-primary px-3 py-1 rounded-lg text-xs">
+                                        View
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between items-center mb-2">
+                                <h3 class="font-bold">Harmonic Vision</h3>
+                                <div class="text-sm font-medium">0.75 HKAIF</div>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <div class="text-xs text-gray-400">Fixed Price</div>
+                                <div class="text-xs text-gray-400">Just Listed</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- NFT 4 -->
+                    <div class="nft-card card rounded-xl overflow-hidden">
+                        <div class="relative">
+                            <img src="https://images.unsplash.com/photo-1634149926093-ec6b9b7f9a8f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Beyond Digital IP Share" class="project-img">
+                            <div class="absolute top-3 left-3">
+                                <span class="token-badge">Copyright Share</span>
+                            </div>
+                            <div class="nft-card-hover">
+                                <div class="flex justify-between items-center mb-2">
+                                    <h3 class="font-bold">Beyond Digital IP Share</h3>
+                                    <span class="text-sm font-medium">10 of 100</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <div class="flex items-center">
+                                        <div class="w-6 h-6 rounded-full bg-gray-700 mr-2"></div>
+                                        <span class="text-sm">Digital Dreams</span>
+                                    </div>
+                                    <button class="btn-primary px-3 py-1 rounded-lg text-xs">
+                                        View
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between items-center mb-2">
+                                <h3 class="font-bold">Beyond Digital IP Share</h3>
+                                <div class="text-sm font-medium">5.2 HKAIF</div>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <div class="text-xs text-gray-400">Current Bid</div>
+                                <div class="text-xs text-green-400">1% royalty rights</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Create and Sell -->
+            <div class="card rounded-xl p-8 mb-16 animate-fade-in" id="create">
+                <div class="grid grid-cols-1 md:grid-cols-2 items-center gap-8">
+                    <div>
+                        <h2 class="text-3xl font-bold mb-4">Create and Sell Your Own AI Film NFTs</h2>
+                        <p class="text-gray-300 mb-6">
+                            Turn your AI-generated film assets into valuable NFTs on the HKAIFM platform. Monetize your creative work, establish ownership rights, and connect with a global community of collectors and enthusiasts.
+                        </p>
+                        <div class="space-y-4 mb-6">
+                            <div class="flex items-start">
+                                <div class="text-blue-400 mr-3 mt-1">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-medium">Mint NFTs directly from AI outputs</h3>
+                                    <p class="text-sm text-gray-400">Seamlessly convert your AI-generated scenes, characters, and concepts into NFTs</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="text-blue-400 mr-3 mt-1">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-medium">Set your own royalty terms</h3>
+                                    <p class="text-sm text-gray-400">Earn ongoing revenue from secondary sales with customizable royalty structures</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="text-blue-400 mr-3 mt-1">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-medium">Create copyright ownership shares</h3>
+                                    <p class="text-sm text-gray-400">Tokenize and sell fractional ownership of your film's intellectual property</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap gap-4">
+                            <button class="btn-primary px-6 py-3 rounded-lg font-medium">
+                                Start Creating
+                            </button>
+                            <button class="btn-secondary px-6 py-3 rounded-lg font-medium">
+                                Learn More
+                            </button>
+                        </div>
+                    </div>
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1634149926093-ec6b9b7f9a8f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="NFT Creation" class="w-full h-auto rounded-xl">
+                        <div class="absolute -top-4 -right-4 bg-purple-600 text-white p-3 rounded-xl transform rotate-6 shadow-lg">
+                            <div class="text-sm font-medium">Low fees</div>
+                            <div class="text-xl font-bold">Only 2.5%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="py-16 bg-gradient-to-r from-blue-900 to-purple-900">
+        <div class="container mx-auto px-4">
+            <div class="max-w-3xl mx-auto text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">Join the AI Film NFT Revolution</h2>
+                <p class="text-xl text-gray-200 mb-8">
+                    Subscribe to our newsletter for exclusive NFT drops, early access to collections, and insights into the future of AI-generated film assets.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto">
+                    <input type="email" placeholder="Enter your email" class="input-field rounded-full px-6 py-3 w-full">
+                    <button class="btn-primary px-8 py-3 rounded-full font-medium">
+                        Subscribe
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <a href="index.html" class="hkaifm-logo mb-4">
+                        <div class="logo-font">HKAIFM</div>
+                        <div class="logo-sub">AI FILM MARKET</div>
+                    </a>
+                    <p class="text-gray-400 mb-4">
+                        Revolutionizing the film industry through AI and blockchain technology.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-telegram"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-discord"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-medium"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Platform</h3>
+                    <ul class="space-y-2">
+                        <li><a href="marketplace.html" class="text-gray-400 hover:text-blue-400">Marketplace</a></li>
+                        <li><a href="create.html" class="text-gray-400 hover:text-blue-400">Create</a></li>
+                        <li><a href="invest.html" class="text-gray-400 hover:text-blue-400">Invest</a></li>
+                        <li><a href="dashboard.html" class="text-gray-400 hover:text-blue-400">Dashboard</a></li>
+                        <li><a href="community.html" class="text-gray-400 hover:text-blue-400">Community</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Resources</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#whitepaper" class="text-gray-400 hover:text-blue-400">Whitepaper</a></li>
+                        <li><a href="#documentation" class="text-gray-400 hover:text-blue-400">Documentation</a></li>
+                        <li><a href="#tokenomics" class="text-gray-400 hover:text-blue-400">Tokenomics</a></li>
+                        <li><a href="#developers" class="text-gray-400 hover:text-blue-400">Developers</a></li>
+                        <li><a href="#support" class="text-gray-400 hover:text-blue-400">Support</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Legal</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#terms" class="text-gray-400 hover:text-blue-400">Terms of Service</a></li>
+                        <li><a href="#privacy" class="text-gray-400 hover:text-blue-400">Privacy Policy</a></li>
+                        <li><a href="#copyright" class="text-gray-400 hover:text-blue-400">Copyright Policy</a></li>
+                        <li><a href="#compliance" class="text-gray-400 hover:text-blue-400">Regulatory Compliance</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-blue-400">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-500 text-sm">
+                <p>© 2025 Hong Kong AI Film Market. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Add random data streams
+        function createDataStreams() {
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    const stream = document.createElement('div');
+                    stream.className = 'data-stream';
+                    stream.style.left = Math.random() * 100 + '%';
+                    stream.style.animationDelay = Math.random() * 2 + 's';
+                    document.body.appendChild(stream);
+                    
+                    // Remove after animation
+                    setTimeout(() => {
+                        stream.remove();
+                    }, 4000);
+                }, i * 3000);
+            }
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Start data streams
+            createDataStreams();
+            setInterval(createDataStreams, 15000);
+            
+            // Add scroll animations
+            const animatedElements = document.querySelectorAll('.animate-fade-in, .animate-slide-up, .animate-slide-right');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        if (entry.target.classList.contains('animate-slide-up')) {
+                            entry.target.style.transform = 'translateY(0)';
+                        }
+                        if (entry.target.classList.contains('animate-slide-right')) {
+                            entry.target.style.transform = 'translateX(0)';
+                        }
+                        if (entry.target.classList.contains('animate-fade-in')) {
+                            entry.target.style.transform = 'scale(1)';
+                        }
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            animatedElements.forEach(el => {
+                el.style.opacity = '0';
+                if (el.classList.contains('animate-slide-up')) {
+                    el.style.transform = 'translateY(50px)';
+                }
+                if (el.classList.contains('animate-slide-right')) {
+                    el.style.transform = 'translateX(-50px)';
+                }
+                if (el.classList.contains('animate-fade-in')) {
+                    el.style.transform = 'scale(0.95)';
+                }
+                observer.observe(el);
+            });
+            
+            // Mobile menu functionality
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const mobileMenu = document.querySelector('.mobile-menu');
+            const mobileMenuClose = document.querySelector('.mobile-menu-close');
+            
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            });
+            
+            mobileMenuClose.addEventListener('click', () => {
+                mobileMenu.classList.remove('open');
+                document.body.style.overflow = 'auto';
+            });
+            
+            // Language selection
+            const languageLinks = document.querySelectorAll('.language-dropdown a');
+            const languageIndicator = document.querySelector('.language-indicator');
+            
+            languageLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const lang = link.getAttribute('data-lang');
+                    const flag = link.querySelector('img').src;
+                    const text = link.textContent.trim();
+                    
+                    // Update language indicator
+                    languageIndicator.innerHTML = `
+                        <img src="${flag}" alt="${text}">
+                        <span>${lang.toUpperCase()}</span>
+                        <i class="fas fa-chevron-down ml-2 text-sm"></i>
+                    `;
+                    
+                    // Show translation message
+                    const translateToggle = document.getElementById('aiTranslateToggle');
+                    if (translateToggle.checked) {
+                        alert(`Translating content to ${text} using AI...`);
+                    }
+                });
+            });
+            
+            // Login option handlers
+            const loginOptions = document.querySelectorAll('.login-option');
+            
+            loginOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    const loginType = option.getAttribute('data-login');
+                    
+                    if (loginType === 'metamask' || loginType === 'walletconnect' || loginType === 'coinbase') {
+                        alert(`Connecting wallet via ${loginType.charAt(0).toUpperCase() + loginType.slice(1)}...`);
+                    } else {
+                        alert(`Logging in with ${loginType.charAt(0).toUpperCase() + loginType.slice(1)}...`);
+                    }
+                });
+            });
+            
+            // Filter pills
+            const filterPills = document.querySelectorAll('.filter-pill');
+            
+            filterPills.forEach(pill => {
+                pill.addEventListener('click', () => {
+                    // Remove active class from all pills
+                    filterPills.forEach(p => p.classList.remove('active'));
+                    // Add active class to clicked pill
+                    pill.classList.add('active'));
+                });
+            });
+        });
+    </script>
+</body>
+</html>
