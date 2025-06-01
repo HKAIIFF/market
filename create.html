@@ -1,0 +1,1814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HKAIFM - Create AI Films</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #3498db;
+            --secondary: #8e44ad;
+            --accent: #00ff9d;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0a0a;
+            color: #ffffff;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(52, 152, 219, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(142, 68, 173, 0.1) 0%, transparent 20%);
+        }
+        
+        .logo-font {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 800;
+            font-size: 2.5rem;
+            letter-spacing: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            position: relative;
+            display: inline-block;
+            text-shadow: 0 0 15px rgba(0, 255, 157, 0.3);
+            animation: logoGlow 3s ease-in-out infinite alternate;
+        }
+        
+        @keyframes logoGlow {
+            0% { text-shadow: 0 0 10px rgba(0, 255, 157, 0.3); }
+            100% { text-shadow: 0 0 25px rgba(0, 255, 157, 0.6), 0 0 35px rgba(52, 152, 219, 0.4); }
+        }
+        
+        .logo-sub {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 0.7rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-top: -10px;
+            text-align: center;
+            opacity: 0.8;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(90deg, var(--primary), var(--accent), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+        
+        .accent-bg {
+            background: rgba(0, 255, 157, 0.1);
+            border: 1px solid rgba(0, 255, 157, 0.2);
+        }
+        
+        .card {
+            background-color: rgba(26, 32, 44, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 255, 157, 0.2);
+            border-color: rgba(0, 255, 157, 0.3);
+        }
+        
+        .navbar {
+            background-color: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 255, 157, 0.1);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            transition: all 0.3s ease;
+            border: none;
+            font-weight: 600;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(52, 152, 219, 0.4);
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        
+        .btn-secondary:hover {
+            background-color: rgba(0, 255, 157, 0.1);
+            transform: translateY(-3px);
+        }
+        
+        .hero {
+            position: relative;
+            overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 80px;
+        }
+        
+        .hero:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 100%);
+            z-index: 1;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.7;
+            animation: bgPan 30s infinite linear;
+        }
+        
+        @keyframes bgPan {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
+        }
+        
+        .floating {
+            animation: floating 6s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 1s ease-in-out forwards;
+            opacity: 0;
+        }
+        
+        .animate-slide-up {
+            animation: slideUp 0.8s ease-in-out forwards;
+            opacity: 0;
+        }
+        
+        .animate-slide-right {
+            animation: slideRight 0.8s ease-in-out forwards;
+            opacity: 0;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        @keyframes slideRight {
+            from { transform: translateX(-50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        .progress-bar {
+            background: linear-gradient(to right, var(--primary), var(--accent), var(--secondary));
+            border-radius: 9999px;
+            height: 8px;
+        }
+        
+        .cyber-border {
+            position: relative;
+        }
+        
+        .cyber-border:after {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: linear-gradient(45deg, transparent 30%, var(--accent) 45%, var(--secondary) 55%, transparent 70%);
+            background-size: 200% 200%;
+            animation: borderGlow 5s linear infinite;
+            z-index: -1;
+            border-radius: 20px;
+        }
+        
+        @keyframes borderGlow {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
+        }
+        
+        .ai-element {
+            position: absolute;
+            background-color: rgba(52, 152, 219, 0.1);
+            border: 1px solid rgba(52, 152, 219, 0.3);
+            backdrop-filter: blur(5px);
+            padding: 10px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 12px;
+            color: var(--accent);
+            z-index: 3;
+            pointer-events: none;
+            box-shadow: 0 0 15px rgba(0, 255, 157, 0.1);
+        }
+        
+        .data-stream {
+            position: absolute;
+            height: 100px;
+            width: 2px;
+            background: linear-gradient(to bottom, transparent, var(--accent), var(--secondary), transparent);
+            z-index: 0;
+            animation: dataStream 2s linear infinite;
+            opacity: 0.3;
+        }
+        
+        @keyframes dataStream {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100vh); }
+        }
+        
+        .language-selector {
+            position: relative;
+            display: inline-block;
+            margin-right: 20px;
+        }
+        
+        .language-dropdown {
+            display: none;
+            position: absolute;
+            background-color: rgba(26, 32, 44, 0.95);
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 100;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            top: 40px;
+            right: 0;
+        }
+        
+        .language-selector:hover .language-dropdown {
+            display: block;
+        }
+        
+        .language-dropdown a {
+            color: white;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .language-dropdown a:hover {
+            background-color: rgba(52, 152, 219, 0.2);
+        }
+        
+        .language-dropdown img {
+            width: 24px;
+            margin-right: 10px;
+        }
+        
+        .login-dropdown {
+            display: none;
+            position: absolute;
+            background-color: rgba(26, 32, 44, 0.95);
+            min-width: 280px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 100;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            top: 50px;
+            right: 0;
+            padding: 15px;
+        }
+        
+        .login-container:hover .login-dropdown {
+            display: block;
+        }
+        
+        .login-option {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.05);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .login-option:hover {
+            background: rgba(52, 152, 219, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .login-option i {
+            font-size: 20px;
+            margin-right: 12px;
+            width: 30px;
+            text-align: center;
+        }
+        
+        .login-option span {
+            font-weight: 500;
+        }
+        
+        .login-divider {
+            height: 1px;
+            background: rgba(255,255,255,0.1);
+            margin: 15px 0;
+        }
+        
+        .ai-translate-toggle {
+            display: flex;
+            align-items: center;
+            background: rgba(255,255,255,0.05);
+            padding: 10px 15px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .ai-translate-toggle:hover {
+            background: rgba(52, 152, 219, 0.2);
+        }
+        
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+            margin-left: 10px;
+        }
+        
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .slider {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        
+        .language-indicator {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 30px;
+            background: rgba(255,255,255,0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .language-indicator:hover {
+            background: rgba(52, 152, 219, 0.2);
+        }
+        
+        .language-indicator img {
+            width: 24px;
+            margin-right: 8px;
+        }
+        
+        .wallet-option {
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.3), rgba(142, 68, 173, 0.3));
+        }
+        
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 100vh;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 20px;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
+        
+        .mobile-menu-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--accent);
+        }
+        
+        .project-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .card:hover .project-img {
+            transform: scale(1.05);
+        }
+        
+        .ai-tech-img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .copyright-card-img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        
+        .testimonial-img {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--accent);
+        }
+        
+        .token-card {
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .token-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 255, 157, 0.25);
+        }
+        
+        .hkaifm-logo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .section-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 2rem;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 2px;
+        }
+        
+        .section-title.center:after {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .ai-chip {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 255, 157, 0.3);
+            border-radius: 20px;
+            padding: 5px 15px;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin: 0 5px 5px 0;
+        }
+        
+        .stats-card {
+            text-align: center;
+            padding: 25px;
+            border-radius: 16px;
+            background: rgba(26, 32, 44, 0.5);
+            border: 1px solid rgba(0, 255, 157, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .stats-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            background: rgba(26, 32, 44, 0.7);
+        }
+        
+        .stats-card i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--accent);
+        }
+        
+        .stats-card .number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, var(--primary), var(--accent), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .ai-tool-card {
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .ai-tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 255, 157, 0.15);
+            border-color: rgba(0, 255, 157, 0.3);
+        }
+        
+        .creation-step {
+            position: relative;
+            padding-left: 60px;
+            margin-bottom: 40px;
+        }
+        
+        .creation-step-number {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .creation-timeline {
+            position: relative;
+            padding-left: 20px;
+        }
+        
+        .creation-timeline:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+        }
+        
+        .creation-timeline-item {
+            position: relative;
+            padding-bottom: 30px;
+        }
+        
+        .creation-timeline-item:before {
+            content: '';
+            position: absolute;
+            left: -26px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 0 4px rgba(0, 255, 157, 0.2);
+        }
+        
+        .creation-timeline-item:last-child {
+            padding-bottom: 0;
+        }
+        
+        .model-badge {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 255, 157, 0.3);
+            border-radius: 20px;
+            padding: 4px 12px;
+            font-size: 0.75rem;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+        
+        .model-badge i {
+            margin-right: 6px;
+            color: var(--accent);
+        }
+        
+        .feature-card {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 255, 157, 0.15);
+        }
+        
+        .feature-card-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.2), rgba(142, 68, 173, 0.2));
+        }
+        
+        .feature-card-icon i {
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .pricing-card {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 255, 157, 0.2);
+        }
+        
+        .pricing-card.popular {
+            border: 2px solid var(--accent);
+        }
+        
+        .pricing-card.popular:before {
+            content: 'Popular';
+            position: absolute;
+            top: 15px;
+            right: -30px;
+            background: var(--accent);
+            color: #000;
+            font-weight: bold;
+            padding: 3px 30px;
+            transform: rotate(45deg);
+            font-size: 0.75rem;
+        }
+        
+        @media (max-width: 768px) {
+            .desktop-nav {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .language-selector {
+                margin-right: 10px;
+            }
+            
+            .ai-tech-img {
+                height: 300px;
+            }
+            
+            .logo-font {
+                font-size: 1.8rem;
+            }
+            
+            .hero-bg {
+                animation: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- AI Elements -->
+    <div class="ai-element" style="top: 120px; left: 10%;">
+        MODEL_ID: GEN-7840 <br>
+        STATUS: RENDERING <br>
+        // AI Film Generation Active
+    </div>
+    
+    <div class="ai-element" style="bottom: 150px; right: 15%;">
+        TOKEN_DIST: OPTIMAL <br>
+        HASH: 0x71A9B3...F7E <br>
+        // Blockchain Verified
+    </div>
+    
+    <!-- Data streams -->
+    <div class="data-stream" style="left: 20%; animation-delay: 0s;"></div>
+    <div class="data-stream" style="left: 40%; animation-delay: 0.5s;"></div>
+    <div class="data-stream" style="left: 60%; animation-delay: 1s;"></div>
+    <div class="data-stream" style="left: 80%; animation-delay: 1.5s;"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar fixed w-full z-50 px-4 py-3">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="index.html" class="hkaifm-logo">
+                <div class="logo-font">HKAIFM</div>
+                <div class="logo-sub">AI FILM MARKET</div>
+            </a>
+            <div class="hidden md:flex space-x-8 desktop-nav">
+                <a href="marketplace.html" class="hover:text-blue-400 transition">Marketplace</a>
+                <a href="create.html" class="text-blue-400 transition">Create</a>
+                <a href="invest.html" class="hover:text-blue-400 transition">Invest</a>
+                <a href="dashboard.html" class="hover:text-blue-400 transition">Dashboard</a>
+                <a href="community.html" class="hover:text-blue-400 transition">Community</a>
+            </div>
+            <div class="flex items-center space-x-4">
+                <!-- Language Selector -->
+                <div class="language-selector">
+                    <div class="language-indicator">
+                        <img src="https://flagcdn.com/w40/gb.png" alt="English">
+                        <span>EN</span>
+                        <i class="fas fa-chevron-down ml-2 text-sm"></i>
+                    </div>
+                    <div class="language-dropdown">
+                        <a href="#" data-lang="en">
+                            <img src="https://flagcdn.com/w40/gb.png" alt="English">
+                            English
+                        </a>
+                        <a href="#" data-lang="zh">
+                            <img src="https://flagcdn.com/w40/cn.png" alt="Chinese">
+                            中文 (简体)
+                        </a>
+                        <a href="#" data-lang="es">
+                            <img src="https://flagcdn.com/w40/es.png" alt="Spanish">
+                            Español
+                        </a>
+                        <a href="#" data-lang="fr">
+                            <img src="https://flagcdn.com/w40/fr.png" alt="French">
+                            Français
+                        </a>
+                        <a href="#" data-lang="de">
+                            <img src="https://flagcdn.com/w40/de.png" alt="German">
+                            Deutsch
+                        </a>
+                        <a href="#" data-lang="ja">
+                            <img src="https://flagcdn.com/w40/jp.png" alt="Japanese">
+                            日本語
+                        </a>
+                        <a href="#" data-lang="ko">
+                            <img src="https://flagcdn.com/w40/kr.png" alt="Korean">
+                            한국어
+                        </a>
+                        <a href="#" data-lang="ru">
+                            <img src="https://flagcdn.com/w40/ru.png" alt="Russian">
+                            Русский
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- AI Translate Toggle -->
+                <div class="ai-translate-toggle hidden md:flex">
+                    <i class="fas fa-robot text-blue-400"></i>
+                    <span class="ml-2 text-sm">AI Translate</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="aiTranslateToggle" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                
+                <!-- Login Container -->
+                <div class="login-container relative">
+                    <a href="#login" class="btn-primary px-6 py-2 rounded-full text-sm">Sign In</a>
+                    <div class="login-dropdown">
+                        <h3 class="font-bold text-lg mb-4">Login to HKAIFM</h3>
+                        
+                        <div class="login-option" data-login="google">
+                            <i class="fab fa-google text-red-500"></i>
+                            <span>Continue with Google</span>
+                        </div>
+                        
+                        <div class="login-option" data-login="facebook">
+                            <i class="fab fa-facebook text-blue-600"></i>
+                            <span>Continue with Facebook</span>
+                        </div>
+                        
+                        <div class="login-option" data-login="twitter">
+                            <i class="fab fa-twitter text-blue-400"></i>
+                            <span>Continue with Twitter</span>
+                        </div>
+                        
+                        <div class="login-option" data-login="apple">
+                            <i class="fab fa-apple"></i>
+                            <span>Continue with Apple</span>
+                        </div>
+                        
+                        <div class="login-divider"></div>
+                        
+                        <div class="login-option wallet-option" data-login="metamask">
+                            <i class="fas fa-wallet text-yellow-400"></i>
+                            <span>Connect with MetaMask</span>
+                        </div>
+                        
+                        <div class="login-option wallet-option" data-login="walletconnect">
+                            <i class="fas fa-plug text-blue-300"></i>
+                            <span>Connect with WalletConnect</span>
+                        </div>
+                        
+                        <div class="login-option wallet-option" data-login="coinbase">
+                            <i class="fab fa-bitcoin text-orange-400"></i>
+                            <span>Connect with Coinbase Wallet</span>
+                        </div>
+                        
+                        <div class="mt-4 text-center text-sm text-gray-400">
+                            By connecting, you agree to our <a href="#" class="text-blue-400">Terms</a> and <a href="#" class="text-blue-400">Privacy Policy</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="md:hidden text-white mobile-menu-btn">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <div class="mobile-menu-close">
+            <i class="fas fa-times"></i>
+        </div>
+        
+        <div class="mt-12 flex flex-col space-y-6">
+            <a href="marketplace.html" class="text-xl hover:text-blue-400 transition">Marketplace</a>
+            <a href="create.html" class="text-xl text-blue-400 transition">Create</a>
+            <a href="invest.html" class="text-xl hover:text-blue-400 transition">Invest</a>
+            <a href="dashboard.html" class="text-xl hover:text-blue-400 transition">Dashboard</a>
+            <a href="community.html" class="text-xl hover:text-blue-400 transition">Community</a>
+            
+            <div class="pt-6 border-t border-gray-700">
+                <h3 class="text-lg font-bold mb-4">Language</h3>
+                <select class="w-full bg-gray-800 text-white p-3 rounded-lg">
+                    <option value="en">English</option>
+                    <option value="zh">中文 (简体)</option>
+                    <option value="es">Español</option>
+                    <option value="fr">Français</option>
+                    <option value="de">Deutsch</option>
+                    <option value="ja">日本語</option>
+                    <option value="ko">한국어</option>
+                    <option value="ru">Русский</option>
+                </select>
+                
+                <div class="flex items-center mt-4">
+                    <span class="mr-3">AI Translate</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="mobileAiTranslate" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+            
+            <div class="pt-6 border-t border-gray-700">
+                <button class="btn-primary w-full py-3 rounded-lg font-medium text-center mb-4">
+                    Sign In
+                </button>
+                <button class="btn-secondary w-full py-3 rounded-lg font-medium text-center">
+                    Connect Wallet
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="container mx-auto px-4 hero-content">
+            <div class="max-w-3xl animate-fade-in">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6">Create Stunning AI Films <br>With <span class="gradient-text">Next-Gen Tools</span></h1>
+                <p class="text-xl text-gray-300 mb-8">
+                    Bring your cinematic visions to life with our powerful AI film creation platform. From script to screen, we provide everything you need to produce professional-quality films with unprecedented efficiency.
+                </p>
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                    <a href="#start-creating" class="btn-primary px-8 py-3 rounded-full font-medium text-center">
+                        Start Creating Now
+                    </a>
+                    <a href="#how-it-works" class="btn-secondary px-8 py-3 rounded-full font-medium text-center">
+                        How It Works
+                    </a>
+                </div>
+                
+                <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="stats-card">
+                        <i class="fas fa-film"></i>
+                        <div class="number">1.2K+</div>
+                        <div class="text-sm">Films Created</div>
+                    </div>
+                    <div class="stats-card">
+                        <i class="fas fa-users"></i>
+                        <div class="number">4.8K</div>
+                        <div class="text-sm">Creators</div>
+                    </div>
+                    <div class="stats-card">
+                        <i class="fas fa-coins"></i>
+                        <div class="number">5.7M</div>
+                        <div class="text-sm">HKAIF Raised</div>
+                    </div>
+                    <div class="stats-card">
+                        <i class="fas fa-chart-line"></i>
+                        <div class="number">83%</div>
+                        <div class="text-sm">Success Rate</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Creation Tools -->
+    <section class="py-20 relative" id="ai-tools">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 animate-fade-in">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 section-title center">AI-Powered Creation Tools</h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    Our integrated suite of AI tools covers every aspect of film production, from initial concept to final render.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="ai-tool-card card p-6 animate-slide-up">
+                    <div class="w-16 h-16 rounded-full gradient-bg flex items-center justify-center mb-6">
+                        <i class="fas fa-pen-nib text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Script & Narrative AI</h3>
+                    <p class="text-gray-300 mb-6">
+                        Generate compelling scripts, dialogue, and story structures with our advanced language models. Refine your narrative with AI-powered suggestions.
+                    </p>
+                    <div class="flex flex-wrap">
+                        <span class="model-badge"><i class="fas fa-microchip"></i> GPT-4o</span>
+                        <span class="model-badge"><i class="fas fa-microchip"></i> Claude 3.5</span>
+                        <span class="model-badge"><i class="fas fa-microchip"></i> Gemini 1.5</span>
+                    </div>
+                </div>
+                
+                <div class="ai-tool-card card p-6 animate-slide-up" style="animation-delay: 0.2s;">
+                    <div class="w-16 h-16 rounded-full gradient-bg flex items-center justify-center mb-6">
+                        <i class="fas fa-image text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Visual Generation</h3>
+                    <p class="text-gray-300 mb-6">
+                        Create stunning concept art, character designs, and environments with our state-of-the-art image generation models.
+                    </p>
+                    <div class="flex flex-wrap">
+                        <span class="model-badge"><i class="fas fa-microchip"></i> Stable Diffusion 3</span>
+                        <span class="model-badge"><i class="fas fa-microchip"></i> Midjourney v6</span>
+                        <span class="model-badge"><i class="fas fa-microchip"></i> DALL·E 3</span>
+                    </div>
+                </div>
+                
+                <div class="ai-tool-card card p-6 animate-slide-up" style="animation-delay: 0.4s;">
+                    <div class="w-16 h-16 rounded-full gradient-bg flex items-center justify-center mb-6">
+                        <i class="fas fa-film text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Video Synthesis</h3>
+                    <p class="text-gray-300 mb-6">
+                        Transform your concepts into moving scenes with our proprietary video generation AI that maintains consistency across frames.
+                    </p>
+                    <div class="flex flex-wrap">
+                        <span class="model-badge"><i class="fas fa-microchip"></i> Sora</span>
+                        <span class="model-badge"><i class="fas fa-microchip"></i> Pika 1.0</span>
+                        <span class="model-badge"><i class="fas fa-microchip"></i> Runway Gen-3</span>
+                    </div>
+                </div>
+                
+                <div class="ai-tool-card card p-6 animate-slide-up">
+                    <div class="w-16 h-16 rounded-full gradient-bg flex items-center justify-center mb-6">
+                        <i class="fas fa-microphone text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Voice & Audio</h3>
+                    <p class="text-gray-300 mb-6">
+                        Generate realistic voice acting, sound effects, and original music scores tailored to your film's mood and style.
+                    </p>
+                    <div class="flex flex-wrap">
+                        <span class="model-badge"><i class="fas fa-microchip"></i> ElevenLabs</span>
+                        <span class="model-badge"><i class="fas fa-microchip"></i> Suno v3</span>
+                        <span class="model-badge"><i class="fas fa-microchip"></i> AudioCraft</span>
+                    </div>
+                </div>
+                
+                <div class="ai-tool-card card p-6 animate-slide-up" style="animation-delay: 0.2s;">
+                    <div class="w-16 h-16 rounded-full gradient-bg flex items-center justify-center mb-6">
+                        <i class="fas fa-robot text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Character Animation</h3>
+                    <p class="text-gray-300 mb-6">
+                        Bring your characters to life with expressive facial animation and natural body movements powered by AI.
+                    </p>
+                    <div class="flex flex-wrap">
+                        <span class="model-badge"><i class="fas fa-microchip"></i> DeepMotion</span>
+                        <span class="model-badge"><i class="fas fa-microchip"></i> Move.ai</span>
+                        <span class="model-badge"><i class="fas fa-microchip"></i> Synthesia</span>
+                    </div>
+                </div>
+                
+                <div class="ai-tool-card card p-6 animate-slide-up" style="animation-delay: 0.4s;">
+                    <div class="w-16 h-16 rounded-full gradient-bg flex items-center justify-center mb-6">
+                        <i class="fas fa-magic text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Post-Production</h3>
+                    <p class="text-gray-300 mb-6">
+                        AI-powered editing, color grading, VFX, and upscaling tools to polish your film to professional standards.
+                    </p>
+                    <div class="flex flex-wrap">
+                        <span class="model-badge"><i class="fas fa-microchip"></i> Topaz Video AI</span>
+                        <span class="model-badge"><i class="fas fa-microchip"></i> Adobe Firefly</span>
+                        <span class="model-badge"><i class="fas fa-microchip"></i> DaVinci Resolve AI</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Creation Process -->
+    <section class="py-20 bg-gray-900 bg-opacity-50" id="how-it-works">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 section-title center">How To Create Your AI Film</h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    Our streamlined process makes film production accessible to creators of all skill levels.
+                </p>
+            </div>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="creation-timeline">
+                    <div class="creation-timeline-item animate-fade-in">
+                        <h3 class="text-2xl font-bold mb-3">1. Concept Development</h3>
+                        <p class="text-gray-300 mb-4">
+                            Start with a basic idea or let our AI suggest concepts based on your preferences. Use our narrative tools to refine your story, characters, and world-building.
+                        </p>
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                            <div class="card p-4">
+                                <i class="fas fa-lightbulb text-yellow-400 mb-2"></i>
+                                <h4 class="font-bold">Idea Generation</h4>
+                                <p class="text-sm text-gray-400">AI-powered concept suggestions</p>
+                            </div>
+                            <div class="card p-4">
+                                <i class="fas fa-book text-blue-400 mb-2"></i>
+                                <h4 class="font-bold">Story Development</h4>
+                                <p class="text-sm text-gray-400">Structure your narrative</p>
+                            </div>
+                            <div class="card p-4">
+                                <i class="fas fa-users text-purple-400 mb-2"></i>
+                                <h4 class="font-bold">Character Creation</h4>
+                                <p class="text-sm text-gray-400">Design your cast</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="creation-timeline-item animate-fade-in" style="animation-delay: 0.2s;">
+                        <h3 class="text-2xl font-bold mb-3">2. Pre-Visualization</h3>
+                        <p class="text-gray-300 mb-4">
+                            Transform your concepts into visual representations. Generate concept art, storyboards, and animatics to visualize your film before production.
+                        </p>
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                            <div class="card p-4">
+                                <i class="fas fa-palette text-green-400 mb-2"></i>
+                                <h4 class="font-bold">Concept Art</h4>
+                                <p class="text-sm text-gray-400">Generate key visuals</p>
+                            </div>
+                            <div class="card p-4">
+                                <i class="fas fa-clipboard-list text-red-400 mb-2"></i>
+                                <h4 class="font-bold">Storyboarding</h4>
+                                <p class="text-sm text-gray-400">Plan your shots</p>
+                            </div>
+                            <div class="card p-4">
+                                <i class="fas fa-film text-orange-400 mb-2"></i>
+                                <h4 class="font-bold">Animatics</h4>
+                                <p class="text-sm text-gray-400">Create motion previews</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="creation-timeline-item animate-fade-in" style="animation-delay: 0.4s;">
+                        <h3 class="text-2xl font-bold mb-3">3. Production</h3>
+                        <p class="text-gray-300 mb-4">
+                            Generate your scenes with AI, adjusting parameters for style, composition, and mood. Direct your virtual production with precision controls.
+                        </p>
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                            <div class="card p-4">
+                                <i class="fas fa-video text-blue-400 mb-2"></i>
+                                <h4 class="font-bold">Scene Generation</h4>
+                                <p class="text-sm text-gray-400">Create your footage</p>
+                            </div>
+                            <div class="card p-4">
+                                <i class="fas fa-microphone text-purple-400 mb-2"></i>
+                                <h4 class="font-bold">Voice & Audio</h4>
+                                <p class="text-sm text-gray-400">Add dialogue and sound</p>
+                            </div>
+                            <div class="card p-4">
+                                <i class="fas fa-robot text-green-400 mb-2"></i>
+                                <h4 class="font-bold">Character Animation</h4>
+                                <p class="text-sm text-gray-400">Bring characters to life</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="creation-timeline-item animate-fade-in" style="animation-delay: 0.6s;">
+                        <h3 class="text-2xl font-bold mb-3">4. Post-Production</h3>
+                        <p class="text-gray-300 mb-4">
+                            Edit your film with AI-assisted tools, add effects, color grade, and polish your final product to professional standards.
+                        </p>
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                            <div class="card p-4">
+                                <i class="fas fa-cut text-yellow-400 mb-2"></i>
+                                <h4 class="font-bold">Editing</h4>
+                                <p class="text-sm text-gray-400">Assemble your scenes</p>
+                            </div>
+                            <div class="card p-4">
+                                <i class="fas fa-magic text-pink-400 mb-2"></i>
+                                <h4 class="font-bold">VFX & Enhancements</h4>
+                                <p class="text-sm text-gray-400">Add special effects</p>
+                            </div>
+                            <div class="card p-4">
+                                <i class="fas fa-sliders-h text-red-400 mb-2"></i>
+                                <h4 class="font-bold">Color Grading</h4>
+                                <p class="text-sm text-gray-400">Set visual tone</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="creation-timeline-item animate-fade-in" style="animation-delay: 0.8s;">
+                        <h3 class="text-2xl font-bold mb-3">5. Distribution & Funding</h3>
+                        <p class="text-gray-300 mb-4">
+                            Launch your film on our marketplace, secure funding from investors, and distribute your work to global audiences.
+                        </p>
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                            <div class="card p-4">
+                                <i class="fas fa-coins text-green-400 mb-2"></i>
+                                <h4 class="font-bold">Tokenization</h4>
+                                <p class="text-sm text-gray-400">Create project tokens</p>
+                            </div>
+                            <div class="card p-4">
+                                <i class="fas fa-chart-line text-blue-400 mb-2"></i>
+                                <h4 class="font-bold">Funding Campaign</h4>
+                                <p class="text-sm text-gray-400">Attract investors</p>
+                            </div>
+                            <div class="card p-4">
+                                <i class="fas fa-globe text-purple-400 mb-2"></i>
+                                <h4 class="font-bold">Distribution</h4>
+                                <p class="text-sm text-gray-400">Release to audiences</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Creator Features -->
+    <section class="py-20 relative">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 section-title center">Creator-Centric Features</h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    Everything you need to bring your cinematic vision to life and connect with your audience.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="feature-card card p-8 animate-fade-in">
+                    <div class="feature-card-icon">
+                        <i class="fas fa-project-diagram"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Project Management</h3>
+                    <p class="text-gray-300">
+                        Organize all aspects of your film production in one place. Track progress, manage assets, and collaborate with team members seamlessly.
+                    </p>
+                </div>
+                
+                <div class="feature-card card p-8 animate-fade-in" style="animation-delay: 0.1s;">
+                    <div class="feature-card-icon">
+                        <i class="fas fa-users-cog"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Collaboration Tools</h3>
+                    <p class="text-gray-300">
+                        Work with other creators in real-time. Assign roles, share assets, and maintain version control throughout your production.
+                    </p>
+                </div>
+                
+                <div class="feature-card card p-8 animate-fade-in" style="animation-delay: 0.2s;">
+                    <div class="feature-card-icon">
+                        <i class="fas fa-wallet"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Funding Platform</h3>
+                    <p class="text-gray-300">
+                        Launch funding campaigns for your projects. Offer tokens to investors and share in the success of your film's distribution.
+                    </p>
+                </div>
+                
+                <div class="feature-card card p-8 animate-fade-in" style="animation-delay: 0.3s;">
+                    <div class="feature-card-icon">
+                        <i class="fas fa-film"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Style Consistency</h3>
+                    <p class="text-gray-300">
+                        Our AI maintains visual and narrative consistency across all generated content, ensuring professional-quality results.
+                    </p>
+                </div>
+                
+                <div class="feature-card card p-8 animate-fade-in" style="animation-delay: 0.4s;">
+                    <div class="feature-card-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Advanced Controls</h3>
+                    <p class="text-gray-300">
+                        Fine-tune every aspect of your AI generation with detailed parameters for style, composition, lighting, and more.
+                    </p>
+                </div>
+                
+                <div class="feature-card card p-8 animate-fade-in" style="animation-delay: 0.5s;">
+                    <div class="feature-card-icon">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Analytics Dashboard</h3>
+                    <p class="text-gray-300">
+                        Track your film's performance, audience engagement, and revenue streams through our comprehensive analytics platform.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Creator Showcase -->
+    <section class="py-20 bg-gray-900 bg-opacity-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold section-title">Successful Creator Projects</h2>
+                <a href="marketplace.html" class="text-blue-400 flex items-center hover:underline">
+                    View All Projects
+                    <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Project 1 -->
+                <div class="card rounded-xl overflow-hidden animate-fade-in">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Digital Dreams" class="project-img">
+                        <div class="absolute top-3 left-3">
+                            <span class="bg-green-500 bg-opacity-80 text-white px-2 py-1 rounded-full text-xs font-medium">Completed</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Digital Dreams</h3>
+                        <p class="text-gray-400 text-sm mb-4">
+                            A visually stunning exploration of consciousness in the digital age, created entirely with AI tools.
+                        </p>
+                        <div class="flex flex-wrap mb-3">
+                            <span class="ai-chip">Sci-Fi</span>
+                            <span class="ai-chip">Philosophy</span>
+                            <span class="ai-chip">Experimental</span>
+                        </div>
+                        <div class="mb-4">
+                            <div class="flex justify-between text-sm mb-1">
+                                <span>ROI to Investors</span>
+                                <span class="text-green-400">+42%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 rounded-full h-2">
+                                <div class="progress-bar" style="width: 100%"></div>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 rounded-full bg-gray-700 mr-2"></div>
+                                <span class="text-sm">Lena Chen</span>
+                            </div>
+                            <a href="project-details.html" class="text-blue-400 text-sm hover:underline">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 2 -->
+                <div class="card rounded-xl overflow-hidden animate-fade-in" style="animation-delay: 0.2s;">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Neon Hong Kong" class="project-img">
+                        <div class="absolute top-3 left-3">
+                            <span class="bg-purple-500 bg-opacity-80 text-white px-2 py-1 rounded-full text-xs font-medium">In Production</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Neon Hong Kong</h3>
+                        <p class="text-gray-400 text-sm mb-4">
+                            A cyberpunk thriller set in a futuristic Hong Kong, blending AI-generated visuals with live-action elements.
+                        </p>
+                        <div class="flex flex-wrap mb-3">
+                            <span class="ai-chip">Cyberpunk</span>
+                            <span class="ai-chip">Thriller</span>
+                            <span class="ai-chip">Hong Kong</span>
+                        </div>
+                        <div class="mb-4">
+                            <div class="flex justify-between text-sm mb-1">
+                                <span>Production Progress</span>
+                                <span>65%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 rounded-full h-2">
+                                <div class="progress-bar" style="width: 65%"></div>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 rounded-full bg-gray-700 mr-2"></div>
+                                <span class="text-sm">Wong Studios</span>
+                            </div>
+                            <a href="project-details.html" class="text-blue-400 text-sm hover:underline">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 3 -->
+                <div class="card rounded-xl overflow-hidden animate-fade-in" style="animation-delay: 0.4s;">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1635070040851-1d7f1df4727f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Quantum Tales" class="project-img">
+                        <div class="absolute top-3 left-3">
+                            <span class="bg-blue-500 bg-opacity-80 text-white px-2 py-1 rounded-full text-xs font-medium">Funding</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Quantum Tales</h3>
+                        <p class="text-gray-400 text-sm mb-4">
+                            An anthology series exploring alternate realities, with each episode generated in a unique visual style.
+                        </p>
+                        <div class="flex flex-wrap mb-3">
+                            <span class="ai-chip">Sci-Fi</span>
+                            <span class="ai-chip">Anthology</span>
+                            <span class="ai-chip">Experimental</span>
+                        </div>
+                        <div class="mb-4">
+                            <div class="flex justify-between text-sm mb-1">
+                                <span>Funding Progress</span>
+                                <span>38%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 rounded-full h-2">
+                                <div class="progress-bar" style="width: 38%"></div>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 rounded-full bg-gray-700 mr-2"></div>
+                                <span class="text-sm">Reality Shift</span>
+                            </div>
+                            <a href="project-details.html" class="text-blue-400 text-sm hover:underline">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Plans -->
+    <section class="py-20 relative" id="pricing">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 section-title center">Creator Plans</h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    Choose the plan that fits your creative needs. All plans include access to our AI tools and marketplace.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <div class="pricing-card card p-8 rounded-xl animate-fade-in">
+                    <h3 class="text-2xl font-bold mb-4">Starter</h3>
+                    <div class="text-4xl font-bold mb-6 gradient-text">Free</div>
+                    <p class="text-gray-300 mb-6">Perfect for exploring AI film creation</p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-400 mr-3"></i>
+                            <span>Basic AI Tools Access</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-400 mr-3"></i>
+                            <span>1 Active Project</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-400 mr-3"></i>
+                            <span>720p Render Quality</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-400 mr-3"></i>
+                            <span>Community Support</span>
+                        </li>
+                    </ul>
+                    <button class="btn-secondary w-full py-3 rounded-lg font-medium">
+                        Get Started
+                    </button>
+                </div>
+                
+                <div class="pricing-card card p-8 rounded-xl animate-fade-in popular" style="animation-delay: 0.2s;">
+                    <h3 class="text-2xl font-bold mb-4">Professional</h3>
+                    <div class="text-4xl font-bold mb-6 gradient-text">$29<span class="text-xl text-gray-400">/month</span></div>
+                    <p class="text-gray-300 mb-6">For serious creators building their portfolio</p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-400 mr-3"></i>
+                            <span>All AI Tools Access</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-400 mr-3"></i>
+                            <span>5 Active Projects</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-400 mr-3"></i>
+                            <span>1080p Render Quality</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-400 mr-3"></i>
+                            <span>Priority Support</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-400 mr-3"></i>
+                            <span>Basic Analytics</span>
+                        </li>
+                    </ul>
+                    <button class="btn-primary w-full py-3 rounded-lg font-medium">
+                        Get Professional
+                    </button>
+                </div>
+                
+                <div class="pricing-card card p-8 rounded-xl animate-fade-in" style="animation-delay: 0.4s;">
+                    <h3 class="text-2xl font-bold mb-4">Studio</h3>
+                    <div class="text-4xl font-bold mb-6 gradient-text">$99<span class="text-xl text-gray-400">/month</span></div>
+                    <p class="text-gray-300 mb-6">For professional studios and teams</p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-400 mr-3"></i>
+                            <span>All AI Tools + Premium Models</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-400 mr-3"></i>
+                            <span>Unlimited Projects</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-400 mr-3"></i>
+                            <span>4K Render Quality</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-400 mr-3"></i>
+                            <span>24/7 Priority Support</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-400 mr-3"></i>
+                            <span>Advanced Analytics</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-400 mr-3"></i>
+                            <span>Team Collaboration</span>
+                        </li>
+                    </ul>
+                    <button class="btn-primary w-full py-3 rounded-lg font-medium">
+                        Get Studio
+                    </button>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <p class="text-gray-400">Need custom solutions for large productions? <a href="#" class="text-blue-400 hover:underline">Contact our enterprise team</a></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Creator Testimonials -->
+    <section class="py-20 bg-gray-900 bg-opacity-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 section-title center">What Creators Say</h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    Hear from filmmakers who are revolutionizing their craft with our platform.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="card p-8 animate-fade-in">
+                    <div class="flex items-center mb-6">
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" alt="Sarah Chen" class="w-16 h-16 rounded-full object-cover mr-4">
+                        <div>
+                            <h3 class="text-xl font-bold">Sarah Chen</h3>
+                            <p class="text-blue-400">Independent Filmmaker</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-6">
+                        "As an independent filmmaker with limited resources, HKAIFM has been a game-changer. I was able to produce a professional-quality short film with just my laptop and creativity. The AI tools helped me overcome technical limitations I could never afford to solve otherwise."
+                    </p>
+                    <div class="flex text-yellow-400">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+                
+                <div class="card p-8 animate-fade-in" style="animation-delay: 0.2s;">
+                    <div class="flex items-center mb-6">
+                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" alt="James Wong" class="w-16 h-16 rounded-full object-cover mr-4">
+                        <div>
+                            <h3 class="text-xl font-bold">James Wong</h3>
+                            <p class="text-blue-400">Studio Creative Director</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-6">
+                        "We've integrated HKAIFM into our pre-production workflow at our studio. The AI tools help us rapidly prototype concepts and visualize scenes before committing to expensive shoots. It's reduced our development costs by 40% while improving our creative output."
+                    </p>
+                    <div class="flex text-yellow-400">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                </div>
+                
+                <div class="card p-8 animate-fade-in" style="animation-delay: 0.4s;">
+                    <div class="flex items-center mb-6">
+                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" alt="Aisha Mohammed" class="w-16 h-16 rounded-full object-cover mr-4">
+                        <div>
+                            <h3 class="text-xl font-bold">Aisha Mohammed</h3>
+                            <p class="text-blue-400">Documentary Producer</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-6">
+                        "The ability to create high-quality recreations of historical events with AI has transformed how we approach documentary filmmaking. We can now visualize moments we only had written accounts of, bringing history to life in ways that engage modern audiences."
+                    </p>
+                    <div class="flex text-yellow-400">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-24 relative" id="start-creating">
+        <div class="absolute inset-0 bg-gradient-to-r from-blue-900 to-purple-900 opacity-80"></div>
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="max-w-3xl mx-auto text-center">
+                <h2 class="text-3xl md:text-5xl font-bold mb-6">Start Creating Today</h2>
+                <p class="text-xl text-gray-200 mb-8">
+                    Join thousands of creators who are shaping the future of filmmaking with AI. No technical expertise required - just your imagination.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                    <a href="#signup" class="btn-primary px-8 py-3 rounded-full font-medium text-center">
+                        Create Free Account
+                    </a>
+                    <a href="#demo" class="btn-secondary px-8 py-3 rounded-full font-medium text-center">
+                        Watch Demo
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <a href="index.html" class="hkaifm-logo mb-4">
+                        <div class="logo-font">HKAIFM</div>
+                        <div class="logo-sub">AI FILM MARKET</div>
+                    </a>
+                    <p class="text-gray-400 mb-4">
+                        Revolutionizing the film industry through AI and blockchain technology.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-telegram"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-discord"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-medium"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Platform</h3>
+                    <ul class="space-y-2">
+                        <li><a href="marketplace.html" class="text-gray-400 hover:text-white">Marketplace</a></li>
+                        <li><a href="create.html" class="text-gray-400 hover:text-white">Create</a></li>
+                        <li><a href="invest.html" class="text-gray-400 hover:text-white">Invest</a></li>
+                        <li><a href="dashboard.html" class="text-gray-400 hover:text-white">Dashboard</a></li>
+                        <li><a href="community.html" class="text-gray-400 hover:text-white">Community</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Resources</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#whitepaper" class="text-gray-400 hover:text-white">Whitepaper</a></li>
+                        <li><a href="#documentation" class="text-gray-400 hover:text-white">Documentation</a></li>
+                        <li><a href="#tokenomics" class="text-gray-400 hover:text-white">Tokenomics</a></li>
+                        <li><a href="#developers" class="text-gray-400 hover:text-white">Developers</a></li>
+                        <li><a href="#support" class="text-gray-400 hover:text-white">Support</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Legal</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#terms" class="text-gray-400 hover:text-white">Terms of Service</a></li>
+                        <li><a href="#privacy" class="text-gray-400 hover:text-white">Privacy Policy</a></li>
+                        <li><a href="#copyright" class="text-gray-400 hover:text-white">Copyright Policy</a></li>
+                        <li><a href="#compliance" class="text-gray-400 hover:text-white">Regulatory Compliance</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-white">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-500 text-sm">
+                <p>© 2025 Hong Kong AI Film Market. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Add random data streams
+        function createDataStreams() {
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    const stream = document.createElement('div');
+                    stream.className = 'data-stream';
+                    stream.style.left = Math.random() * 100 + '%';
+                    stream.style.animationDelay = Math.random() * 2 + 's';
+                    document.body.appendChild(stream);
+                    
+                    // Remove after animation
+                    setTimeout(() => {
+                        stream.remove();
+                    }, 4000);
+                }, i * 3000);
+            }
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Start data streams
+            createDataStreams();
+            setInterval(createDataStreams, 15000);
+            
+            // Add scroll animations
+            const animatedElements = document.querySelectorAll('.animate-fade-in, .animate-slide-up, .animate-slide-right');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        if (entry.target.classList.contains('animate-slide-up')) {
+                            entry.target.style.transform = 'translateY(0)';
+                        }
+                        if (entry.target.classList.contains('animate-slide-right')) {
+                            entry.target.style.transform = 'translateX(0)';
+                        }
+                        if (entry.target.classList.contains('animate-fade-in')) {
+                            entry.target.style.transform = 'scale(1)';
+                        }
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            animatedElements.forEach(el => {
+                el.style.opacity = '0';
+                if (el.classList.contains('animate-slide-up')) {
+                    el.style.transform = 'translateY(50px)';
+                }
+                if (el.classList.contains('animate-slide-right')) {
+                    el.style.transform = 'translateX(-50px)';
+                }
+                if (el.classList.contains('animate-fade-in')) {
+                    el.style.transform = 'scale(0.95)';
+                }
+                observer.observe(el);
+            });
+            
+            // Mobile menu functionality
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const mobileMenu = document.querySelector('.mobile-menu');
+            const mobileMenuClose = document.querySelector('.mobile-menu-close');
+            
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            });
+            
+            mobileMenuClose.addEventListener('click', () => {
+                mobileMenu.classList.remove('open');
+                document.body.style.overflow = 'auto';
+            });
+            
+            // Language selection
+            const languageLinks = document.querySelectorAll('.language-dropdown a');
+            const languageIndicator = document.querySelector('.language-indicator');
+            
+            languageLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const lang = link.getAttribute('data-lang');
+                    const flag = link.querySelector('img').src;
+                    const text = link.textContent.trim();
+                    
+                    // Update language indicator
+                    languageIndicator.innerHTML = `
+                        <img src="${flag}" alt="${text}">
+                        <span>${lang.toUpperCase()}</span>
+                        <i class="fas fa-chevron-down ml-2 text-sm"></i>
+                    `;
+                    
+                    // Show translation message
+                    const translateToggle = document.getElementById('aiTranslateToggle');
+                    if (translateToggle.checked) {
+                        alert(`Translating content to ${text} using AI...`);
+                    }
+                });
+            });
+            
+            // Login option handlers
+            const loginOptions = document.querySelectorAll('.login-option');
+            
+            loginOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    const loginType = option.getAttribute('data-login');
+                    
+                    if (loginType === 'metamask' || loginType === 'walletconnect' || loginType === 'coinbase') {
+                        alert(`Connecting wallet via ${loginType.charAt(0).toUpperCase() + loginType.slice(1)}...`);
+                    } else {
+                        alert(`Logging in with ${loginType.charAt(0).toUpperCase() + loginType.slice(1)}...`);
+                    }
+                });
+            });
+            
+            // Video play button
+            const playButton = document.querySelector('.fa-play')?.parentElement;
+            if (playButton) {
+                playButton.addEventListener('click', function() {
+                    alert('Playing HKAIFM platform introduction video...');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
