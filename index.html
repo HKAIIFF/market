@@ -314,6 +314,33 @@
             transform: translateY(-5px);
         }
         
+        .token-card-aif {
+            border-color: rgba(52, 152, 219, 0.3);
+        }
+        
+        .token-card-aif:hover {
+            border-color: var(--primary);
+            box-shadow: 0 0 30px rgba(52, 152, 219, 0.2);
+        }
+        
+        .token-card-film {
+            border-color: rgba(142, 68, 173, 0.3);
+        }
+        
+        .token-card-film:hover {
+            border-color: var(--secondary);
+            box-shadow: 0 0 30px rgba(142, 68, 173, 0.2);
+        }
+        
+        .token-card-nft {
+            border-color: rgba(0, 255, 157, 0.3);
+        }
+        
+        .token-card-nft:hover {
+            border-color: var(--accent);
+            box-shadow: 0 0 30px rgba(0, 255, 157, 0.2);
+        }
+        
         .ecosystem-node {
             width: 150px;
             height: 150px;
@@ -363,6 +390,23 @@
             border-bottom: 1px solid rgba(255,255,255,0.1);
             color: white;
             text-decoration: none;
+        }
+        
+        .partner-name {
+            font-size: 0.8rem;
+            color: #ccc;
+            padding: 4px 8px;
+            margin: 2px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .partner-name:hover {
+            background: rgba(0, 255, 157, 0.1);
+            color: var(--accent);
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(0, 255, 157, 0.3);
         }
         
         @media (max-width: 768px) {
@@ -433,6 +477,11 @@
                 height: 60px;
                 font-size: 1.5rem;
             }
+            
+            .partner-name {
+                font-size: 0.75rem;
+                padding: 3px 6px;
+            }
         }
         
         .navbar.scrolled {
@@ -481,6 +530,47 @@
             padding: 2rem;
             margin: 2rem 0;
         }
+        
+        .token-comparison {
+            background: rgba(26, 32, 44, 0.8);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .comparison-table {
+            overflow-x: auto;
+        }
+        
+        .comparison-table table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+        
+        .comparison-table th,
+        .comparison-table td {
+            padding: 1rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .comparison-table th {
+            background: rgba(52, 152, 219, 0.2);
+            font-weight: 600;
+        }
+        
+        .comparison-table .aif-row {
+            background: rgba(52, 152, 219, 0.1);
+        }
+        
+        .comparison-table .film-row {
+            background: rgba(142, 68, 173, 0.1);
+        }
+        
+        .comparison-table .nft-row {
+            background: rgba(0, 255, 157, 0.1);
+        }
     </style>
 </head>
 <body>
@@ -502,7 +592,7 @@
             <div class="hidden md:flex space-x-6">
                 <a href="#platform" class="hover:text-blue-400 transition">平台概述</a>
                 <a href="#technology" class="hover:text-blue-400 transition">技術架構</a>
-                <a href="#tokenomics" class="hover:text-blue-400 transition">代幣經濟</a>
+                <a href="#tokens" class="hover:text-blue-400 transition">三層代幣體系</a>
                 <a href="#ecosystem" class="hover:text-blue-400 transition">生態系統</a>
                 <a href="#roadmap" class="hover:text-blue-400 transition">發展路線</a>
             </div>
@@ -522,7 +612,7 @@
         <div class="mobile-menu md:hidden" id="mobileMenu">
             <a href="#platform">平台概述</a>
             <a href="#technology">技術架構</a>
-            <a href="#tokenomics">代幣經濟</a>
+            <a href="#tokens">三層代幣體系</a>
             <a href="#ecosystem">生態系統</a>
             <a href="#roadmap">發展路線</a>
         </div>
@@ -611,7 +701,7 @@
                     </div>
                     <h3 class="text-2xl font-bold mb-4">創意民主化</h3>
                     <p class="text-gray-300">
-                        降低電影製作門槛，讓更多創作者獲得展示和變現機會，拓寬融資渠道，保護創作者權益。
+                        降低電影製作門檻，讓更多創作者獲得展示和變現機會，拓寬融資渠道，保護創作者權益。
                     </p>
                 </div>
                 
@@ -656,7 +746,7 @@
                             </li>
                             <li class="flex items-start">
                                 <i class="fas fa-check-circle text-green-400 mr-3 mt-1"></i>
-                                <span>雙層代幣經濟模型，為整個生態提供可持續的激勵機制</span>
+                                <span>三層代幣經濟模型，為整個生態提供可持續的激勵機制</span>
                             </li>
                             <li class="flex items-start">
                                 <i class="fas fa-check-circle text-green-400 mr-3 mt-1"></i>
@@ -711,7 +801,6 @@
                         <p class="text-gray-300">連接內地巨大市場與國際資源，享受協同效應</p>
                     </div>
                     
-                    <!-- 修正的卡片：国际金融中心 -->
                     <div class="card p-6 text-center">
                         <div class="text-4xl mb-4 text-blue-400"><i class="fas fa-building"></i></div>
                         <h4 class="text-xl font-bold mb-3">國際金融中心</h4>
@@ -722,8 +811,213 @@
         </div>
     </section>
 
+    <!-- Three-Layer Token System Section -->
+    <section id="tokens" class="py-20">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl md:text-6xl font-bold mb-6 gradient-text">三層代幣體系</h2>
+                <p class="text-xl text-gray-300 max-w-4xl mx-auto">
+                    創新的三層代幣架構，AIF代幣、FilmToken和NFT各司其職，共同構建完整的價值流通體系
+                </p>
+            </div>
+
+            <!-- Token Comparison Table -->
+            <div class="token-comparison fade-in mb-16">
+                <h3 class="text-2xl font-bold text-center mb-8">代幣功能對比表</h3>
+                <div class="comparison-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>特性</th>
+                                <th>AIF代幣</th>
+                                <th>FilmToken</th>
+                                <th>NFT</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="aif-row">
+                                <td><strong>核心定位</strong></td>
+                                <td>生態治理與激勵代幣</td>
+                                <td>項目專屬收益代幣</td>
+                                <td>創意資產數字化載體</td>
+                            </tr>
+                            <tr class="film-row">
+                                <td><strong>主要功能</strong></td>
+                                <td>平台治理、手續費支付、生態激勵</td>
+                                <td>電影投資、收益分享、創意決策參與</td>
+                                <td>版權確權、藝術收藏、自動版稅分配</td>
+                            </tr>
+                            <tr class="nft-row">
+                                <td><strong>價值來源</strong></td>
+                                <td>平台生態發展與治理權益</td>
+                                <td>電影項目的商業成功與收益分配</td>
+                                <td>創意資產的稀缺性和藝術價值</td>
+                            </tr>
+                            <tr class="aif-row">
+                                <td><strong>流通性</strong></td>
+                                <td>高流動性</td>
+                                <td>中等流動性</td>
+                                <td>收藏導向</td>
+                            </tr>
+                            <tr class="film-row">
+                                <td><strong>投資門檻</strong></td>
+                                <td>低門檻</td>
+                                <td>中等門檻</td>
+                                <td>高門檻</td>
+                            </tr>
+                            <tr class="nft-row">
+                                <td><strong>持有期限</strong></td>
+                                <td>靈活持有</td>
+                                <td>項目週期</td>
+                                <td>長期收藏</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Three Token Cards -->
+            <div class="grid md:grid-cols-3 gap-8 mb-16">
+                <!-- AIF Token -->
+                <div class="token-card token-card-aif fade-in">
+                    <div class="text-center mb-6">
+                        <div class="text-6xl mb-4 text-blue-400">
+                            <i class="fas fa-coins"></i>
+                        </div>
+                        <h3 class="text-3xl font-bold text-blue-400 mb-2">AIF 平台代幣</h3>
+                        <div class="text-xl text-gray-300">生態治理與激勵代幣</div>
+                    </div>
+                    
+                    <div class="space-y-4 mb-8">
+                        <div class="flex items-center">
+                            <i class="fas fa-vote-yea text-blue-400 mr-3"></i>
+                            <span>平台治理：參與重大決策投票</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-credit-card text-blue-400 mr-3"></i>
+                            <span>手續費支付：享受平台服務折扣</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-gift text-blue-400 mr-3"></i>
+                            <span>生態激勵：獎勵優質內容創作者</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-lock text-blue-400 mr-3"></i>
+                            <span>權益質押：獲得增強型平台權益</span>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-blue-500 bg-opacity-10 p-4 rounded-lg">
+                        <h4 class="font-bold text-blue-400 mb-2">適合人群</h4>
+                        <p class="text-sm text-gray-300">平台長期用戶、生態建設者、治理參與者</p>
+                    </div>
+                </div>
+
+                <!-- FilmToken -->
+                <div class="token-card token-card-film fade-in">
+                    <div class="text-center mb-6">
+                        <div class="text-6xl mb-4 text-purple-400">
+                            <i class="fas fa-film"></i>
+                        </div>
+                        <h3 class="text-3xl font-bold text-purple-400 mb-2">FilmToken 項目代幣</h3>
+                        <div class="text-xl text-gray-300">電影專屬收益代幣</div>
+                    </div>
+                    
+                    <div class="space-y-4 mb-8">
+                        <div class="flex items-center">
+                            <i class="fas fa-percentage text-purple-400 mr-3"></i>
+                            <span>收益權證明：按持有比例享有分配權</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-users-cog text-purple-400 mr-3"></i>
+                            <span>創意決策權：參與電影製作關鍵決策</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-exchange-alt text-purple-400 mr-3"></i>
+                            <span>二級市場交易：自由交易提高流動性</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-undo text-purple-400 mr-3"></i>
+                            <span>代幣回購：收益自動回購提供退出</span>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-purple-500 bg-opacity-10 p-4 rounded-lg">
+                        <h4 class="font-bold text-purple-400 mb-2">適合人群</h4>
+                        <p class="text-sm text-gray-300">電影投資者、項目支持者、收益分享者</p>
+                    </div>
+                </div>
+
+                <!-- NFT -->
+                <div class="token-card token-card-nft fade-in">
+                    <div class="text-center mb-6">
+                        <div class="text-6xl mb-4 text-green-400">
+                            <i class="fas fa-gem"></i>
+                        </div>
+                        <h3 class="text-3xl font-bold text-green-400 mb-2">NFT 數字收藏品</h3>
+                        <div class="text-xl text-gray-300">創意資產數字化載體</div>
+                    </div>
+                    
+                    <div class="space-y-4 mb-8">
+                        <div class="flex items-center">
+                            <i class="fas fa-certificate text-green-400 mr-3"></i>
+                            <span>版權確權：智能合約保護所有權</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-palette text-green-400 mr-3"></i>
+                            <span>藝術收藏：獨特的數字藝術價值</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-coins text-green-400 mr-3"></i>
+                            <span>自動版稅：創作者持續收益保障</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-star text-green-400 mr-3"></i>
+                            <span>特殊權益：線下首映和限量版購買權</span>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-green-500 bg-opacity-10 p-4 rounded-lg">
+                        <h4 class="font-bold text-green-400 mb-2">適合人群</h4>
+                        <p class="text-sm text-gray-300">藝術收藏家、電影愛好者、文化投資者</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Value Flow Mechanism -->
+            <div class="innovation-highlight fade-in">
+                <h3 class="text-2xl font-bold text-center mb-8">三層代幣價值流動機制</h3>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="text-center">
+                        <div class="feature-icon bg-blue-500 bg-opacity-20 text-blue-400">
+                            <i class="fas fa-recycle"></i>
+                        </div>
+                        <h4 class="font-bold mb-2">AIF驅動生態</h4>
+                        <p class="text-sm text-gray-400">作為通用貨幣推動整個生態系統運轉，價值隨平台發展增長</p>
+                    </div>
+                    
+                    <div class="text-center">
+                        <div class="feature-icon bg-purple-500 bg-opacity-20 text-purple-400">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h4 class="font-bold mb-2">FilmToken創造價值</h4>
+                        <p class="text-sm text-gray-400">通過成功項目創造實際收益，為投資者提供可量化回報</p>
+                    </div>
+                    
+                    <div class="text-center">
+                        <div class="feature-icon bg-green-500 bg-opacity-20 text-green-400">
+                            <i class="fas fa-crown"></i>
+                        </div>
+                        <h4 class="font-bold mb-2">NFT承載價值</h4>
+                        <p class="text-sm text-gray-400">承載文化和藝術價值，為創作者提供長期版稅收入</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Technology Architecture Section -->
-    <section id="technology" class="py-20">
+    <section id="technology" class="py-20 bg-black bg-opacity-30">
         <div class="container mx-auto px-4">
             <div class="text-center mb-16 fade-in">
                 <h2 class="text-4xl md:text-6xl font-bold mb-6 gradient-text">技術架構</h2>
@@ -863,256 +1157,6 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Security Architecture -->
-            <div class="mt-16 fade-in">
-                <h3 class="text-2xl font-bold text-center mb-8">安全架構</h3>
-                <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-6">
-                    <div class="card p-6 text-center">
-                        <div class="text-3xl mb-4 text-red-400"><i class="fas fa-shield-virus"></i></div>
-                        <h4 class="font-bold mb-2">智能合約安全</h4>
-                        <p class="text-sm text-gray-400">多重審計和形式化驗證</p>
-                    </div>
-                    
-                    <div class="card p-6 text-center">
-                        <div class="text-3xl mb-4 text-blue-400"><i class="fas fa-exchange-alt"></i></div>
-                        <h4 class="font-bold mb-2">交易安全</h4>
-                        <p class="text-sm text-gray-400">多重簽名和異常監測</p>
-                    </div>
-                    
-                    <div class="card p-6 text-center">
-                        <div class="text-3xl mb-4 text-green-400"><i class="fas fa-user-shield"></i></div>
-                        <h4 class="font-bold mb-2">身份安全</h4>
-                        <p class="text-sm text-gray-400">多因素認證和DID技術</p>
-                    </div>
-                    
-                    <div class="card p-6 text-center">
-                        <div class="text-3xl mb-4 text-yellow-400"><i class="fas fa-wallet"></i></div>
-                        <h4 class="font-bold mb-2">資產安全</h4>
-                        <p class="text-sm text-gray-400">多簽冷錢包存儲</p>
-                    </div>
-                    
-                    <div class="card p-6 text-center">
-                        <div class="text-3xl mb-4 text-purple-400"><i class="fas fa-robot"></i></div>
-                        <h4 class="font-bold mb-2">AI內容安全</h4>
-                        <p class="text-sm text-gray-400">合規性審核和內容指紋</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Tokenomics Section -->
-    <section id="tokenomics" class="py-20 bg-black bg-opacity-30">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16 fade-in">
-                <h2 class="text-4xl md:text-6xl font-bold mb-6 gradient-text">雙層代幣經濟</h2>
-                <p class="text-xl text-gray-300 max-w-4xl mx-auto">
-                    創新的雙層代幣經濟模型，包括平台通用代幣（AIF）和項目專屬代幣（FilmToken），
-                    實現價值分離和激勵兼容
-                </p>
-            </div>
-
-            <!-- Token Overview -->
-            <div class="grid md:grid-cols-2 gap-12 mb-16">
-                <!-- AIF Token -->
-                <div class="token-card fade-in">
-                    <div class="text-center mb-6">
-                        <div class="text-6xl mb-4 text-gold">
-                            <i class="fas fa-coins"></i>
-                        </div>
-                        <h3 class="text-3xl font-bold text-gold mb-2">AIF 平台代幣</h3>
-                        <div class="text-xl text-gray-300">總供應量：100億枚</div>
-                    </div>
-                    
-                    <div class="space-y-4 mb-8">
-                        <div class="flex items-center">
-                            <i class="fas fa-vote-yea text-blue-400 mr-3"></i>
-                            <span>平台治理：參與重大決策投票</span>
-                        </div>
-                        <div class="flex items-center">
-                            <i class="fas fa-gift text-green-400 mr-3"></i>
-                            <span>生態激勵：獎勵優質內容創作者</span>
-                        </div>
-                        <div class="flex items-center">
-                            <i class="fas fa-credit-card text-purple-400 mr-3"></i>
-                            <span>手續費支付：享受平台服務折扣</span>
-                        </div>
-                        <div class="flex items-center">
-                            <i class="fas fa-lock text-yellow-400 mr-3"></i>
-                            <span>權益質押：獲得增強型平台權益</span>
-                        </div>
-                        <div class="flex items-center">
-                            <i class="fas fa-seedling text-teal-400 mr-3"></i>
-                            <span>項目孵化：支持有潛力的電影項目</span>
-                        </div>
-                    </div>
-                    
-                    <!-- Token Distribution -->
-                    <div class="mb-6">
-                        <h4 class="text-lg font-bold mb-4 text-center">代幣分配方案</h4>
-                        <div class="space-y-3">
-                            <div class="flex justify-between">
-                                <span>平台生態建設</span>
-                                <span class="text-accent font-bold">30%</span>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 30%"></div>
-                            </div>
-                            
-                            <div class="flex justify-between">
-                                <span>團隊和顧問</span>
-                                <span class="text-accent font-bold">20%</span>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 20%"></div>
-                            </div>
-                            
-                            <div class="flex justify-between">
-                                <span>私募投資者</span>
-                                <span class="text-accent font-bold">15%</span>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 15%"></div>
-                            </div>
-                            
-                            <div class="flex justify-between">
-                                <span>社區激勵</span>
-                                <span class="text-accent font-bold">15%</span>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 15%"></div>
-                            </div>
-                            
-                            <div class="flex justify-between">
-                                <span>公開發售</span>
-                                <span class="text-accent font-bold">10%</span>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 10%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- FilmToken -->
-                <div class="token-card fade-in">
-                    <div class="text-center mb-6">
-                        <div class="text-6xl mb-4 text-silver">
-                            <i class="fas fa-film"></i>
-                        </div>
-                        <h3 class="text-3xl font-bold text-silver mb-2">FilmToken 項目代幣</h3>
-                        <div class="text-xl text-gray-300">每個電影項目專屬</div>
-                    </div>
-                    
-                    <div class="space-y-4 mb-8">
-                        <div class="flex items-center">
-                            <i class="fas fa-percentage text-green-400 mr-3"></i>
-                            <span>收益權證明：按持有比例享有分配權</span>
-                        </div>
-                        <div class="flex items-center">
-                            <i class="fas fa-users-cog text-blue-400 mr-3"></i>
-                            <span>創意決策權：參與電影製作關鍵決策</span>
-                        </div>
-                        <div class="flex items-center">
-                            <i class="fas fa-star text-yellow-400 mr-3"></i>
-                            <span>特殊權益：線下首映和限量版購買權</span>
-                        </div>
-                        <div class="flex items-center">
-                            <i class="fas fa-exchange-alt text-purple-400 mr-3"></i>
-                            <span>二級市場交易：自由交易提高流動性</span>
-                        </div>
-                        <div class="flex items-center">
-                            <i class="fas fa-undo text-teal-400 mr-3"></i>
-                            <span>代幣回購：收益自動回購提供退出</span>
-                        </div>
-                    </div>
-                    
-                    <!-- Typical Distribution -->
-                    <div class="mb-6">
-                        <h4 class="text-lg font-bold mb-4 text-center">典型分配方案</h4>
-                        <div class="space-y-3">
-                            <div class="flex justify-between">
-                                <span>投資者</span>
-                                <span class="text-silver font-bold">50%</span>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 50%; background: linear-gradient(90deg, var(--silver), #e6e6e6);"></div>
-                            </div>
-                            
-                            <div class="flex justify-between">
-                                <span>創作團隊</span>
-                                <span class="text-silver font-bold">30%</span>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 30%; background: linear-gradient(90deg, var(--silver), #e6e6e6);"></div>
-                            </div>
-                            
-                            <div class="flex justify-between">
-                                <span>平台預留</span>
-                                <span class="text-silver font-bold">10%</span>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 10%; background: linear-gradient(90deg, var(--silver), #e6e6e6);"></div>
-                            </div>
-                            
-                            <div class="flex justify-between">
-                                <span>社區營銷</span>
-                                <span class="text-silver font-bold">10%</span>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 10%; background: linear-gradient(90deg, var(--silver), #e6e6e6);"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Value Capture Mechanism -->
-            <div class="innovation-highlight fade-in">
-                <h3 class="text-2xl font-bold text-center mb-8">價值捕獲機制</h3>
-                <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-6">
-                    <div class="text-center">
-                        <div class="feature-icon bg-blue-500 bg-opacity-20 text-blue-400">
-                            <i class="fas fa-percentage"></i>
-                        </div>
-                        <h4 class="font-bold mb-2">服務費價值捕獲</h4>
-                        <p class="text-sm text-gray-400">50%用於回購AIF並銷毀</p>
-                    </div>
-                    
-                    <div class="text-center">
-                        <div class="feature-icon bg-green-500 bg-opacity-20 text-green-400">
-                            <i class="fas fa-chart-pie"></i>
-                        </div>
-                        <h4 class="font-bold mb-2">項目成功分成</h4>
-                        <p class="text-sm text-gray-400">5%分成部分回購AIF</p>
-                    </div>
-                    
-                    <div class="text-center">
-                        <div class="feature-icon bg-purple-500 bg-opacity-20 text-purple-400">
-                            <i class="fas fa-robot"></i>
-                        </div>
-                        <h4 class="font-bold mb-2">AI服務收費</h4>
-                        <p class="text-sm text-gray-400">高級AI工具需支付AIF</p>
-                    </div>
-                    
-                    <div class="text-center">
-                        <div class="feature-icon bg-yellow-500 bg-opacity-20 text-yellow-400">
-                            <i class="fas fa-lock"></i>
-                        </div>
-                        <h4 class="font-bold mb-2">質押經濟</h4>
-                        <p class="text-sm text-gray-400">減少市場流通量</p>
-                    </div>
-                    
-                    <div class="text-center">
-                        <div class="feature-icon bg-red-500 bg-opacity-20 text-red-400">
-                            <i class="fas fa-recycle"></i>
-                        </div>
-                        <h4 class="font-bold mb-2">生態增長循環</h4>
-                        <p class="text-sm text-gray-400">形成正反饋循環</p>
-                    </div>
-                </div>
-            </div>
         </div>
     </section>
 
@@ -1189,20 +1233,6 @@
                 <h3 class="text-3xl font-bold text-center mb-12">核心功能模組</h3>
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <div class="card p-8">
-                        <div class="text-5xl mb-6 text-center text-blue-400">
-                            <i class="fas fa-brain"></i>
-                        </div>
-                        <h4 class="text-xl font-bold text-center mb-4">AI創作中心</h4>
-                        <ul class="space-y-2 text-sm text-gray-300">
-                            <li>• AI輔助編劇工具</li>
-                            <li>• AI場景生成系統</li>
-                            <li>• AI角色設計平台</li>
-                            <li>• AI特效製作工具</li>
-                            <li>• 智能內容分析</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="card p-8">
                         <div class="text-5xl mb-6 text-center text-green-400">
                             <i class="fas fa-coins"></i>
                         </div>
@@ -1271,6 +1301,20 @@
                             <li>• 稅務合規處理</li>
                         </ul>
                     </div>
+                    
+                    <div class="card p-8">
+                        <div class="text-5xl mb-6 text-center text-blue-400">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h4 class="text-xl font-bold text-center mb-4">AI創作中心</h4>
+                        <ul class="space-y-2 text-sm text-gray-300">
+                            <li>• AI輔助編劇工具</li>
+                            <li>• AI場景生成系統</li>
+                            <li>• AI角色設計平台</li>
+                            <li>• AI特效製作工具</li>
+                            <li>• 智能內容分析</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
 
@@ -1326,146 +1370,8 @@
         </div>
     </section>
 
-    <!-- Business Model Section -->
-    <section class="py-20 bg-black bg-opacity-30">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16 fade-in">
-                <h2 class="text-4xl md:text-6xl font-bold mb-6 gradient-text">商業模式</h2>
-                <p class="text-xl text-gray-300 max-w-4xl mx-auto">
-                    多元化收入結構確保長期可持續發展，預計5年內培育價值超過100億美元的新興市場
-                </p>
-            </div>
-
-            <!-- Revenue Sources -->
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-                <div class="card p-8 fade-in">
-                    <div class="text-4xl mb-4 text-center text-blue-400">
-                        <i class="fas fa-handshake"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-center mb-4">交易服務費</h3>
-                    <ul class="space-y-3 text-sm text-gray-300">
-                        <li class="flex justify-between">
-                            <span>項目融資服務費</span>
-                            <span class="text-accent">2-5%</span>
-                        </li>
-                        <li class="flex justify-between">
-                            <span>二級市場交易費</span>
-                            <span class="text-accent">1-2%</span>
-                        </li>
-                        <li class="flex justify-between">
-                            <span>NFT市場佣金</span>
-                            <span class="text-accent">3-5%</span>
-                        </li>
-                        <li class="flex justify-between">
-                            <span>跨鏈資產橋接費</span>
-                            <span class="text-accent">少量</span>
-                        </li>
-                    </ul>
-                </div>
-                
-                <div class="card p-8 fade-in">
-                    <div class="text-4xl mb-4 text-center text-green-400">
-                        <i class="fas fa-share-alt"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-center mb-4">發行分成</h3>
-                    <ul class="space-y-3 text-sm text-gray-300">
-                        <li class="flex justify-between">
-                            <span>平台分發渠道收益</span>
-                            <span class="text-green-400">5-10%</span>
-                        </li>
-                        <li class="flex justify-between">
-                            <span>衍生品授權收益</span>
-                            <span class="text-green-400">變動</span>
-                        </li>
-                        <li class="flex justify-between">
-                            <span>國際版權銷售</span>
-                            <span class="text-green-400">協商</span>
-                        </li>
-                        <li class="flex justify-between">
-                            <span>品牌合作推廣</span>
-                            <span class="text-green-400">定制</span>
-                        </li>
-                    </ul>
-                </div>
-                
-                <div class="card p-8 fade-in">
-                    <div class="text-4xl mb-4 text-center text-purple-400">
-                        <i class="fas fa-crown"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-center mb-4">高級服務訂閱</h3>
-                    <ul class="space-y-3 text-sm text-gray-300">
-                        <li class="flex justify-between">
-                            <span>創作者專業版</span>
-                            <span class="text-purple-400">月費</span>
-                        </li>
-                        <li class="flex justify-between">
-                            <span>投資者專業版</span>
-                            <span class="text-purple-400">月費</span>
-                        </li>
-                        <li class="flex justify-between">
-                            <span>企業解決方案</span>
-                            <span class="text-purple-400">定制</span>
-                        </li>
-                        <li class="flex justify-between">
-                            <span>白標服務</span>
-                            <span class="text-purple-400">授權</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Financial Projections -->
-            <div class="innovation-highlight fade-in">
-                <h3 class="text-2xl font-bold text-center mb-8">五年財務預測</h3>
-                <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-6">
-                    <div class="text-center">
-                        <div class="text-3xl font-bold text-red-400 mb-2">第一年</div>
-                        <div class="text-lg font-semibold text-gray-300 mb-1">$200萬</div>
-                        <div class="text-sm text-gray-400">建設期投入</div>
-                        <div class="mt-2 text-sm text-red-400">虧損 $800萬</div>
-                    </div>
-                    
-                    <div class="text-center">
-                        <div class="text-3xl font-bold text-yellow-400 mb-2">第二年</div>
-                        <div class="text-lg font-semibold text-gray-300 mb-1">$1,500萬</div>
-                        <div class="text-sm text-gray-400">接近盈虧平衡</div>
-                        <div class="mt-2 text-sm text-yellow-400">虧損 $200萬</div>
-                    </div>
-                    
-                    <div class="text-center">
-                        <div class="text-3xl font-bold text-green-400 mb-2">第三年</div>
-                        <div class="text-lg font-semibold text-gray-300 mb-1">$7,000萬</div>
-                        <div class="text-sm text-gray-400">盈利轉折點</div>
-                        <div class="mt-2 text-sm text-green-400">盈利 $1,500萬</div>
-                    </div>
-                    
-                    <div class="text-center">
-                        <div class="text-3xl font-bold text-blue-400 mb-2">第四年</div>
-                        <div class="text-lg font-semibold text-gray-300 mb-1">$2.2億</div>
-                        <div class="text-sm text-gray-400">快速增長期</div>
-                        <div class="mt-2 text-sm text-blue-400">盈利 $7,000萬</div>
-                    </div>
-                    
-                    <div class="text-center">
-                        <div class="text-3xl font-bold text-accent mb-2">第五年</div>
-                        <div class="text-lg font-semibold text-gray-300 mb-1">$5億</div>
-                        <div class="text-sm text-gray-400">規模效應顯現</div>
-                        <div class="mt-2 text-sm text-accent">盈利 $2億</div>
-                    </div>
-                </div>
-                
-                <div class="mt-8 text-center">
-                    <p class="text-gray-300 max-w-3xl mx-auto">
-                        基於行業增長趨勢和平台發展規劃的預測。成功項目年化收益率預計在15%-40%之間，
-                        投資10個以上不同類型項目的投資者獲得正收益概率超過85%。
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Roadmap Section -->
-    <section id="roadmap" class="py-20">
+    <section id="roadmap" class="py-20 bg-black bg-opacity-30">
         <div class="container mx-auto px-4">
             <div class="text-center mb-16 fade-in">
                 <h2 class="text-4xl md:text-6xl font-bold mb-6 gradient-text">發展路線圖</h2>
@@ -1619,173 +1525,123 @@
         </div>
     </section>
 
-    <!-- Technology Partners Section -->
+    <!-- Official Partners Section -->
     <section class="py-20">
         <div class="container mx-auto px-4">
             <div class="text-center mb-16 fade-in">
-                <h2 class="text-3xl md:text-5xl font-bold mb-6 gradient-text">技術合作夥伴</h2>
-                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
-                    與多家領先的技術提供商建立緊密合作關係，為平台提供強大的技術支持
-                </p>
-            </div>
-
-            <!-- Partner Categories -->
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="card p-8 text-center fade-in">
-                    <div class="text-4xl mb-4 text-blue-400"><i class="fab fa-ethereum"></i></div>
-                    <h3 class="text-xl font-bold mb-4">區塊鏈基礎設施</h3>
-                    <ul class="text-sm text-gray-300 space-y-2">
-                        <li>• 以太坊基金會</li>
-                        <li>• Polygon Labs</li>
-                        <li>• Filecoin網絡</li>
-                        <li>• Chainlink</li>
-                        <li>• ConsenSys</li>
-                    </ul>
-                </div>
-                
-                <div class="card p-8 text-center fade-in">
-                    <div class="text-4xl mb-4 text-purple-400"><i class="fas fa-brain"></i></div>
-                    <h3 class="text-xl font-bold mb-4">AI技術夥伴</h3>
-                    <ul class="text-sm text-gray-300 space-y-2">
-                        <li>• AICreate圖像生成</li>
-                        <li>• VoiceGen語音合成</li>
-                        <li>• ScriptWizard腳本創作</li>
-                        <li>• MediaSynthesis視頻</li>
-                        <li>• IntelligentScore音樂</li>
-                    </ul>
-                </div>
-                
-                <div class="card p-8 text-center fade-in">
-                    <div class="text-4xl mb-4 text-green-400"><i class="fas fa-cloud"></i></div>
-                    <h3 class="text-xl font-bold mb-4">雲服務提供商</h3>
-                    <ul class="text-sm text-gray-300 space-y-2">
-                        <li>• CloudSecure混合雲</li>
-                        <li>• DataShield數據安全</li>
-                        <li>• GlobalCDN內容分發</li>
-                        <li>• QuantumCompute算力</li>
-                        <li>• SecureWallet託管</li>
-                    </ul>
-                </div>
-                
-                <div class="card p-8 text-center fade-in">
-                    <div class="text-4xl mb-4 text-yellow-400"><i class="fas fa-shield-alt"></i></div>
-                    <h3 class="text-xl font-bold mb-4">安全合作夥伴</h3>
-                    <ul class="text-sm text-gray-300 space-y-2">
-                        <li>• 多家專業安全審計</li>
-                        <li>• 區塊鏈安全機構</li>
-                        <li>• 密碼學研究實驗室</li>
-                        <li>• 網絡安全公司</li>
-                        <li>• 合規諮詢機構</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Risk Management Section -->
-    <section class="py-20 bg-black bg-opacity-30">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16 fade-in">
-                <h2 class="text-3xl md:text-5xl font-bold mb-6 gradient-text">風險管理</h2>
+                <h2 class="text-3xl md:text-5xl font-bold mb-6 gradient-text">官方授權與合作夥伴</h2>
                 <p class="text-xl text-gray-300 max-w-4xl mx-auto">
-                    採取全面的風險管理措施，有效識別、評估和緩解各類風險
+                    香港AI國際電影節官方授權平台，與全球領先的技術、媒體和金融機構建立戰略合作關係
                 </p>
             </div>
-
-            <!-- Risk Categories -->
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-                <div class="card p-6 text-center fade-in">
-                    <div class="text-4xl mb-4 text-red-400"><i class="fas fa-shield-virus"></i></div>
-                    <h3 class="text-lg font-bold mb-3">技術風險</h3>
-                    <ul class="text-sm text-gray-300 space-y-2">
-                        <li>• 智能合約安全漏洞</li>
-                        <li>• 區塊鏈擴展性挑戰</li>
-                        <li>• AI模型性能局限</li>
-                        <li>• 系統集成風險</li>
-                    </ul>
-                </div>
-                
-                <div class="card p-6 text-center fade-in">
-                    <div class="text-4xl mb-4 text-yellow-400"><i class="fas fa-chart-line"></i></div>
-                    <h3 class="text-lg font-bold mb-3">市場風險</h3>
-                    <ul class="text-sm text-gray-300 space-y-2">
-                        <li>• 用戶採納風險</li>
-                        <li>• 市場競爭風險</li>
-                        <li>• 代幣市場波動</li>
-                        <li>• 商業模式風險</li>
-                    </ul>
-                </div>
-                
-                <div class="card p-6 text-center fade-in">
-                    <div class="text-4xl mb-4 text-blue-400"><i class="fas fa-balance-scale"></i></div>
-                    <h3 class="text-lg font-bold mb-3">監管風險</h3>
-                    <ul class="text-sm text-gray-300 space-y-2">
-                        <li>• 區塊鏈監管差異</li>
-                        <li>• AI內容監管政策</li>
-                        <li>• 數據保護合規</li>
-                        <li>• 金融監管要求</li>
-                    </ul>
-                </div>
-                
-                <div class="card p-6 text-center fade-in">
-                    <div class="text-4xl mb-4 text-green-400"><i class="fas fa-cogs"></i></div>
-                    <h3 class="text-lg font-bold mb-3">運營風險</h3>
-                    <ul class="text-sm text-gray-300 space-y-2">
-                        <li>• 團隊管理風險</li>
-                        <li>• 資金管理風險</li>
-                        <li>• 合作夥伴風險</li>
-                        <li>• 聲譽風險管理</li>
-                    </ul>
+            
+            <!-- 官方機構 -->
+            <div class="mb-8 fade-in">
+                <h5 class="text-center text-lg font-semibold mb-4 text-red-400">香港AI國際電影節官方授權</h5>
+                <div class="flex flex-wrap justify-center gap-2 text-center">
+                    <span class="partner-name">香港AI國際電影節協會</span>
+                    <span class="partner-name">香港AI國際電影節頒獎禮</span>
+                    <span class="partner-name">香港AI電影市場</span>
+                    <span class="partner-name">香港AI電影學院</span>
+                    <span class="partner-name">香港AI國際電影節徵片中心</span>
+                    <span class="partner-name">香港AI電影標準委員會</span>
+                    <span class="partner-name">香港AI電影基金會</span>
                 </div>
             </div>
 
-            <!-- Mitigation Strategies -->
-            <div class="innovation-highlight fade-in">
-                <h3 class="text-2xl font-bold text-center mb-8">風險緩解策略</h3>
-                <div class="grid md:grid-cols-2 gap-12">
-                    <div>
-                        <h4 class="text-xl font-bold mb-6 text-accent">技術風險緩解</h4>
-                        <ul class="space-y-3">
-                            <li class="flex items-start">
-                                <i class="fas fa-check-circle text-green-400 mr-3 mt-1"></i>
-                                <span>多層安全架構：採用深度防御策略，包括代碼審計、滲透測試</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check-circle text-green-400 mr-3 mt-1"></i>
-                                <span>漸進式部署：核心功能採用分階段發布策略</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check-circle text-green-400 mr-3 mt-1"></i>
-                                <span>技術多樣化：避免單一技術依賴，建立備份方案</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check-circle text-green-400 mr-3 mt-1"></i>
-                                <span>開源協作：積極參與開源社區提高安全性</span>
-                            </li>
-                        </ul>
-                    </div>
-                    
-                    <div>
-                        <h4 class="text-xl font-bold mb-6 text-accent">市場風險緩解</h4>
-                        <ul class="space-y-3">
-                            <li class="flex items-start">
-                                <i class="fas fa-coins text-gold mr-3 mt-1"></i>
-                                <span>用戶教育計劃：投入資源進行市場教育</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-coins text-gold mr-3 mt-1"></i>
-                                <span>差異化戰略：強調平台獨特價值主張</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-coins text-gold mr-3 mt-1"></i>
-                                <span>社區驅動發展：增強用戶粘性和平台韌性</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-coins text-gold mr-3 mt-1"></i>
-                                <span>價值錨定機制：代幣價值與平台使用價值掛鉤</span>
-                            </li>
-                        </ul>
-                    </div>
+            <!-- AI技術合作伙伴 -->
+            <div class="mb-8 fade-in">
+                <h5 class="text-center text-lg font-semibold mb-4 text-blue-400">AI技術合作夥伴</h5>
+                <div class="flex flex-wrap justify-center gap-2 text-center">
+                    <span class="partner-name">OpenAI</span>
+                    <span class="partner-name">Anthropic</span>
+                    <span class="partner-name">Midjourney</span>
+                    <span class="partner-name">Stable Diffusion</span>
+                    <span class="partner-name">NVIDIA</span>
+                    <span class="partner-name">Google AI</span>
+                    <span class="partner-name">Microsoft AI</span>
+                    <span class="partner-name">DeepMind</span>
+                    <span class="partner-name">Runway ML</span>
+                    <span class="partner-name">Adobe Sensei</span>
+                    <span class="partner-name">Meta AI</span>
+                    <span class="partner-name">ElevenLabs</span>
+                    <span class="partner-name">Synthesia</span>
+                    <span class="partner-name">Replicate</span>
+                    <span class="partner-name">Hugging Face</span>
+                    <span class="partner-name">Cohere</span>
+                    <span class="partner-name">AI21 Labs</span>
+                    <span class="partner-name">Jasper AI</span>
+                </div>
+            </div>
+
+            <!-- 區塊鏈技術伙伴 -->
+            <div class="mb-8 fade-in">
+                <h5 class="text-center text-lg font-semibold mb-4 text-purple-400">區塊鏈技術夥伴</h5>
+                <div class="flex flex-wrap justify-center gap-2 text-center">
+                    <span class="partner-name">Ethereum</span>
+                    <span class="partner-name">Polygon</span>
+                    <span class="partner-name">Arbitrum</span>
+                    <span class="partner-name">Binance Smart Chain</span>
+                    <span class="partner-name">Avalanche</span>
+                    <span class="partner-name">Solana</span>
+                    <span class="partner-name">Optimism</span>
+                    <span class="partner-name">Chainlink</span>
+                    <span class="partner-name">IPFS</span>
+                    <span class="partner-name">Arweave</span>
+                    <span class="partner-name">MetaMask</span>
+                    <span class="partner-name">WalletConnect</span>
+                    <span class="partner-name">OpenSea</span>
+                    <span class="partner-name">Rarible</span>
+                    <span class="partner-name">Foundation</span>
+                    <span class="partner-name">Immutable X</span>
+                    <span class="partner-name">Flow Blockchain</span>
+                </div>
+            </div>
+
+            <!-- 數字貨幣支持 -->
+            <div class="mb-8 fade-in">
+                <h5 class="text-center text-lg font-semibold mb-4 text-green-400">支持的數字貨幣</h5>
+                <div class="flex flex-wrap justify-center gap-2 text-center">
+                    <span class="partner-name">Bitcoin (BTC)</span>
+                    <span class="partner-name">Ethereum (ETH)</span>
+                    <span class="partner-name">USDT</span>
+                    <span class="partner-name">USDC</span>
+                    <span class="partner-name">Binance Coin (BNB)</span>
+                    <span class="partner-name">Cardano (ADA)</span>
+                    <span class="partner-name">Polygon (MATIC)</span>
+                    <span class="partner-name">Chainlink (LINK)</span>
+                    <span class="partner-name">Avalanche (AVAX)</span>
+                    <span class="partner-name">Solana (SOL)</span>
+                    <span class="partner-name">Polkadot (DOT)</span>
+                    <span class="partner-name">AIF Token</span>
+                    <span class="partner-name">Film Token</span>
+                    <span class="partner-name">Litecoin (LTC)</span>
+                    <span class="partner-name">Dogecoin (DOGE)</span>
+                    <span class="partner-name">Shiba Inu (SHIB)</span>
+                </div>
+            </div>
+
+            <!-- 媒體與內容合作伙伴 -->
+            <div class="fade-in">
+                <h5 class="text-center text-lg font-semibold mb-4 text-cyan-400">媒體與內容合作夥伴</h5>
+                <div class="flex flex-wrap justify-center gap-2 text-center">
+                    <span class="partner-name">BBC Studios</span>
+                    <span class="partner-name">Warner Bros</span>
+                    <span class="partner-name">Disney Studios</span>
+                    <span class="partner-name">Universal Pictures</span>
+                    <span class="partner-name">Paramount Pictures</span>
+                    <span class="partner-name">Netflix Studios</span>
+                    <span class="partner-name">Apple Studios</span>
+                    <span class="partner-name">Amazon Studios</span>
+                    <span class="partner-name">HBO Max</span>
+                    <span class="partner-name">A24 Films</span>
+                    <span class="partner-name">Focus Features</span>
+                    <span class="partner-name">Sony Pictures</span>
+                    <span class="partner-name">Lionsgate</span>
+                    <span class="partner-name">MGM Studios</span>
+                    <span class="partner-name">20th Century Studios</span>
+                    <span class="partner-name">Hulu Originals</span>
+                    <span class="partner-name">YouTube Studios</span>
                 </div>
             </div>
         </div>
@@ -1984,18 +1840,22 @@
         const menuToggle = document.getElementById('menuToggle');
         const mobileMenu = document.getElementById('mobileMenu');
         
-        menuToggle.addEventListener('click', () => {
-            mobileMenu.classList.toggle('active');
-        });
+        if (menuToggle) {
+            menuToggle.addEventListener('click', () => {
+                mobileMenu.classList.toggle('active');
+            });
+        }
         
         // 滾動到頂部功能
         const scrollToTop = document.getElementById('scrollToTop');
-        scrollToTop.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
+        if (scrollToTop) {
+            scrollToTop.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
             });
-        });
+        }
         
         // 滾動事件處理
         window.addEventListener('scroll', () => {
@@ -2007,10 +1867,12 @@
             }
             
             // 顯示/隱藏回到頂部按鈕
-            if (window.scrollY > 500) {
-                scrollToTop.style.display = 'flex';
-            } else {
-                scrollToTop.style.display = 'none';
+            if (scrollToTop) {
+                if (window.scrollY > 500) {
+                    scrollToTop.style.display = 'flex';
+                } else {
+                    scrollToTop.style.display = 'none';
+                }
             }
             
             // 觸發滾動動畫
@@ -2030,7 +1892,9 @@
                     });
                     
                     // 關閉移動菜單
-                    mobileMenu.classList.remove('active');
+                    if (mobileMenu) {
+                        mobileMenu.classList.remove('active');
+                    }
                 }
             });
         });
@@ -2090,12 +1954,29 @@
         `;
         document.head.appendChild(rippleStyle);
         
+        // 合作夥伴名稱hover效果增強
+        const partnerNames = document.querySelectorAll('.partner-name');
+        partnerNames.forEach(partner => {
+            partner.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.05)';
+                this.style.boxShadow = '0 4px 12px rgba(0, 255, 157, 0.3)';
+            });
+            
+            partner.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+                this.style.boxShadow = 'none';
+            });
+        });
+        
         // 初始化頁面
         window.addEventListener('load', () => {
             // 隱藏加載屏幕
-            setTimeout(() => {
-                document.getElementById('loadingOverlay').style.display = 'none';
-            }, 2000);
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            if (loadingOverlay) {
+                setTimeout(() => {
+                    loadingOverlay.style.display = 'none';
+                }, 2000);
+            }
             
             // 啟動動畫
             setTimeout(() => {
@@ -2156,8 +2037,10 @@
             }
             
             const cursorEl = document.querySelector('.cursor');
-            cursorEl.style.left = e.clientX - 10 + 'px';
-            cursorEl.style.top = e.clientY - 10 + 'px';
+            if (cursorEl) {
+                cursorEl.style.left = e.clientX - 10 + 'px';
+                cursorEl.style.top = e.clientY - 10 + 'px';
+            }
         });
         
         // 添加視差滾動效果
@@ -2209,13 +2092,14 @@
         document.addEventListener('keydown', (e) => {
             // ESC 關閉移動菜單
             if (e.key === 'Escape') {
-                mobileMenu.classList.remove('active');
+                if (mobileMenu) {
+                    mobileMenu.classList.remove('active');
+                }
             }
             
             // Ctrl/Cmd + K 快速搜索
             if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
                 e.preventDefault();
-                // 這裡可以添加搜索功能
                 console.log('搜索功能待實現');
             }
         });
@@ -2281,7 +2165,6 @@
         // 錯誤處理
         window.addEventListener('error', (e) => {
             console.log('頁面錯誤:', e.message);
-            // 這裡可以添加錯誤報告邏輯
         });
         
         // 控制台藝術
