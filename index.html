@@ -362,24 +362,6 @@
             margin-right: 15px;
         }
         
-        .language-dropdown {
-            display: none;
-            position: absolute;
-            background-color: rgba(26, 32, 44, 0.95);
-            min-width: 140px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            z-index: 100;
-            border-radius: 8px;
-            overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.1);
-            top: 40px;
-            right: 0;
-        }
-        
-        .language-selector:hover .language-dropdown {
-            display: block;
-        }
-        
         .lang-zh, .lang-en {
             display: none;
         }
@@ -508,25 +490,10 @@
                 <a href="#partners" class="hover:text-blue-400 transition lang-en">Partners</a>
             </div>
             <div class="flex items-center space-x-4">
-                <!-- 語言選擇器 -->
-                <div class="language-selector hidden md:block">
-                    <div class="flex items-center cursor-pointer">
-                        <img src="https://flagcdn.com/w40/hk.png" alt="繁體中文" class="w-6 mr-2" id="current-flag">
-                        <span id="current-lang" class="lang-zh active">繁體中文</span>
-                        <span id="current-lang-en" class="lang-en">English</span>
-                        <i class="fas fa-chevron-down ml-2 text-sm"></i>
-                    </div>
-                    <div class="language-dropdown">
-                        <a href="#" class="flex items-center p-3 hover:bg-gray-700" onclick="changeLanguage('zh'); return false;">
-                            <img src="https://flagcdn.com/w40/hk.png" alt="繁體中文" class="w-6 mr-2">
-                            繁體中文
-                        </a>
-                        <a href="#" class="flex items-center p-3 hover:bg-gray-700" onclick="changeLanguage('en'); return false;">
-                            <img src="https://flagcdn.com/w40/gb.png" alt="English" class="w-6 mr-2">
-                            English
-                        </a>
-                    </div>
-                </div>
+                <!-- 語言切換按鈕 -->
+                <button class="hidden md:flex items-center justify-center px-3 py-2 rounded-lg bg-opacity-10 bg-white border border-opacity-20 border-white hover:bg-opacity-20 hover:border-accent transition-all" onclick="toggleDesktopLanguage()">
+                    <img src="https://flagcdn.com/w40/hk.png" alt="Language" class="w-6 h-4" id="desktop-current-flag">
+                </button>
                 
                 <button class="btn-secondary px-4 py-2 rounded-full text-sm hidden md:block">
                     <i class="fas fa-coins mr-2"></i><span class="lang-zh active">獲取AIF代幣</span><span class="lang-en">Get AIF Token</span>
@@ -2306,18 +2273,18 @@
                     <h3 class="text-lg font-semibold mb-4 lang-zh active">生態平台</h3>
                     <h3 class="text-lg font-semibold mb-4 lang-en">Ecosystem Platforms</h3>
                     <ul class="space-y-2">
-                        <li><a href="http://www.hkaifa.acadmy" class="text-gray-400 hover:text-white transition lang-zh active">HKAIFA - AI電影學院</a></li>
-                        <li><a href="http://www.hkaifa.acadmy" class="text-gray-400 hover:text-white transition lang-en">HKAIFA - AI Film Academy</a></li>
+                        <li><a href="https://www.hkaifa.academy/#/home" class="text-gray-400 hover:text-white transition lang-zh active">HKAIFA - AI電影學院</a></li>
+                        <li><a href="https://www.hkaifa.academy/#/home" class="text-gray-400 hover:text-white transition lang-en">HKAIFA - AI Film Academy</a></li>
                         <li><a href="http://www.hkaiiff.org" class="text-gray-400 hover:text-white transition lang-zh active">HKAIIFF - AI國際電影節</a></li>
                         <li><a href="http://www.hkaiiff.org" class="text-gray-400 hover:text-white transition lang-en">HKAIIFF - AI International Film Festival</a></li>
                         <li><a href="#" class="text-gray-400 hover:text-white transition lang-zh active">AIF.Market - 資產市場</a></li>
                         <li><a href="#" class="text-gray-400 hover:text-white transition lang-en">AIF.Market - Asset Market</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition lang-zh active">AIF.Exchange - 資產交易所</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition lang-en">AIF.Exchange - Asset Exchange</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition lang-zh active">AIF.Center - 服務中心</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition lang-en">AIF.Center - Service Center</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition lang-zh active">404.world - 平行世界</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition lang-en">404.world - Parallel World</a></li>
+                        <li><a href="http://www.aif.exchange" class="text-gray-400 hover:text-white transition lang-zh active">AIF.Exchange - 資產交易所</a></li>
+                        <li><a href="http://www.aif.exchange" class="text-gray-400 hover:text-white transition lang-en">AIF.Exchange - Asset Exchange</a></li>
+                        <li><a href="https://www.aif.center" class="text-gray-400 hover:text-white transition lang-zh active">AIF.Center - 服務中心</a></li>
+                        <li><a href="https://www.aif.center" class="text-gray-400 hover:text-white transition lang-en">AIF.Center - Service Center</a></li>
+                        <li><a href="http://www.404.world" class="text-gray-400 hover:text-white transition lang-zh active">404.world - 平行世界</a></li>
+                        <li><a href="http://www.404.world" class="text-gray-400 hover:text-white transition lang-en">404.world - Parallel World</a></li>
                     </ul>
                 </div>
                 
@@ -2381,12 +2348,14 @@
 
     <script>
         // 語言切換功能
+        let currentLang = 'en'; // 默認英文
+        
         function changeLanguage(lang) {
-            // 更新當前語言顯示
-            document.getElementById('current-flag').src = lang === 'zh' ? 
+            currentLang = lang;
+            
+            // 更新桌面端語言顯示
+            document.getElementById('desktop-current-flag').src = lang === 'zh' ? 
                 'https://flagcdn.com/w40/hk.png' : 'https://flagcdn.com/w40/gb.png';
-            document.getElementById('current-lang').style.display = lang === 'zh' ? 'block' : 'none';
-            document.getElementById('current-lang-en').style.display = lang === 'en' ? 'block' : 'none';
             
             // 更新移動端語言顯示
             document.getElementById('mobile-current-flag').src = lang === 'zh' ? 
@@ -2408,6 +2377,15 @@
             closeMobileLanguage();
         }
         
+        // 桌面端語言切換功能
+        function toggleDesktopLanguage() {
+            if (currentLang === 'en') {
+                changeLanguage('zh');
+            } else {
+                changeLanguage('en');
+            }
+        }
+        
         // 移動端菜單功能
         function toggleMobileMenu() {
             const mobileMenu = document.getElementById('mobileMenu');
@@ -2426,24 +2404,16 @@
         }
         
         // 移動端語言選擇功能
-        let mobileLangOpen = false;
-        
         function toggleMobileLanguage() {
-            const currentFlag = document.getElementById('mobile-current-flag');
-            
-            if (!mobileLangOpen) {
-                currentFlag.src = 'https://flagcdn.com/w40/gb.png';
-                changeLanguage('en');
-                mobileLangOpen = true;
-            } else {
-                currentFlag.src = 'https://flagcdn.com/w40/hk.png';
+            if (currentLang === 'en') {
                 changeLanguage('zh');
-                mobileLangOpen = false;
+            } else {
+                changeLanguage('en');
             }
         }
         
         function closeMobileLanguage() {
-            mobileLangOpen = false;
+            // 保留函數以兼容現有代碼
         }
         
         // 平滑滾動導航
@@ -2483,8 +2453,8 @@
         document.addEventListener('DOMContentLoaded', function() {
             animateOnScroll();
             
-            // 設置初始語言
-            changeLanguage('zh');
+            // 設置初始語言為英文
+            changeLanguage('en');
         });
         
         // 滾動事件監聽
